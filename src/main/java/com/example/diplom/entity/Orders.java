@@ -4,6 +4,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -28,4 +29,13 @@ public class Orders {
     @Column(name = "order_status")
     private int orderStatus;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToMany
+    @JoinTable(name = "product_orders",
+            joinColumns = @JoinColumn(name="orders_id"),
+            inverseJoinColumns = @JoinColumn(name="product_id"))
+    private List<Product> products;
    }

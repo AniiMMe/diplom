@@ -32,11 +32,11 @@ public class Supply {
     @JoinColumn(name = "provider_id")
     private Providers providers;
 
-//    @ManyToMany
-//    @JoinTable(name = "product_supply",
-//            joinColumns = @JoinColumn(name="supply_id"),
-//    inverseJoinColumns = @JoinColumn(name="product_id"))
-//    private List<Product> products;
+    @ManyToMany
+    @JoinTable(name = "product_supply",
+            joinColumns = @JoinColumn(name="supply_id"),
+    inverseJoinColumns = @JoinColumn(name="product_id"))
+    private List<Product> products;
 
 
 }
