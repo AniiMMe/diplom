@@ -34,8 +34,11 @@ public class Product {
     @Column
     private Timestamp productEnddata;
 
-//    @ManyToMany(mappedBy = "products")
-//    private List<Supply> supplies;
+    @ManyToMany(mappedBy = "products")
+    private List<Supply> supplies;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Orders> orders;
 
 }
 
