@@ -30,4 +30,5 @@ public class ProductInvent {
     @ManyToOne
     @JoinColumn(name = "invent_id")
     private Internalisation internalisation;
+
 }
