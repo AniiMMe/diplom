@@ -29,6 +29,7 @@ public class Supply {
     private double supplyCost;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "provider_id")
     private Providers providers;
 
 //    @ManyToMany

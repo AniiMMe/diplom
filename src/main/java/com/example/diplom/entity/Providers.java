@@ -34,7 +34,7 @@ public class Providers {
     @Column(name = "provider_email")
     private String providerEmail;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "providers")
     private List<Supply> supplies;
 
 }
