@@ -40,6 +40,8 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Orders> orders;
 
+    @OneToMany(mappedBy = "product")
+    private List<ProductInvent> productInvents;
 }
 
 

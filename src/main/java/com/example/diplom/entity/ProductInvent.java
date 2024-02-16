@@ -19,13 +19,15 @@ public class ProductInvent {
     @Column(name = "product_invent_id")
     private int productInventId;
     @Basic
-    @Column(name = "product_id")
-    private int productId;
-    @Basic
     @Column(name = "prod_remainder")
     private int prodRemainder;
-    @Basic
-    @Column(name = "invent_id")
-    private int inventId;
 
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "invent_id")
+    private Internalisation internalisation;
 }

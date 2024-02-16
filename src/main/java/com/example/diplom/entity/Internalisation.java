@@ -4,6 +4,7 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,5 +29,6 @@ public class Internalisation {
     @Column(name = "checkSrok")
     private String checkSrok;
 
-
+    @OneToMany(mappedBy = "internalisation")
+    private List<ProductInvent> productInvents;
 }
