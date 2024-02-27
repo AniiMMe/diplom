@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+<div th:insert="blocks/header :: header"></div>
+<main>
+<div style="display: flex; align-items: center;">
+    <div>
+        <b><h1 style="font-size: 75px; color: #05E4BE">Менеджмент поставками и хранением продукции</h1></b>
+        <p style="font-size: 25px;color: #2BB789">Ваша система управления складскими процессами на предприятии</p>
+    </div>
+    <div style="margin-left: 20px;">
+        <img src="/img/main.jpg">
+    </div>
+</div>
+</main>
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+
+</html>
