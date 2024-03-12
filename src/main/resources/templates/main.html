@@ -1,21 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text="${title}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="/css/style.css">
-
-</head>
-
+<div th:insert="blocks/links::div"></div>
 <body>
-<div th:insert="blocks/header :: header"></div>
-<main>
+<header style="background-color: #238182; color: aqua;" class="d-flex flex-wrap align-items-left justify-content-left justify-content-md-between py-3 mb-4 border-bottom">
+
+
+
+    <h3><img src="/img/wh.png" style="height: 55px; width: 55px; margin-top: -20px">
+        Управление складом</h3>
+
+
+    <div class="col-md-3 text-end" >
+        <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; color: aqua; border-color: aqua">Войти</button>
+        <button type="button" class="btn btn-primary" style="background-color: aqua; color: #238182; border-color: aqua; ">Панель админа</button>
+    </div>
+</header>
+<main style="margin-top: -30px; background-color: #284B52">
 <div style="display: flex; align-items: center;">
-    <div>
-        <b><h1 style="font-size: 75px; color: #05E4BE">Менеджмент поставками и хранением продукции</h1></b>
+    <div style="margin-left: 50px">
+        <b><h1 style="font-size: 55px; color: #05E4BE">Автоматизированная система управления поставками и складским хранением продукции на предприятии</h1></b>
         <p style="font-size: 25px;color: #2BB789">Ваша система управления складскими процессами на предприятии</p>
     </div>
-    <div style="margin-left: 20px;">
+    <div style="margin-top: 30px; margin-right: 60px">
         <img src="/img/main.jpg">
     </div>
 </div>
