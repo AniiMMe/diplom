@@ -34,4 +34,28 @@ public class AdminController {
     public  String getProductsPage(){
         return "/admin-products";
     }
+    @GetMapping("/admin/orders")
+    public  String getOrdersPage(){
+        return "/admin-order";
+    }
+    @GetMapping("/admin/supplies")
+    public  String getSuppliesPage(){
+        return "/admin-supplies";
+    }
+    @GetMapping("/admin/newClient")
+    public  String getNewClientPage(){
+        return "/newClient";
+    }
+    @GetMapping("/admin/newProvider")
+    public  String getNewProviderPage(){
+        return "/newProvider";
+    }
+    @GetMapping("/admin/newAssortment")
+    public  String getNewAssortmentrPage(){
+        return "/newAss";
+    }
+    @GetMapping("/admin/newUser")
+    public  String getNewUserPage(){
+        return "/newUser";
+    }
 }

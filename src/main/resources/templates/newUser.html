@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+
+<main>
+  <div class="col-md-7 col-lg-8" style="margin-left: 350px; margin-top: -600px">
+    <h4 class="mb-3" style="color: aqua">Добавить нового работника</h4>
+    <form class="needs-validation" novalidate="">
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <label  class="form-label" style="color: aqua">Фвмилия</label>
+          <input type="text" class="form-control" id="surname" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Некоректная фвмилия
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <label  class="form-label" style="color: aqua">Имя</label>
+          <input type="text" class="form-control" id="name" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Некоректное имя
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Проверьте правильность имейла
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label  class="form-label" style="color: aqua">Телефон</label>
+          <input type="text" class="form-control" id="phone" placeholder="+37544..." required="">
+          <div class="invalid-feedback">
+            Проверьте телефон
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <label  class="form-label" style="color: aqua">Логин</label>
+          <input type="text" class="form-control" id="login" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Некоректный логин
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <label  class="form-label" style="color: aqua">Пароль</label>
+          <input type="text" class="form-control" id="password" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+            Некоректный пароль
+          </div>
+        </div>
+
+        <div class="my-3">
+          <div class="form-check">
+            <input id="active" name="userStatys" type="radio" class="form-check-input" checked="" required="">
+            <label class="form-check-label" style="color: aqua">Акнивен</label>
+          </div>
+          <div class="form-check">
+            <input id="notactive" name="userStatys" type="radio" class="form-check-input" required="">
+            <label class="form-check-label" style="color: aqua">Не активен</label>
+          </div>
+
+        </div>
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+      </div>
+
+    </form>
+  </div>
+
+</main>
+</body>
+</html>

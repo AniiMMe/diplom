@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+
+<main>
+<div class="col-md-7 col-lg-8" style="margin-left: 350px; margin-top: -600px">
+  <h4 class="mb-3" style="color: aqua">Добавить нового клиента</h4>
+  <form class="needs-validation" novalidate="">
+    <div class="row g-3">
+      <div class="col-sm-12">
+        <label  class="form-label" style="color: aqua">ФИО</label>
+        <input type="text" class="form-control" id="fio" placeholder="" value="" required="">
+        <div class="invalid-feedback">
+         Некоректное ФИО
+        </div>
+      </div>
+
+<
+      <div class="col-12">
+        <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+        <div class="invalid-feedback">
+         Проверьте правильность имейла
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="address" class="form-label" style="color: aqua">Адресс</label>
+        <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="">
+        <div class="invalid-feedback">
+        Проверьте адресс
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label  class="form-label" style="color: aqua">Телефон</label>
+        <input type="text" class="form-control" id="phone" placeholder="+37544..." required="">
+        <div class="invalid-feedback">
+          Проверьте телефон
+        </div>
+      </div>
+
+
+
+
+
+    <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+    </div>
+
+  </form>
+</div>
+
+</main>
+</body>
+</html>
