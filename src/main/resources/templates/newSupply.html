@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<style>
+  .input-cell {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>
+
+<script>
+  function addRow() {
+    var table = document.getElementById("myTable");
+    var newRow = table.insertRow();
+
+    var dropdownCell = newRow.insertCell();
+    var dropdown = document.createElement("select");
+    var option1 = document.createElement("option");
+    option1.text = "Option 1";
+    var option2 = document.createElement("option");
+    option2.text = "Option 2";
+    dropdown.add(option1);
+    dropdown.add(option2);
+    dropdownCell.appendChild(dropdown);
+
+    var dateCell1 = newRow.insertCell();
+    var dateInput1 = document.createElement("input");
+    dateInput1.type = "date";
+    dateInput1.classList.add("input-cell");
+    dateCell1.appendChild(dateInput1);
+
+    var dateCell2 = newRow.insertCell();
+    var dateInput2 = document.createElement("input");
+    dateInput2.type = "date";
+    dateInput2.classList.add("input-cell");
+    dateCell2.appendChild(dateInput2);
+
+    var floatCell = newRow.insertCell();
+    var floatInput = document.createElement("input");
+    floatInput.type = "number";
+    floatInput.step = "0.01";
+    floatInput.classList.add("input-cell");
+    floatCell.appendChild(floatInput);
+
+    var numberCell = newRow.insertCell();
+    var numberInput = document.createElement("input");
+    numberInput.type = "number";
+    numberInput.classList.add("input-cell");
+    numberCell.appendChild(numberInput);
+  }
+</script>>
+
+<main>
+  <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
+    <h4 class="mb-3" style="color: aqua">Новая поставка</h4>
+    <form class="needs-validation" novalidate="">
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <label  class="form-label" style="color: aqua">Выберите поставщика</label>
+          <input type="text" class="form-control" id="provider" placeholder="" value="" required="">
+          <div class="invalid-feedback">
+          Неверный поставщик
+          </div>
+        </div>
+
+        <div class="col-6">
+          <label class="form-label" style="color: aqua">Дата поставки </label>
+          <input type="date" class="form-control" id="date" placeholder="">
+          <div class="invalid-feedback">
+            Неверная дата
+          </div>
+        </div>
+
+        <a href="#" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px; margin-top: -50px; width: 70px" onclick="addRow()"><img src="/img/+.png" style="height: 50px; width: 50px"></a>
+<div>
+
+  <table id="myTable" style="width: 1000px; ">
+    <tr>
+      <th style="color: aqua; " scope="col">Товар</th>
+      <th style="color: aqua; " scope="col">Дата изготовления</th>
+      <th style="color: aqua; " scope="col">Срок годности</th>
+      <th style="color: aqua; " scope="col">Стоимость за еденицу</th>
+      <th style="color: aqua; " scope="col">Количество</th>
+    </tr>
+    <tr>
+
+    </tr>
+  </table>
+
+  </div>
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+      </div>
+
+    </form>
+  </div>
+
+</main>
+</body>
+</html>

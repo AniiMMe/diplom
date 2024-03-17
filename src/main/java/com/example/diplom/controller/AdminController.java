@@ -38,6 +38,10 @@ public class AdminController {
     public  String getOrdersPage(){
         return "/admin-order";
     }
+    @GetMapping("/admin/invent")
+    public  String getInventPage(){
+        return "/admin-invent";
+    }
     @GetMapping("/admin/supplies")
     public  String getSuppliesPage(){
         return "/admin-supplies";
@@ -58,4 +62,17 @@ public class AdminController {
     public  String getNewUserPage(){
         return "/newUser";
     }
+    @GetMapping("/admin/newSupply")
+    public  String getNewSypplyPage(){
+        return "/newSupply";
+    }
+    @GetMapping("/admin/newOrder")
+    public  String getNewOrderPage(){
+        return "/newOrder";
+    }
+    @GetMapping("/admin/newInvent")
+    public  String getNewInventPage(){
+        return "/newInvent";
+    }
+
 }
