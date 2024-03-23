@@ -10,41 +10,41 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String getStart() {
-        return "/adminpanel";
+        return "/admin/adminpanel";
     }
 
     @GetMapping("/admin/users")
     public String getUsersPage() {
-        return "/users";
+        return "/admin/users";
     }
 
     @GetMapping("/admin/clients")
     public  String getClientsPage(){
-        return "/admin-clients";
+        return "/admin/admin-clients";
     }
     @GetMapping("/admin/providers")
     public  String getProvidersPage(){
-        return "/admin-providers";
+        return "/admin/admin-providers";
     }
     @GetMapping("/admin/assortment")
     public  String getAssortPage(){
-        return "/admin-ass";
+        return "/admin/admin-ass";
     }
     @GetMapping("/admin/products")
     public  String getProductsPage(){
-        return "/admin-products";
+        return "/admin/admin-products";
     }
     @GetMapping("/admin/orders")
     public  String getOrdersPage(){
-        return "/admin-order";
+        return "/admin/admin-order";
     }
     @GetMapping("/admin/invent")
     public  String getInventPage(){
-        return "/admin-invent";
+        return "/admin/admin-invent";
     }
     @GetMapping("/admin/supplies")
     public  String getSuppliesPage(){
-        return "/admin-supplies";
+        return "/admin/admin-supplies";
     }
     @GetMapping("/admin/newClient")
     public  String getNewClientPage(){
