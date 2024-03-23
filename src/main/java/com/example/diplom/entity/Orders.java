@@ -2,7 +2,7 @@ package com.example.diplom.entity;
 
 import lombok.*;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 

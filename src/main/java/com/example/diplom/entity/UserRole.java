@@ -4,10 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Objects;
 
-public enum UserRole {
-    ADMIN,USER
+public enum UserRole implements GrantedAuthority {
+    ADMIN,USER;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

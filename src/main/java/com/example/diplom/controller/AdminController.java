@@ -1,7 +1,9 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.entity.Workers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -59,7 +61,9 @@ public class AdminController {
         return "/newAss";
     }
     @GetMapping("/admin/newUser")
-    public  String getNewUserPage(){
+    public  String getNewUserPage(Model model){
+
+        model.addAttribute("user", new Workers());
         return "/newUser";
     }
     @GetMapping("/admin/newSupply")

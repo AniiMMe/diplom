@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,12 +14,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Workers {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic
-    @Column(name = "user_id")
-    private int userId;
+public class Workers extends User {
     @Basic
     @Column(name = "worker_name")
     private String workerName;
