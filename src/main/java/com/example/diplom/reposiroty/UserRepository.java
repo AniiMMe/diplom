@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<Workers, Integer> {
 //    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Workers u WHERE u.login = :login")
@@ -14,4 +16,5 @@ public interface UserRepository extends JpaRepository<Workers, Integer> {
     UserDetails findByLogin(String login);
     boolean existsByWorkerEmail(String email);
     boolean existsByWorkerTel(String phone);
+    List<Workers> findAll();
 }

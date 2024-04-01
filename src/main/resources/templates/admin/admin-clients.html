@@ -16,17 +16,17 @@
         <th  style="color: #2BB789" scope="col">Телефон</th>
         <th></th>
       </tr>
-      <!--            </thead>-->
-      <!--            <tbody>-->
-      <!--            <tr th:each="e:${clients}">-->
-      <!--                <td  style="color: #2BB789" th:text="${e.id}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.fio}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.adress}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.email}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.phone}"/>-->
-      <!--                <td><a th:href="@{/admin/clients/{id}(id=${e.id})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>-->
-      <!--            </tr>-->
-      <!--            </tbody>-->
+                  </thead>
+                  <tbody>
+                  <tr th:if="${clients}" th:each="e:${clients}">
+                      <td  style="color: #2BB789" th:text="${e.clientId}"/>
+                      <td  style="color: #2BB789" th:text="${e.clientName}"/>
+                      <td  style="color: #2BB789" th:text="${e.clientAddress}"/>
+                      <td  style="color: #2BB789" th:text="${e.clientEmail}"/>
+                      <td  style="color: #2BB789" th:text="${e.clientTel}"/>
+                      <td><a th:href="@{/admin/clients/{id}(id=${e.clientId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
+                  </tr>
+                  </tbody>
     </table>
     <a href="/admin/newClient" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
 

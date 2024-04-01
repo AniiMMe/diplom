@@ -1,14 +1,20 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.entity.Client;
 import com.example.diplom.entity.Workers;
+import com.example.diplom.service.ClientService;
+import com.example.diplom.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @AllArgsConstructor
 public class AdminController {
+    private final UserService userService;
+    private final ClientService clientService;
 
     @GetMapping("/admin")
     public String getStart() {
@@ -16,12 +22,13 @@ public class AdminController {
     }
 
     @GetMapping("/admin/users")
-    public String getUsersPage() {
+    public String getUsersPage(Model model) {
+        model.addAttribute("workers", userService.getAllWorkers());
         return "/admin/users";
     }
-
     @GetMapping("/admin/clients")
-    public  String getClientsPage(){
+    public  String getClientsPage(Model model){
+        model.addAttribute("clients", clientService.getAllClients());
         return "/admin/admin-clients";
     }
     @GetMapping("/admin/providers")
@@ -49,7 +56,8 @@ public class AdminController {
         return "/admin/admin-supplies";
     }
     @GetMapping("/admin/newClient")
-    public  String getNewClientPage(){
+    public  String getNewClientPage(Model model){
+        model.addAttribute("client", new Client());
         return "/newClient";
     }
     @GetMapping("/admin/newProvider")
