@@ -44,16 +44,17 @@ public class AdminController {
     }
     @GetMapping("/admin/assortment")
     public  String getAssortPage(Model model){
-        model.addAttribute("assortment", new Assortment());
+        model.addAttribute("assortment", assortmentService.getAllAssortment());
         return "/admin/admin-ass";
     }
     @GetMapping("/admin/products")
-    public  String getProductsPage(){
+    public  String getProductsPage(Model model){
+        model.addAttribute("products", productService.getAllProducts());
         return "/admin/admin-products";
     }
     @GetMapping("/admin/orders")
-    public  String getOrdersPage(){
-
+    public  String getOrdersPage(Model model){
+        model.addAttribute("order", orderService.getAllOrder());
         return "/admin/admin-order";
     }
     @GetMapping("/admin/invent")
@@ -61,7 +62,8 @@ public class AdminController {
         return "/admin/admin-invent";
     }
     @GetMapping("/admin/supplies")
-    public  String getSuppliesPage(){
+    public  String getSuppliesPage(Model model){
+        model.addAttribute("supplies", supplyService.getAllSupplies());
         return "/admin/admin-supplies";
     }
     @GetMapping("/admin/newClient")
