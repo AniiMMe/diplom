@@ -16,4 +16,8 @@ public class SupplyService {
         supply.setProducts(products);
         supplyRepository.save(supply);
     }
+
+    public List<Supply> getAllSupplies() {
+        return supplyRepository.findAll();
+    }
 }

@@ -18,4 +18,8 @@ public class OrderService {
         orders.setProducts(productList);
         ordersRepository.save(orders);
     }
+
+    public List<Orders> getAllOrder() {
+        return ordersRepository.findAll();
+    }
 }

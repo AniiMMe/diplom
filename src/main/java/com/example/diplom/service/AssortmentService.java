@@ -5,6 +5,8 @@ import com.example.diplom.reposiroty.AssortmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AssortmentService {
@@ -17,5 +19,9 @@ public class AssortmentService {
 
     public void addNewAssortment(Assortment assortment) {
         assortmentRepository.save(assortment);
+    }
+
+    public List<Assortment> getAllAssortment() {
+        return assortmentRepository.findAll();
     }
 }

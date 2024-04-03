@@ -75,4 +75,8 @@ public class ProductService {
         }
         return productMapId;
     }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
 }
