@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -24,5 +26,9 @@ public class UserService {
         workers.setUserPassward(encodedPassword);
         userRepository.save(workers);
 
+    }
+
+    public List<Workers> getAllWorkers(){
+        return userRepository.findAll();
     }
 }
