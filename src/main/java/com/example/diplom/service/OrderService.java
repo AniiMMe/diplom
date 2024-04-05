@@ -1,13 +1,12 @@
-package com.example.diplom.controller;
+package com.example.diplom.service;
 
-import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.Orders;
 import com.example.diplom.entity.Product;
+import com.example.diplom.reposiroty.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor

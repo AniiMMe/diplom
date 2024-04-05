@@ -18,17 +18,18 @@
 
         <th></th>
       </tr>
-      <!--            </thead>-->
-      <!--            <tbody>-->
-      <!--            <tr th:each="e:${clients}">-->
-      <!--                <td  style="color: #2BB789" th:text="${e.id}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.fio}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.adress}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.email}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.phone}"/>-->
-      <!--                <td><a th:href="@{/admin/clients/{id}(id=${e.id})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>-->
-      <!--            </tr>-->
-      <!--            </tbody>-->
+                  </thead>
+                  <tbody>
+                  <tr th:if="${products}" th:each="e:${products}">
+                      <td  style="color: #2BB789" th:text="${e.productId}"/>
+                      <td  style="color: #2BB789" th:text="${e.assortment.productName}"/>
+                      <td  style="color: #2BB789" th:text="${e.productStartdata}"/>
+                      <td  style="color: #2BB789" th:text="${e.productEnddata}"/>
+                      <td  style="color: #2BB789" th:text="${e.productPrice}"/>
+                      <td  style="color: #2BB789" th:text="${e.productQuantity}"/>
+                      <td><a th:href="@{/admin/clients/{id}(id=${e.productId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
+                  </tr>
+                  </tbody>
     </table>
 
   </div>

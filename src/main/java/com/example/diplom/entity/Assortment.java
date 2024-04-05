@@ -31,6 +31,9 @@ public class Assortment {
     @Basic
     @Column(name = "count")
     private int count;
+    @Basic
+    @Column(name = "formIn")
+    private String formIn;
 
 
     @ManyToOne

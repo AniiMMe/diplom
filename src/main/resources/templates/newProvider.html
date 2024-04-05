@@ -8,11 +8,11 @@
 <main>
   <div class="col-md-7 col-lg-8" style="margin-left: 350px; margin-top: -600px">
     <h4 class="mb-3" style="color: aqua">Добавить нового поставщика</h4>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" novalidate="" method="post" th:action="*{'/admin/newProvider'}" th:object="${provider}">
       <div class="row g-3">
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">ФИО</label>
-          <input type="text" class="form-control" id="fio" placeholder="" value="" required="">
+          <input type="text" class="form-control" id="fio" placeholder="" value="" required="" th:field="${provider.providerName}">
           <div class="invalid-feedback">
             Valid first name is required.
           </div>
@@ -22,7 +22,7 @@
 
         <div class="col-12">
           <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <input type="email" class="form-control" id="email" placeholder="you@example.com" th:field="${provider.providerEmail}">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
@@ -30,7 +30,7 @@
 
         <div class="col-12">
           <label for="address" class="form-label" style="color: aqua">Адресс</label>
-          <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="">
+          <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" th:field="${provider.providerAddress}">
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
@@ -38,7 +38,7 @@
 
         <div class="col-12">
           <label  class="form-label" style="color: aqua">Телефон</label>
-          <input type="text" class="form-control" id="phone" placeholder="+37544..." required="">
+          <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" th:field="${provider.providerTel}">
           <div class="invalid-feedback">
             Please enter your phone.
           </div>

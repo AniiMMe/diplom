@@ -2,6 +2,7 @@ package com.example.diplom.service;
 
 import com.example.diplom.entity.Product;
 import com.example.diplom.entity.Supply;
+import com.example.diplom.reposiroty.SupplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

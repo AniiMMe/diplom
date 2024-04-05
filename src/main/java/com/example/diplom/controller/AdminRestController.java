@@ -1,17 +1,19 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.OrderDTO;
+import com.example.diplom.dto.OrderDTOMap;
+import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.Order;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -67,13 +69,11 @@ public class AdminRestController {
         return ResponseEntity.ok("");
     }
     @PostMapping("/admin/newOrder")
-    public ResponseEntity<String> checkNewOrder(@ModelAttribute Orders orders,
-                                                @ModelAttribute List<Product> products,
-                                                @ModelAttribute List<String> assortment) {
-        if (productService.getProductForOrder(products, assortment).isEmpty()){
-            orderService.addNewOrder(orders, products);
-        }
-        else return ResponseEntity.badRequest().body(productService.getProductForOrder(products, assortment).toString());
+    public ResponseEntity<String> checkNewOrder(@ModelAttribute OrderDTOMap data) {
         return ResponseEntity.ok("");
+    }
+    @GetMapping("/admin/productsList")
+    public List<Assortment> getAllAssortment(){
+        return assortmentService.getAllAssortment();
     }
 }

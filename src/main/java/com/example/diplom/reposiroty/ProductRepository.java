@@ -1,4 +1,4 @@
-package com.example.diplom.controller;
+package com.example.diplom.reposiroty;
 
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.Product;

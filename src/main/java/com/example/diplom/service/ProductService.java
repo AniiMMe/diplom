@@ -1,8 +1,9 @@
-package com.example.diplom.controller;
+package com.example.diplom.service;
 
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.Product;
 import com.example.diplom.reposiroty.AssortmentRepository;
+import com.example.diplom.reposiroty.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

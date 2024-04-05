@@ -8,11 +8,11 @@
 <main>
   <div class="col-md-7 col-lg-8" style="margin-left: 350px; margin-top: -600px">
     <h4 class="mb-3" style="color: aqua">Добавить в ассортимент</h4>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" novalidate="" th:object="${assortment}" th:action="*{'/admin/newAssortment'}" method="post">
       <div class="row g-3">
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">Название</label>
-          <input type="text" class="form-control" id="name" placeholder="" value="" required="">
+          <input type="text" class="form-control" id="name" placeholder="" value="" required="" th:field="${assortment.productName}">
           <div class="invalid-feedback">
             Некоректное название
           </div>
@@ -21,7 +21,7 @@
 
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">Изготовитель</label>
-          <input type="text" class="form-control" id="manufacturer" placeholder="" value="" required="">
+          <input type="text" class="form-control" id="manufacturer" placeholder="" value="" required="" th:field="${assortment.manufacturer}">
           <div class="invalid-feedback">
             Некоректный производитель
           </div>
@@ -29,7 +29,7 @@
 
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">Тип продукта</label>
-          <input type="text" class="form-control" id="prod_type" placeholder="" value="" required="">
+          <input type="text" class="form-control" id="prod_type" placeholder="" value="" required="" th:field="${assortment.productType}">
           <div class="invalid-feedback">
             Некоректный тип
           </div>
@@ -37,7 +37,7 @@
 
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">Форма выпуска</label>
-          <input type="text" class="form-control" id="form" placeholder="" value="" required="">
+          <input type="text" class="form-control" id="form" placeholder="" value="" required="" th:field="${assortment.formIn}">
           <div class="invalid-feedback">
            Некоректная форма
           </div>

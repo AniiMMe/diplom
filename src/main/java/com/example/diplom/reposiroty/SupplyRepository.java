@@ -1,4 +1,4 @@
-package com.example.diplom.service;
+package com.example.diplom.reposiroty;
 
 import com.example.diplom.entity.Supply;
 import org.springframework.data.jpa.repository.JpaRepository;

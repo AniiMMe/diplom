@@ -12,50 +12,19 @@
 
   }
 </style>
-
-<script>
-  function addRow() {
-    var table = document.getElementById("myTable");
-    var newRow = table.insertRow();
-
-    var dropdownCell = newRow.insertCell();
-    var dropdown = document.createElement("select");
-    var option1 = document.createElement("option");
-    option1.text = "Option 1";
-    var option2 = document.createElement("option");
-    option2.text = "Option 2";
-    dropdown.add(option1);
-    dropdown.add(option2);
-    dropdownCell.appendChild(dropdown);
-
-    var textCell = newRow.insertCell();
-    var textInput = document.createElement("input");
-    textInput.type = "text";
-    textInput.classList.add("input-cell");
-    textCell.appendChild(textInput);
-
-    var floatCell = newRow.insertCell();
-    var floatInput = document.createElement("input");
-    floatInput.type = "number";
-    floatInput.step = "0.01";
-    floatInput.classList.add("input-cell");
-    floatCell.appendChild(floatInput);
-
-    var numberCell = newRow.insertCell();
-    var numberInput = document.createElement("input");
-    numberInput.type = "number";
-    numberInput.classList.add("input-cell");
-    numberCell.appendChild(numberInput);
-  }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script  th:src="@{/js/main.js}" >
 </script>
 <main>
   <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
     <h4 class="mb-3" style="color: aqua">Новый заказ</h4>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" id="myForm" novalidate="" th:object="${orders}" th:action="*{'/admin/newOrder'}" method="post">
       <div class="row g-3">
         <div class="col-sm-6">
           <label  class="form-label" style="color: aqua">Выберите клиента</label>
-          <input type="text" class="form-control" id="client" placeholder="" value="" required="">
+          <select th:if="${clients}" id="client" th:field="${orders.client}">
+            <option th:each="client : ${clients}" th:value="${client}" th:text="${client.clientName}"></option>
+          </select>
           <div class="invalid-feedback">
             Неверный клиент
           </div>
@@ -63,20 +32,24 @@
 
         <div class="col-6">
           <label class="form-label" style="color: aqua">Дата поставки </label>
-          <input type="date" class="form-control" id="date" placeholder="">
+          <input type="date" class="form-control" id="date" placeholder="" th:field="${orders.orderDate}">
           <div class="invalid-feedback">
             Неверная дата
           </div>
         </div>
-
-        <a href="#" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px; margin-top: -50px; width: 70px" onclick="addRow()"><img src="/img/+.png" style="height: 50px; width: 50px"></a>
+        <div class="col-6">
+          <label class="form-label" style="color: aqua">Статус поставки </label>
+          <input type="text" class="form-control" id="status" placeholder="" th:field="${orders.orderStatus}">
+          <div class="invalid-feedback">
+            Неверная дата
+          </div>
+        </div>
         <div>
 
           <table id="myTable" style="width: 1000px; ">
             <thead>
             <tr>
               <th style="color: aqua; " scope="col">Товар</th>
-              <th style="color: aqua; " scope="col">Статус</th>
               <th style="color: aqua; " scope="col">Стоимость за еденицу</th>
               <th style="color: aqua; " scope="col">Количество</th>
             </tr>
@@ -94,15 +67,15 @@
             <!--            </tbody>-->
 
           </table>
-
+          <a href="#" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px; margin-top: -50px; width: 70px" onclick="addRow()"><img src="/img/+.png" style="height: 50px; width: 50px"></a>
         </div>
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+        <button class="w-100 btn btn-primary btn-lg" id="SendBtn"  style="background-color: aqua; color: #238182">Сохранить</button>
       </div>
 
     </form>
   </div>
-
 </main>
+
 </body>
 </html>

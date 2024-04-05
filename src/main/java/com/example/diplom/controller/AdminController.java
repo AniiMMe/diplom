@@ -1,12 +1,12 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,8 @@ public class AdminController {
         return "/admin/admin-providers";
     }
     @GetMapping("/admin/assortment")
-    public  String getAssortPage(Model model){
-        model.addAttribute("assortment", assortmentService.getAllAssortment());
+    public String getAssortPage(Model model){
+        model.addAttribute("assortments", assortmentService.getAllAssortment());
         return "/admin/admin-ass";
     }
     @GetMapping("/admin/products")
@@ -98,9 +98,10 @@ public class AdminController {
     }
     @GetMapping("/admin/newOrder")
     public  String getNewOrderPage(Model model){
-        List<Product> products = new ArrayList<>();
+        List<OrderProductDTO> products = new ArrayList<>();
         List<String> assortment = new ArrayList<>();
         model.addAttribute("orders", new Orders());
+        model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("products", products);
         model.addAttribute("assortment", assortment);
         return "/newOrder";
