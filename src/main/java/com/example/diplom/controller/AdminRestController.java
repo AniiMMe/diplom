@@ -3,6 +3,7 @@ package com.example.diplom.controller;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderDTOMap;
 import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.dto.SupplyProductDTO;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.Order;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -61,15 +63,19 @@ public class AdminRestController {
         return ResponseEntity.badRequest().body(assortmentService.checkNewAssortment(assortment));
     }
     @PostMapping("/admin/newSupply")
-    public ResponseEntity<String> checkNewOrder(@ModelAttribute Supply supply,
-                                                @ModelAttribute List<Product> products,
-                                                @ModelAttribute List<String> assortment) {
-        supplyService.addNewSupply(supply,
-                productService.addNewProduct(products, assortment));
+    public ResponseEntity<String> checkNewOrder(@ModelAttribute SupplyDTO supply, HttpSession session) {
+        List<SupplyProductDTO> supplyProductDTO = (List<SupplyProductDTO>) session.getAttribute("supplyProductDTO");
+        supplyService.addNewSupply(supply, supplyProductDTO);
         return ResponseEntity.ok("");
     }
     @PostMapping("/admin/newOrder")
     public ResponseEntity<String> checkNewOrder(@ModelAttribute OrderDTOMap data) {
+        return ResponseEntity.ok("");
+    }
+    @PostMapping("/admin/newSupplyProduct")
+    public ResponseEntity<String> addSupplyProductInSession(@RequestBody List<SupplyProductDTO> supplyProductDTO,
+                                                HttpSession session) {
+        session.setAttribute("supplyProductDTO", supplyProductDTO);
         return ResponseEntity.ok("");
     }
     @GetMapping("/admin/productsList")

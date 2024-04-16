@@ -23,7 +23,7 @@
         <div class="col-sm-6">
           <label  class="form-label" style="color: aqua">Выберите клиента</label>
           <select th:if="${clients}" id="client" th:field="${orders.client}">
-            <option th:each="client : ${clients}" th:value="${client}" th:text="${client.clientName}"></option>
+            <option th:each="client : ${clients}" th:value="${client.clientId}" th:text="${client.clientName}"></option>
           </select>
           <div class="invalid-feedback">
             Неверный клиент

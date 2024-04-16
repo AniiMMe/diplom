@@ -3,6 +3,7 @@ package com.example.diplom.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
 @Table(name = "product")
 public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,7 @@ public class Product {
     private int productId;
     @Basic
     @Column(name = "product_startdata")
-    private Timestamp productStartdata;
+    private Date productStartdata;
     @Basic
     @Column(name = "product_price")
     private Double productPrice;
@@ -32,10 +34,10 @@ public class Product {
     @JoinColumn(name = "idAssortment")
     private Assortment assortment;
     @Column
-    private Timestamp productEnddata;
+    private Date productEnddata;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Supply> supplies;
+    @ManyToOne
+    private Supply supplies;
 
     @ManyToMany(mappedBy = "products")
     private List<Orders> orders;

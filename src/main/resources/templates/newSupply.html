@@ -11,65 +11,24 @@
     margin: 0;
   }
 </style>
-
-<script>
-  function addRow() {
-    var table = document.getElementById("myTable");
-    var newRow = table.insertRow();
-
-    var dropdownCell = newRow.insertCell();
-    var dropdown = document.createElement("select");
-    var option1 = document.createElement("option");
-    option1.text = "Option 1";
-    var option2 = document.createElement("option");
-    option2.text = "Option 2";
-    dropdown.add(option1);
-    dropdown.add(option2);
-    dropdownCell.appendChild(dropdown);
-
-    var dateCell1 = newRow.insertCell();
-    var dateInput1 = document.createElement("input");
-    dateInput1.type = "date";
-    dateInput1.classList.add("input-cell");
-    dateCell1.appendChild(dateInput1);
-
-    var dateCell2 = newRow.insertCell();
-    var dateInput2 = document.createElement("input");
-    dateInput2.type = "date";
-    dateInput2.classList.add("input-cell");
-    dateCell2.appendChild(dateInput2);
-
-    var floatCell = newRow.insertCell();
-    var floatInput = document.createElement("input");
-    floatInput.type = "number";
-    floatInput.step = "0.01";
-    floatInput.classList.add("input-cell");
-    floatCell.appendChild(floatInput);
-
-    var numberCell = newRow.insertCell();
-    var numberInput = document.createElement("input");
-    numberInput.type = "number";
-    numberInput.classList.add("input-cell");
-    numberCell.appendChild(numberInput);
-  }
-</script>>
-
 <main>
   <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
     <h4 class="mb-3" style="color: aqua">Новая поставка</h4>
-    <form class="needs-validation" novalidate="">
+    <form class="needs-validation" id="myForm" th:object="${supply}" th:action="*{'/admin/newSupply'}" method="post" >
       <div class="row g-3">
         <div class="col-sm-6">
           <label  class="form-label" style="color: aqua">Выберите поставщика</label>
-          <input type="text" class="form-control" id="provider" placeholder="" value="" required="">
+          <select  th:if="${provider}" th:field="${supply.id}">
+            <option th:each="p:${provider}" th:value="${p.providerId}" th:text="${p.providerName}"/>
+          </select>
           <div class="invalid-feedback">
           Неверный поставщик
           </div>
         </div>
 
         <div class="col-6">
-          <label class="form-label" style="color: aqua">Дата поставки </label>
-          <input type="date" class="form-control" id="date" placeholder="">
+          <label class="form-label" style="color: aqua" >Дата поставки </label>
+          <input type="date" class="form-control" id="date" placeholder="" th:field="${supply.supplyDate}">
           <div class="invalid-feedback">
             Неверная дата
           </div>
@@ -92,13 +51,16 @@
   </table>
 
   </div>
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+        <button class="w-100 btn btn-primary btn-lg" type="submit"  style="background-color: aqua; color: #238182">Сохранить</button>
       </div>
 
     </form>
   </div>
 
 </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/main2.js">
+
+</script>
 </body>
 </html>

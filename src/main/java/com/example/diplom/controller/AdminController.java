@@ -89,11 +89,8 @@ public class AdminController {
     }
     @GetMapping("/admin/newSupply")
     public  String getNewSypplyPage(Model model){
-        List<Product> products = new ArrayList<>();
-        List<String> assortment = new ArrayList<>();
-        model.addAttribute("provider", new Supply());
-        model.addAttribute("products", products);
-        model.addAttribute("assortment", assortment);
+        model.addAttribute("provider", providersService.getAllProvider());
+        model.addAttribute("supply", new SupplyDTO());
         return "/newSupply";
     }
     @GetMapping("/admin/newOrder")

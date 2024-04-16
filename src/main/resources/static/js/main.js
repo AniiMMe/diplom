@@ -1,6 +1,4 @@
 let counter = 0;
-
-// Функция для добавления новой строки в таблицу
 function addRow() {
     var table = document.getElementById("myTable");
     var newRow = table.insertRow();
