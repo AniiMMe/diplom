@@ -6,34 +6,37 @@
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
-    <table class="table table-striped table-sm">
-      <thead>
-      <tr>
-        <th style="color: #2BB789" scope="col">ID</th>
-        <th  style="color: #2BB789" scope="col">Дата</th>
-        <th  style="color: #2BB789" scope="col">Товар</th>
-        <th  style="color: #2BB789" scope="col">Цена</th>
-        <th  style="color: #2BB789" scope="col">Колличество</th>
-        <th  style="color: #2BB789" scope="col">Статус</th>
-        <th  style="color: #2BB789" scope="col">Клиент</th>
-        <th></th>
-      </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:if="${order}" th:each="e:${order}">
-                      <td  style="color: #2BB789" th:text="${e.ordersId}"/>
-                      <td  style="color: #2BB789" th:text="${e.orderDate}"/>
-                      <table th:if="${e.products}" th:each="pr:${e.products}">
-                        <tr style="color: #2BB789" th:text="${pr.assortment.productName}" ></tr>
-                      </table>
-<!--                      <td  style="color: #2BB789" th:text="${e.products}"/>-->
-                      <td  style="color: #2BB789" th:text="${e.orderCost}"/>
-                      <td  style="color: #2BB789" th:text="${e.orderQuantity}"/>
-                      <td  style="color: #2BB789" th:text="${e.client.clientId+': '+ e.client.clientName}"/>
-                      <td><a th:href="@{/admin/clients/{id}(id=${e.ordersId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
-                  </tr>
-                  </tbody>
-    </table>
+      <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+              <th style="color: #2BB789" scope="col">ID</th>
+              <th style="color: #2BB789" scope="col">Дата</th>
+              <th style="color: #2BB789" scope="col">Товар</th>
+              <th style="color: #2BB789" scope="col">Цена</th>
+              <th style="color: #2BB789" scope="col">Количество</th>
+              <th style="color: #2BB789" scope="col">Статус</th>
+              <th style="color: #2BB789" scope="col">Клиент</th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:if="${order}" th:each="e:${order}">
+              <td style="color: #2BB789" th:text="${e.ordersId}"></td>
+              <td style="color: #2BB789" th:text="${e.orderDate}"></td>
+              <td style="color: #2BB789">
+                  <span th:if="${e.products}" th:each="pr:${e.products}" th:text="${pr.assortment.productName}"></span>
+              </td>
+              <td style="color: #2BB789" th:text="${e.orderCost}"></td>
+              <td style="color: #2BB789" th:text="${e.orderQuantity}"></td>
+              <td style="color: #2BB789" th:text="${e.client.clientId + ': ' + e.client.clientName}"></td>
+              <td>
+                  <a th:href="@{/admin/clients/{id}(id=${e.ordersId})}">
+                      <input type="button" value="Подробнее" style="font-weight: bold;">
+                  </a>
+              </td>
+          </tr>
+          </tbody>
+      </table>
     <a href="/admin/newOrder" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
   </div>
 </main>

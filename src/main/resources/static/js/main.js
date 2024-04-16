@@ -37,7 +37,24 @@ function addRow() {
     numberCell.appendChild(numberInput);
     counter++;
 }
-
+async function send(url, method, data){
+    await fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Обработка полученных данных
+            console.log(data);
+        })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Ошибка:', error);
+        });
+}
 $(document).ready(function() {
     $("#SendBtn").click(function() {
         var form = document.getElementById('myForm');
@@ -61,23 +78,13 @@ $(document).ready(function() {
         var data= {
             client: document.getElementById("client").value,
             orderStatus: document.getElementById("status").value,
-            orderDate: document.getElementById("date").value,
-            orderProductDTOS: products
-
+            orderDate: document.getElementById("date").value
         }
         console.log(data);
 
-        $.ajax({
-            url: "/admin/newOrder", // Замените на URL вашего серверного обработчика запроса
-            type: "POST", // Или "GET", в зависимости от типа запроса
-            data: data,
-            contentType: "application/json",
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
+        send('/admin/newOrderProduct', 'POST', products).then(r  =>{
+            form.submit();
+
+        })
     });
 });

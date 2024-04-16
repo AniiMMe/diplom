@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
-@Getter
 public enum StatusOrder {
     PROCESSING,     // Обработка
     COMPLETED,      // Завершено
@@ -18,5 +17,8 @@ public enum StatusOrder {
         statusInRussian.put(StatusOrder.COMPLETED,"Завершено");
         statusInRussian.put(StatusOrder.CANCELLED,"Отменено");
         statusInRussian.put(StatusOrder.DELIVERED,"Доставлено");
+    }
+    public static Map<StatusOrder, String>  getStatus(){
+        return statusInRussian;
     }
 }

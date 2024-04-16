@@ -63,21 +63,31 @@ public class AdminRestController {
         return ResponseEntity.badRequest().body(assortmentService.checkNewAssortment(assortment));
     }
     @PostMapping("/admin/newSupply")
-    public ResponseEntity<String> checkNewOrder(@ModelAttribute SupplyDTO supply, HttpSession session) {
+    public ResponseEntity<String> checkNewSupply(@ModelAttribute SupplyDTO supply, HttpSession session) {
         List<SupplyProductDTO> supplyProductDTO = (List<SupplyProductDTO>) session.getAttribute("supplyProductDTO");
         supplyService.addNewSupply(supply, supplyProductDTO);
         return ResponseEntity.ok("");
     }
-    @PostMapping("/admin/newOrder")
-    public ResponseEntity<String> checkNewOrder(@ModelAttribute OrderDTOMap data) {
-        return ResponseEntity.ok("");
-    }
     @PostMapping("/admin/newSupplyProduct")
     public ResponseEntity<String> addSupplyProductInSession(@RequestBody List<SupplyProductDTO> supplyProductDTO,
-                                                HttpSession session) {
+                                                            HttpSession session) {
         session.setAttribute("supplyProductDTO", supplyProductDTO);
         return ResponseEntity.ok("");
     }
+
+    @PostMapping("/admin/newOrder")
+    public ResponseEntity<String> checkNewOrder(@ModelAttribute OrderDTO orderDTO, HttpSession session) {
+        List<OrderProductDTO> orderProductDTOS = (List<OrderProductDTO>) session.getAttribute("orderProductDTOS");
+        orderService.addNewOrder(orderDTO, orderProductDTOS);
+        return ResponseEntity.ok("");
+    }
+    @PostMapping("/admin/newOrderProduct")
+    public ResponseEntity<String> addOrderProductInSession(@RequestBody List<OrderProductDTO> orderProductDTOS,
+                                                            HttpSession session) {
+        session.setAttribute("orderProductDTOS", orderProductDTOS);
+        return ResponseEntity.ok("");
+    }
+
     @GetMapping("/admin/productsList")
     public List<Assortment> getAllAssortment(){
         return assortmentService.getAllAssortment();

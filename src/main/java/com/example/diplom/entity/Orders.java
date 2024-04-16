@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table
+@Builder
 public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,7 +28,7 @@ public class Orders {
     private double orderQuantity;
     @Basic
     @Column(name = "order_status")
-    private int orderStatus;
+    private StatusOrder orderStatus;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")

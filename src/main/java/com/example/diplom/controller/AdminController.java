@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
@@ -97,10 +98,10 @@ public class AdminController {
     public  String getNewOrderPage(Model model){
         List<OrderProductDTO> products = new ArrayList<>();
         List<String> assortment = new ArrayList<>();
-        model.addAttribute("orders", new Orders());
+        model.addAttribute("orders", new OrderDTO());
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("products", products);
-        model.addAttribute("assortment", assortment);
+        model.addAttribute("status", StatusOrder.getStatus());
         return "/newOrder";
     }
     @GetMapping("/admin/newInvent")
