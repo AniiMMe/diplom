@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<body>
+<header style="background-color: #238182; color: aqua;" class="d-flex flex-wrap align-items-left justify-content-left justify-content-md-between py-3 mb-4 border-bottom">
+
+    <h3><img src="/img/wh.png" style="height: 55px; width: 55px; margin-top: -20px">
+        Управление складом</h3>
+
+</header>
+<main style="margin-top: -30px; background-color: #284B52">
+
+    <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow" style="background-color: #238182FF;">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <h1 class="fw-bold mb-0 fs-2">Войти</h1>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Логин</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Пароль</label>
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" style="background-color: #284B52;">Войти</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+
+</html>

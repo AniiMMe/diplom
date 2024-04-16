@@ -14,5 +14,5 @@ public class StartController {
     }
     //добавишь страницу входа
     @GetMapping("/logIn")
-    public String  getLogIn(){ return "/";}
+    public String  getLogIn(){ return "/logIn";}
 }
