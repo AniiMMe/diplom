@@ -10,7 +10,7 @@ import java.sql.Date;
 @Builder
 public class SupplyProductDTO {
     private int idAssortment;
-    private int CountProductFromAssortment;
+    private int countProductFromAssortment;
     private double costForOneProduct;
     private Date productStartdata;
     private Date productEnddata;

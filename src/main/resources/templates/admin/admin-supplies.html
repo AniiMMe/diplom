@@ -21,7 +21,7 @@
                   <tr th:if="${supplies}" th:each="e:${supplies}">
                       <td  style="color: #2BB789" th:text="${e.supplyId}"/>
                       <td  style="color: #2BB789" th:text="${e.supplyDate}"/>
-                    <table th:if="${e.products}" th:each="pr:${e.products}">
+                    <table th:if="${e.productsList}" th:each="pr:${e.productsList}">
                       <tr style="color: #2BB789" th:text="${pr.assortment.productName}" ></tr>
                     </table>
                       <td  style="color: #2BB789" th:text="${e.supplyCost}"/>
