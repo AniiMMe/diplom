@@ -87,7 +87,7 @@ form.addEventListener("submit", function(event) {
         const CountProductFromAssortment = document.getElementById("CountProductFromAssortment"+i).value;
         const product ={
             idAssortment:idAssortment,
-            CountProductFromAssortment:CountProductFromAssortment,
+            countProductFromAssortment:CountProductFromAssortment,
             costForOneProduct:costForOneProduct,
             productStartdata:productStartdata,
             productEnddata:productEnddata

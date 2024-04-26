@@ -62,14 +62,14 @@ $(document).ready(function() {
         var products = [];
         for (let i = 0; i <counter; i++) {
             var idAssortment = document.getElementById("product" + i).value;
-            var CountProductFromAssortment = document.getElementById("CountProductFromAssortment" +i).value;
+            var CountProductFromAssortment = document.getElementById("countProductFromAssortment" +i).value;
             var costForOneProduct = document.getElementById("costForOneProduct" + i).value;
             console.log(idAssortment);
             console.log(CountProductFromAssortment);
             console.log(costForOneProduct);
             var product = {
                 idAssortment: idAssortment,
-                CountProductFromAssortment: CountProductFromAssortment,
+                countProductFromAssortment: CountProductFromAssortment,
                 costForOneProduct: costForOneProduct
             }
             console.log(product);
