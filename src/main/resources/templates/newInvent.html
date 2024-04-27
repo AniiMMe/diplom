@@ -5,75 +5,74 @@
 <div th:insert="blocks/header :: header"></div>
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <style>
-  .input-cell {
-    border: 0px;
-    padding: 0px;
-    margin: 0;
+    .input-cell {
+        border: 0px;
+        padding: 0px;
+        margin: 0;
 
-  }
+    }
 </style>
 
 
 <main>
-  <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
-    <h4 class="mb-3" style="color: aqua">Новая инвенторизация</h4>
-    <form class="needs-validation" novalidate="">
-      <div class="row g-3">
+    <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
+        <h4 class="mb-3" style="color: aqua">Новая инвенторизация</h4>
 
+            <div class="row g-3">
+                <div class="col-6">
+                    <label class="form-label" style="color: aqua">Дата инвенторизации</label>
+                    <input type="date" class="form-control" id="date" placeholder="">
+                    <div class="invalid-feedback">
+                        Неверная дата
+                    </div>
+                </div>
 
-        <div class="col-6">
-          <label class="form-label" style="color: aqua">Дата инвенторизации</label>
-          <input type="date" class="form-control" id="date" placeholder="">
-          <div class="invalid-feedback">
-            Неверная дата
-          </div>
-        </div>
+                <div id="newAssInvent" th:each="ass, index:${assortmentList}">
+                    <form th:object="${newIvent}" th:action="${'/admin/addNewIvent/' + ass.getIdAssort()}" method="post">
+                    <div class="col-3">
+                        <span type="text" class="form-control" id="ass" placeholder="Название"
+                              th:text="${ass.productName}"/>
+                    </div>
+                    <table id="myTable" style="width: 800px; margin-left: 25%; margin-top: -30px">
+                        <thead>
+                        <tr>
+                            <th style="color: aqua; " scope="col">ID</th>
+                            <th style="color: aqua; " scope="col">Дата изготовления</th>
+                            <th style="color: aqua; " scope="col">Годен до</th>
+                            <th style="color: aqua; " scope="col">Остаток по программе</th>
+                            <th style="color: aqua; " scope="col">Действительный остаток</th>
+                            <th style="color: aqua; " scope="col">Сумма</th>
+                            <th style="color: aqua" scope="col">Списать</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="p:${ass.products}">
+                            <td style="color: #2BB789" th:text="${p.productId}"/>
+                            <td style="color: #2BB789" th:text="${p.productStartdata}"/>
+                            <td style="color: #2BB789" th:text="${p.productEnddata}"/>
+<!--                          <td><a th:href="*{'/assortment/fixIvent/' + p.getProductId()}"><input type="button" value="Списать" style="font-weight: bold;"></a>-->
+<!--                          </td>-->
+                        </tr>
+                    </table>
+                    <label style="color: aqua; margin-top: 20px">ИТОГО:</label>
+                    <table id="itogTable" style="width: 345px; margin-left: 70%; margin-top: -30px">
+                        <tr>
+                            <td style="color: #2BB789"><input type="number" th:field="${newIvent.productQuantity}" th:placeholder="${newIvent.getProductQuantity(ass.products)}" th:value="${newIvent.getProductQuantity(ass.products)}"></td>
+                            <td style="color: #2BB789"><input type="number" th:field="${newIvent.factQuantity}"/></td>
+                          <td style="color: #2BB789"><input type="number" th:field="${newIvent.priseQuantity}" th:placeholder="${newIvent.getPriseQuantity(ass.products)}" th:value="${newIvent.getPriseQuantity(ass.products)}"></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
 
-        <div id="newAssInvent">
-          <div class="col-3">
-          <input type="text" class="form-control" id="ass" placeholder="Название">
-          </div>
-          <table id="myTable" style="width: 800px; margin-left: 25%; margin-top: -30px">
-          <thead>
-            <tr>
-              <th style="color: aqua; " scope="col">ID</th>
-              <th style="color: aqua; " scope="col">Дата изготовления</th>
-              <th style="color: aqua; " scope="col">Годен до</th>
-              <th style="color: aqua; " scope="col">Остаток по программе</th>
-              <th style="color: aqua; " scope="col">Действительный остаток</th>
-              <th style="color: aqua; " scope="col">Сумма</th>
-              <th  style="color: aqua" scope="col">Списать</th>
-            </tr>
-          </thead>
-            <tr>
+                <button class="w-100 btn btn-primary btn-lg" type="submit"
+                        style="background-color: aqua; margin-top: 100px; color: #238182">Сохранить
+                </button>
+            </div>
 
+    </div>
 
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-              <!--                <td><a th:href="@{)}"><input type="button" value="Списать" style="font-weight: bold;"></a></td>-->
-
-            </tr>
-          </table>
-          <label  style="color: aqua; margin-top: 20px">ИТОГО:</label>
-          <table id="itogTable" style="width: 345px; margin-left: 70%; margin-top: -30px">
-          <tr>
-<!--            <td  style="color: #2BB789" />-->
-<!--            <td  style="color: #2BB789" />-->
-<!--            <td  style="color: #2BB789"/>-->
-          </tr>
-          </table>
-        </div>
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
-      </div>
-
-    </form>
-  </div>
 
 </main>
+
 </body>
 </html>

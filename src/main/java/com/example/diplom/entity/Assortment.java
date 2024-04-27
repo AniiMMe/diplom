@@ -36,13 +36,17 @@ public class Assortment {
     @Column(name = "formIn")
     private String formIn;
 
-
     @ManyToOne
     @JoinColumn(name = "id_catalog")
     private Catalog catalog;
     @JsonIgnore
     @OneToMany(mappedBy = "assortment",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
+    public boolean checkAssortment(List<InfoForIvent> infoForIvent, List<Assortment> assortments) {
+        return infoForIvent.stream().map(InfoForIvent::getAssortment)
+                .filter(Objects::nonNull)
+                .map(Assortment::getIdAssort).noneMatch(x->assortments.stream().map(Assortment::getIdAssort).noneMatch(x::equals));
+    }
 
 
 

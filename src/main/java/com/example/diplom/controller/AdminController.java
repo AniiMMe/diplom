@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.*;
@@ -8,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +110,24 @@ public class AdminController {
     }
     @GetMapping("/admin/newInvent")
     public  String getNewInventPage(Model model){
+        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
+        model.addAttribute("newIvent", new InfoForIventDTO());
         return "/newInvent";
+    }
+    @PostMapping("/admin/addNewIvent/{id}")
+    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
+                                           @PathVariable int id, Model model){
+        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO, id));
+        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
+        model.addAttribute("newIvent", new InfoForIventDTO());
+        return "/admin/inventSecondPage";
     }
 
     @GetMapping("/admin/inventSecondPage")
     public String getInventSecondPage() {
         return "/admin/inventSecondPage";
     }
+
+
 
 }

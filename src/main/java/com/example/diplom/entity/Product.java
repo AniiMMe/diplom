@@ -36,6 +36,7 @@ public class Product {
     @Column
     private Date productEnddata;
 
+
     @ManyToOne
     private Supply supplies;
 

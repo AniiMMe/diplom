@@ -1,9 +1,6 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.dto.OrderDTO;
-import com.example.diplom.dto.OrderDTOMap;
-import com.example.diplom.dto.OrderProductDTO;
-import com.example.diplom.dto.SupplyProductDTO;
+import com.example.diplom.dto.*;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
@@ -91,5 +88,13 @@ public class AdminRestController {
     @GetMapping("/admin/productsList")
     public List<Assortment> getAllAssortment(){
         return assortmentService.getAllAssortment();
+    }
+    @RequestMapping("check")
+    private boolean checkAssortment(List<InfoForIvent> infoForIvent, Assortment ass) {
+        if (infoForIvent == null) {
+            return true;
+        }
+
+        return infoForIvent.stream().anyMatch(x -> x.getAssortment().getIdAssort()==(ass.getIdAssort()));
     }
 }

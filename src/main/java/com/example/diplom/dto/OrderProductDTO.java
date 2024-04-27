@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderProductDTO {
 
     private int idAssortment;
-    private int CountProductFromAssortment;
+    private int countProductFromAssortment;
     private double costForOneProduct;
 
 }
