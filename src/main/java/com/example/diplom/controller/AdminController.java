@@ -109,4 +109,9 @@ public class AdminController {
         return "/newInvent";
     }
 
+    @GetMapping("/admin/inventSecondPage")
+    public String getInventSecondPage() {
+        return "/admin/inventSecondPage";
+    }
+
 }
