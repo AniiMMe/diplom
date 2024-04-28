@@ -1,11 +1,12 @@
 let counter = 0;
+
 function addRow() {
     var table = document.getElementById("myTable");
     var newRow = table.insertRow();
 
     var dropdownCell = newRow.insertCell();
     var dropdown = document.createElement("select");
-    dropdown.id ="product" + counter;
+    dropdown.id = "product" + counter;
 
     // Вызов AJAX-запроса для получения списка продуктов
     fetch('/admin/productsList')
@@ -37,7 +38,8 @@ function addRow() {
     numberCell.appendChild(numberInput);
     counter++;
 }
-async function send(url, method, data){
+
+async function send(url, method, data) {
     await fetch(url, {
         method: method,
         headers: {
@@ -55,36 +57,36 @@ async function send(url, method, data){
             console.error('Ошибка:', error);
         });
 }
-$(document).ready(function() {
-    $("#SendBtn").click(function() {
-        var form = document.getElementById('myForm');
-        var formData = new FormData(form);
-        var products = [];
-        for (let i = 0; i <counter; i++) {
-            var idAssortment = document.getElementById("product" + i).value;
-            var CountProductFromAssortment = document.getElementById("countProductFromAssortment" +i).value;
-            var costForOneProduct = document.getElementById("costForOneProduct" + i).value;
-            console.log(idAssortment);
-            console.log(CountProductFromAssortment);
-            console.log(costForOneProduct);
-            var product = {
-                idAssortment: idAssortment,
-                countProductFromAssortment: CountProductFromAssortment,
-                costForOneProduct: costForOneProduct
-            }
-            console.log(product);
-            products.push(product);
-        }
-        var data= {
-            client: document.getElementById("client").value,
-            orderStatus: document.getElementById("status").value,
-            orderDate: document.getElementById("date").value
-        }
-        console.log(data);
 
-        send('/admin/newOrderProduct', 'POST', products).then(r  =>{
-            form.submit();
+const form = document.getElementById("formOrder");
+form.addEventListener("submit", function (event) {
+    var form = document.getElementById('formOrder');
+    var formData = new FormData(form);
+    var products = [];
+    for (let i = 0; i < counter; i++) {
+        var idAssortment = document.getElementById("product" + i).value;
+        var CountProductFromAssortment = document.getElementById("CountProductFromAssortment" + i).value;
+        var costForOneProduct = document.getElementById("costForOneProduct" + i).value;
+        console.log(idAssortment);
+        console.log(CountProductFromAssortment);
+        console.log(costForOneProduct);
+        var product = {
+            idAssortment: idAssortment,
+            countProductFromAssortment: CountProductFromAssortment,
+            costForOneProduct: costForOneProduct
+        }
+        console.log(product);
+        products.push(product);
+    }
+    var data = {
+        client: document.getElementById("client").value,
+        orderStatus: document.getElementById("status").value,
+        orderDate: document.getElementById("date").value
+    }
+    console.log(data);
 
-        })
-    });
+    send('/admin/newOrderProduct', 'POST', products).then(data => {
+        form.submit();
+
+    })
 });

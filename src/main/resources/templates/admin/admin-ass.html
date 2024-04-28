@@ -26,7 +26,7 @@
                       <td  style="color: #2BB789" th:text="${e.manufacturer}"/>
                       <td  style="color: #2BB789" th:text="${e.productName}"/>
                       <td  style="color: #2BB789" th:text="${e.productType}"/>
-                      <td  style="color: #2BB789" th:text="${e.count}"/>
+                      <td  style="color: #2BB789" th:text="${e.getFormIn().getName(e.getFormIn())}"/>
                       <td><a th:href="@{/admin/clients/{id}(id=${e.idAssort})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
                   </tr>
                   </tbody>

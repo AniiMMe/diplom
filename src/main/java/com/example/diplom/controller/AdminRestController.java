@@ -25,13 +25,13 @@ public class AdminRestController {
     private final ProductService productService;
     private final SupplyService supplyService;
     @PostMapping("/admin/newUser")
-    public ResponseEntity<String> checkNewUser(@ModelAttribute Workers workers, @RequestParam("userStatys") String status, Model model){
+    public ResponseEntity<String> checkNewUser(@RequestBody Workers workers, @RequestParam("userStatys") String status, Model model){
         workers.setRoles(Collections.singleton(UserRole.USER));
         if (status.equals("true")) workers.setActive(true);
         else workers.setActive(false);
         if (userService.checkNewUser(workers) == null) {
             userService.addNewUser(workers);
-            return (ResponseEntity<String>) ResponseEntity.ok();
+            return ResponseEntity.ok("Пользователь успешно добавлен!");
         }
         return ResponseEntity.badRequest().body(userService.checkNewUser(workers));
     }
@@ -69,7 +69,7 @@ public class AdminRestController {
     public ResponseEntity<String> addSupplyProductInSession(@RequestBody List<SupplyProductDTO> supplyProductDTO,
                                                             HttpSession session) {
         session.setAttribute("supplyProductDTO", supplyProductDTO);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("записан");
     }
 
     @PostMapping("/admin/newOrder")

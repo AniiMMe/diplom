@@ -21,9 +21,11 @@
                   <tr th:if="${supplies}" th:each="e:${supplies}">
                       <td  style="color: #2BB789" th:text="${e.supplyId}"/>
                       <td  style="color: #2BB789" th:text="${e.supplyDate}"/>
-                    <table th:if="${e.productsList}" th:each="pr:${e.productsList}">
-                      <tr style="color: #2BB789" th:text="${pr.assortment.productName}" ></tr>
-                    </table>
+                      <td style="color: #2BB789">
+                          <span th:if="${e.productsList}" th:each="pr:${e.productsList}">
+                           <span style="color: #2BB789" th:text="${pr.assortment.productName}"></span><br>
+                          </span>
+                      </td>
                       <td  style="color: #2BB789" th:text="${e.supplyCost}"/>
                       <td  style="color: #2BB789" th:text="${e.providers.providerName}"/>
                       <td><a th:href="@{/admin/clients/{id}(id=${e.supplyId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>

@@ -34,7 +34,8 @@ public class Assortment {
     private int count;
     @Basic
     @Column(name = "formIn")
-    private String formIn;
+    @Enumerated(EnumType.STRING)
+    private FormVipuska formIn;
 
     @ManyToOne
     @JoinColumn(name = "id_catalog")

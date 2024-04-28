@@ -86,6 +86,7 @@ public class AdminController {
     @GetMapping("/admin/newAssortment")
     public  String getNewAssortmentrPage(Model model){
         model.addAttribute("assortment", new Assortment());
+        model.addAttribute("formV", FormVipuska.getRussianName());
         return "/newAss";
     }
     @GetMapping("/admin/newUser")

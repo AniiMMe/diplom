@@ -35,6 +35,7 @@ public class SupplyService {
         });
         Supply supply = new Supply();
         supply.setProviders(providersRepository.findById(supplyDto.getId()).orElse(null));
+        supply.setSupplyDate(supplyDto.getSupplyDate());
         supply.setProductsList(productList);
         Supply finalSupply = supplyRepository.save(supply);
         productList.forEach(x->{

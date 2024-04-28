@@ -37,7 +37,9 @@
 
         <div class="col-sm-12">
           <label  class="form-label" style="color: aqua">Форма выпуска</label>
-          <input type="text" class="form-control" id="form" placeholder="" value="" required="" th:field="${assortment.formIn}">
+          <select th:field="${assortment.formIn}">
+            <option th:each="map : ${formV}" th:value="${map.key}" th:text="${map.value}"></option>
+          </select>
           <div class="invalid-feedback">
            Некоректная форма
           </div>
