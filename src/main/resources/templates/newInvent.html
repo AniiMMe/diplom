@@ -27,11 +27,13 @@
                     </div>
                 </div>
 
-                <div id="newAssInvent" th:each="ass, index:${assortmentList}">
-                    <form th:object="${newIvent}" th:action="${'/admin/addNewIvent/' + ass.getIdAssort()}" method="post">
+                <div id="newAssInvent" >
+                    <form th:object="${newIvent}" id="formIvent" th:action="*{'/admin/addNewIvent'}" method="post">
+                        <div  th:each="ass, inde:${assortmentList}">
                     <div class="col-3">
                         <span type="text" class="form-control" id="ass" placeholder="Название"
                               th:text="${ass.productName}"/>
+                        <input type="hidden" id="count" th:value="${assortmentList.size()}">
                     </div>
                     <table id="myTable" style="width: 800px; margin-left: 25%; margin-top: -30px">
                         <thead>
@@ -56,15 +58,19 @@
                     <label style="color: aqua; margin-top: 20px">ИТОГО:</label>
                     <table id="itogTable" style="width: 345px; margin-left: 50%; margin-top: -30px">
                         <tr>
-                            <td style="color: #2BB789"><input type="number" th:field="${newIvent.productQuantity}" th:placeholder="${newIvent.getProductQuantity(ass.products)}" th:value="${newIvent.getProductQuantity(ass.products)}"></td>
-                            <td style="color: #2BB789"><input type="number" th:field="${newIvent.factQuantity}"/></td>
-                          <td style="color: #2BB789"><input type="number" th:field="${newIvent.priseQuantity}" th:placeholder="${newIvent.getPriseQuantity(ass.products)}" th:value="${newIvent.getPriseQuantity(ass.products)}"></td>
+                            <td style="color: #2BB789">
+                                <input type="hidden" th:id="${'idAssort' + inde.index}" th:value="${ass.idAssort}">
+                                <input type="number" th:id="${'productQuantity' + inde.index}"  th:placeholder="${newIvent.getProductQuantity(ass.products)}" th:value="${newIvent.getProductQuantity(ass.products)}" />
+                            </td>
+                             <td style="color: #2BB789"><input type="number" th:id="${'factQuantity' + inde.index}" /></td>
+                             <td style="color: #2BB789"><input type="number" th:id="${'priseQuantity' + inde.index}" th:placeholder="${newIvent.getPriseQuantity(ass.products)}" th:value="${newIvent.getPriseQuantity(ass.products)}"></td>
                         </tr>
                     </table>
-
+                        </div>
                         <button class="w-100 btn btn-primary btn-lg" type="submit"
                                 style="background-color: aqua; margin-top: 100px; color: #238182">Сохранить
                         </button>
+
                     </form>
                 </div>
 
@@ -74,6 +80,51 @@
 
 
 </main>
+<script>
+const form = document.getElementById("formIvent");
+form.addEventListener("submit", function (event){
+    event.preventDefault();
+    const formData = new FormData(form);
 
+    const count = document.getElementById("count").value;
+    let list =[];
+    for (let i = 0; i < count; i++) {
+        const idAssort = document.getElementById("idAssort" + i).value;
+        const productQuantity = document.getElementById("productQuantity" + i).value;
+        const factQuantity = document.getElementById("factQuantity" + i).value;
+        const priseQuantity = document.getElementById("priseQuantity"+i).value;
+        const element = {
+            idAssort: idAssort,
+            productQuantity: productQuantity,
+            priseQuantity: priseQuantity,
+            factQuantity: factQuantity
+        }
+        list.push(element);
+    }
+    send("/admin/listForIvent", 'POST', list).then(data=>{
+        form.submit()
+    });
+
+});
+async function send(url, method, data){
+    await fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Обработка полученных данных
+            console.log(data);
+        })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Ошибка:', error);
+        });
+}
+
+</script>
 </body>
 </html>

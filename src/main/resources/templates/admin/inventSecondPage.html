@@ -18,17 +18,23 @@
 
         </tr>
         </thead>
-
-      <!--            <tbody>-->
-      <!--            <tr th:each="">-->
-      <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${}"/>-->
-
-      <!--            </tr>-->
-      <!--            </tbody>-->
+                  <tbody th:each="info:${infoForIvent}">
+                  <tr th:each="ass, index:${infoForIvent.assortment}">
+                      <td  style="color: #2BB789" th:text="${ass.productName}"/>
+                      <td  style="color: #2BB789" th:text="${infoForIvent.productQuantity.get(index.index)}"/>
+                      <td  style="color: #2BB789" th:text="${infoForIvent.factQuantity.get(index.index)}"/>
+                      <td  style="color: #2BB789" th:text="${infoForIvent.priseQuantity.get(index.index)}"/>
+                  </tr>
+                  </tbody>
     </table>
+      <label style="color: aqua; margin-top: 20px">ИТОГО:</label>
+      <table id="itogTable" style="width: 345px; margin-left: 50%; margin-top: -30px">
+          <tr>
+              <td style="color: #2BB789" th:text="${infoForIvent.productQuantityItog}" ></td>
+              <td style="color: #2BB789" th:text="${infoForIvent.factQuantityItog}"/></td>
+              <td style="color: #2BB789" th:text="${infoForIvent.priseQuantityItog}" ></td>
+          </tr>
+      </table>
       <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
   </div>
 </main>

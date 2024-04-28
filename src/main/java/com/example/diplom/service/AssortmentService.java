@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.dto.InfoDTO;
 import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.InfoForIvent;
@@ -9,10 +10,13 @@ import com.example.diplom.reposiroty.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
@@ -39,28 +43,21 @@ public class AssortmentService {
         return assortmentRepository.findAll();
     }
 
-    public List<InfoForIvent> addInfoForIvent(InfoForIventDTO infoForIventDTO, int idAssortment) {
-        Assortment assortment = assortmentRepository.findById(idAssortment).orElse(null);
-        List<InfoForIvent> infoForIventFromDB = infoForIventRepository.findByAssortment(assortment);
-        if (assortment == null) return null;
+    public InfoForIvent addInfoForIvent(InfoForIventDTO infoForIventDTO) {
+        List<Assortment> assortments = new ArrayList<>();
+        for (InfoDTO info:infoForIventDTO.getInfoDTOS()) {
+            Assortment assortment = assortmentRepository.findById(info.getIdAssort()).orElse(null);
+            if (assortment != null) assortments.add(assortment);
+        }
         InfoForIvent infoForIvent = InfoForIvent.builder()
-                    .priseQuantity(Arrays.stream(infoForIventDTO.getPriseQuantity()).boxed().collect(Collectors.toList()))
-                    .productQuantity(Arrays.stream(infoForIventDTO.getProductQuantity()).boxed().collect(Collectors.toList()))
-                    .factQuantity(Arrays.stream(infoForIventDTO.getFactQuantity()).boxed().collect(Collectors.toList()))
-                    .factQuantityItog(Arrays.stream(infoForIventDTO.getFactQuantity()).boxed()
-                            .toList()
-                            .stream().mapToInt(Integer::intValue).sum())
-                    .productQuantityItog(Arrays.stream(infoForIventDTO.getProductQuantity()).boxed()
-                            .toList()
-                            .stream().mapToInt(Integer::intValue).sum())
-                    .priseQuantityItog(Arrays.stream(infoForIventDTO.getProductQuantity()).boxed()
-                            .toList()
-                            .stream().mapToDouble(Integer::doubleValue).sum())
-                    .assortment(assortment)
-                    .build();
-        infoForIventFromDB.add(infoForIventRepository.save(infoForIvent));
-
-        return infoForIventFromDB;
-
+                .priseQuantity(infoForIventDTO.getInfoDTOS().stream().mapToDouble(InfoDTO::getPriseQuantity).boxed().toList())
+                .productQuantity(infoForIventDTO.getInfoDTOS().stream().mapToInt(InfoDTO::getProductQuantity).boxed().toList())
+                .factQuantity(infoForIventDTO.getInfoDTOS().stream().mapToInt(InfoDTO::getFactQuantity).boxed().toList())
+                .assortment(assortments)
+                .build();
+        infoForIvent.setFactQuantityItog(infoForIvent.getFactQuantity().stream().mapToInt(Integer::intValue).sum());
+        infoForIvent.setProductQuantityItog(infoForIvent.getProductQuantity().stream().mapToInt(Integer::intValue).sum());
+        infoForIvent.setPriseQuantityItog(infoForIvent.getPriseQuantity().stream().mapToDouble(Double::doubleValue).sum());
+        return infoForIventRepository.save(infoForIvent);
     }
 }

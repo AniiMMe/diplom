@@ -42,11 +42,8 @@ public class Assortment {
     @JsonIgnore
     @OneToMany(mappedBy = "assortment",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
-    public boolean checkAssortment(List<InfoForIvent> infoForIvent, List<Assortment> assortments) {
-        return infoForIvent.stream().map(InfoForIvent::getAssortment)
-                .filter(Objects::nonNull)
-                .map(Assortment::getIdAssort).noneMatch(x->assortments.stream().map(Assortment::getIdAssort).noneMatch(x::equals));
-    }
+    @ManyToMany
+    private List<InfoForIvent> infoForIvents;
 
 
 

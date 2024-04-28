@@ -14,9 +14,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 public class InfoForIventDTO {
-    private int[] factQuantity = new int[100];
-    private int[] productQuantity = new int[100];
-    private double[] priseQuantity = new double[100];
+
+    private List<InfoDTO> infoDTOS;
 
     private int factQuantityItog;
     private int productQuantityItog;

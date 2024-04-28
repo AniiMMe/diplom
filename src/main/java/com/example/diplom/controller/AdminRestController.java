@@ -89,12 +89,11 @@ public class AdminRestController {
     public List<Assortment> getAllAssortment(){
         return assortmentService.getAllAssortment();
     }
-    @RequestMapping("check")
-    private boolean checkAssortment(List<InfoForIvent> infoForIvent, Assortment ass) {
-        if (infoForIvent == null) {
-            return true;
-        }
 
-        return infoForIvent.stream().anyMatch(x -> x.getAssortment().getIdAssort()==(ass.getIdAssort()));
+    @PostMapping("/admin/listForIvent")
+    public ResponseEntity<String> addNewInfoForIventInSession(@RequestBody List<InfoDTO> infoDTOS,
+                                                         HttpSession session){
+        session.setAttribute("listForIvent", infoDTOS);
+        return ResponseEntity.ok("");
     }
 }

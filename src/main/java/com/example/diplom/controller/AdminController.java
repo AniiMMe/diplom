@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.InfoDTO;
 import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,12 +116,12 @@ public class AdminController {
         model.addAttribute("newIvent", new InfoForIventDTO());
         return "/newInvent";
     }
-    @PostMapping("/admin/addNewIvent/{id}")
+    @PostMapping("/admin/addNewIvent")
     public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
-                                           @PathVariable int id, Model model){
-        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO, id));
-        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
-        model.addAttribute("newIvent", new InfoForIventDTO());
+                                  Model model, HttpSession session){
+        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
+        infoForIventDTO.setInfoDTOS(infoDTOS);
+        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
         return "/admin/inventSecondPage";
     }
 

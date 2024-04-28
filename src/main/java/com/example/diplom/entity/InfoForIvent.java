@@ -33,7 +33,7 @@ public class InfoForIvent {
     private int productQuantityItog;
     @Column
     private double priseQuantityItog;
-    @OneToOne
-    private Assortment assortment;
+    @ManyToMany
+    private List<Assortment> assortment;
 
 }
