@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<style>
+    .input-cell {
+        border: 0px;
+        padding: 0px;
+        margin: 0;
+
+    }
+</style>
+<main>
+    <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
+        <h4 class="mb-3" style="color: aqua">Выберите товары для возврата</h4>
+        <form class="needs-validation" id="chooseReturnForm" novalidate="" >
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label  class="form-label" style="color: aqua">id заказа</label>
+                    <input type="text" class="form-control" id="idorder" placeholder="" >
+                    <div class="invalid-feedback">
+                        Неверный id
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label" style="color: aqua">Дата возврата </label>
+                    <input type="date" class="form-control" id="date" placeholder="" >
+                    <div class="invalid-feedback">
+                        Неверная дата
+                    </div>
+                </div>
+
+                <div>
+
+                    <table id="chooseReturnTable" style="width: 1000px; ">
+                        <thead>
+                        <tr>
+                            <th style="color: aqua; " scope="col">Товар</th>
+                            <th style="color: aqua; " scope="col">Стоимость за еденицу</th>
+                            <th style="color: aqua; " scope="col">Количество</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <!--           <tbody>-->
+                        <!--            <tr th:each="e:${clients}">-->
+                        <!--                <td  style="color: #2BB789" th:text="${e.id}"/>-->
+                        <!--                <td  style="color: #2BB789" th:text="${e.fio}"/>-->
+                        <!--                <td  style="color: #2BB789" th:text="${e.adress}"/>-->
+<!--                        <input class="form-check-input" type="checkbox" value="НАЖМИ НА МЕНЯ" id="flexCheckDefault"> &lt;!&ndash;//МАША ВОТ ЕЩЁ ОДИН ЧЕКБОКС КОТОРЫЙ НАДО ВПИХНУТЬ В СКРИПТ)))))) &ndash;&gt;-->
+
+                        <!--            </tr>-->
+                        <!--            </tbody>-->
+
+                    </table>
+                </div>
+
+                <button class="w-100 btn btn-primary btn-lg" id="SendBtn" type="submit"  style="background-color: aqua; color: #238182">Выбрать товары</button>
+            </div>
+        </form>
+        <h4 class="mb-3" style="color: aqua">Оформить возврат</h4>
+        <form class="needs-validation" id="returnForm" novalidate="" >
+            <table id="ReturnTable" style="width: 1000px; ">
+                <thead>
+                <tr>
+                    <th style="color: aqua; " scope="col">Наименование товара</th> <!--Тут короче в строку перекинешь те товары, которые выбрали выше-->
+                    <th style="color: aqua; " scope="col">Количество возврата</th>
+                    <th style="color: aqua; " scope="col">Причина возврата</th>
+                </tr>
+                </thead>
+                <!--           <tbody>-->
+                <!--            <tr >-->
+                <!--                <td  style="color: #2BB789"/>-->
+<!--                <td  style="color: #2BB789">-->
+<!--               <input type="number" class="form-control" id="colvo" placeholder="" >-->
+<!--                </td>-->
+<!--                <td  style="color: #2BB789">-->
+<!--                    <input type="text" class="form-control" id="prichina" placeholder="" >-->
+<!--                </td>-->
+                <!--            </tr>-->
+                <!--            </tbody>-->
+
+            </table>
+            <button class="w-100 btn btn-primary btn-lg" id="endBut" type="submit"  style="background-color: aqua; color: #238182; margin-top: 20px">Оформить возврат</button>
+
+        </form>
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script  th:src="@{/js/main.js}" >
+</script>
+</body>
+</html>

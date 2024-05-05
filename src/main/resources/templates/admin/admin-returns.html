@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+</head>
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<main>
+    <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th style="color: #2BB789" scope="col">ID возврата</th>
+                <th  style="color: #2BB789" scope="col">Дата</th>
+                <th  style="color: #2BB789" scope="col">Клиент</th>
+                <th  style="color: #2BB789" scope="col">Причина</th>
+                <th  style="color: #2BB789" scope="col">Наименование</th>
+                <th></th>
+            </tr>
+            </thead>
+<!--            <tbody>-->
+<!--            <tr th:if="${assortments}" th:each="e:${assortments}">-->
+<!--                <td  style="color: #2BB789" th:text="${e.idAssort}"/>-->
+<!--                <td  style="color: #2BB789" th:text="${e.manufacturer}"/>-->
+<!--                <td  style="color: #2BB789" th:text="${e.productName}"/>-->
+<!--                <td  style="color: #2BB789" th:text="${e.productType}"/>-->
+<!--                <td  style="color: #2BB789" th:text="${e.count}"/>-->
+<!--                <td><a th:href="@{/admin/clients/{id}(id=${e.idAssort})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+        </table>
+        <a href="/admin/newReturn" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+    </div>
+</main>
+<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
+</body>
+</html>
