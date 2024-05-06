@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="blocks/links::div"></div>
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+</head>
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
@@ -29,6 +38,86 @@
                   </tbody>
     </table>
     <a href="/admin/newProvider" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+      <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
+              data-toggle="modal" data-target="#modalDetails">
+          кнопка
+      </button>
+      <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalDetailsLabel">Подробнее</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>Фамилия: <span id="modalDetailsSurname"></span></p>
+                      <p>Имя: <span id="modalDetailsName"></span></p>
+                      <p>Имейл: <span id="modalDetailsEmail"></span></p>
+                      <p>Телефон: <span id="modalDetailsTel"></span></p>
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedProvid">Изменить</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal fade" id="modalRedProvid" tabindex="-1" role="dialog" aria-labelledby="modalAddClientLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalAddClientLabel">Изменить поставщика</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <form class="needs-validation" novalidate="" >
+                          <div class="row g-3">
+                              <div class="col-sm-12">
+                                  <label class="form-label" style="color: aqua">ФИО</label>
+                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="">
+                                  <div class="invalid-feedback">
+                                      Некоректное ФИО
+                                  </div>
+                              </div>
+
+                              <div class="col-12">
+                                  <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
+                                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                  <div class="invalid-feedback">
+                                      Проверьте правильность имейла
+                                  </div>
+                              </div>
+
+                              <div class="col-12">
+                                  <label for="address" class="form-label" style="color: aqua">Адресс</label>
+                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" >
+                                  <div class="invalid-feedback">
+                                      Проверьте адресс
+                                  </div>
+                              </div>
+
+                              <div class="col-12">
+                                  <label class="form-label" style="color: aqua">Телефон</label>
+                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
+                                  <div class="invalid-feedback">
+                                      Проверьте телефон
+                                  </div>
+                              </div>
+
+                          </div>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
+                  </div>
+              </div>
+          </div>
+      </div>
 
   </div>
 </main>
