@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="blocks/links::div"></div>
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
@@ -38,6 +46,111 @@
           </tbody>
       </table>
     <a href="/admin/newOrder" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+      <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
+              data-toggle="modal" data-target="#modalDetails">
+          кнопка
+      </button>
+      <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalDetailsLabel">Подробнее</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>ID: <span id="modalDetailsID"></span></p>
+                      <p>Дата: <span id="modalDetailsDate"></span></p>
+                      <p>Товар: <span id="modalDetailsProduct"></span></p>
+                      <p>Цена: <span id="modalDetailsPrice"></span></p>
+                      <p>Количество: <span id="modalDetailsQuantity"></span></p>
+                      <p>Статус: <span id="modalDetailsStatus"></span></p>
+                      <p>Клиент: <span id="modalDetailsClient"></span></p>
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedOrders">Изменить</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+<!--      <div class="modal fade" id="modalRedOrders" tabindex="-1" role="dialog" aria-labelledby="modalRedOrdersLabel" aria-hidden="true">-->
+<!--          <div class="modal-dialog" role="document">-->
+<!--              <div class="modal-content">-->
+<!--                  <div class="modal-header">-->
+<!--                      <h5 class="modal-title" id="modalAddClientLabel">Изменить заказ</h5>-->
+<!--                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                          <span aria-hidden="true">&times;</span>-->
+<!--                      </button>-->
+<!--                  </div>-->
+<!--                  <div class="modal-body">-->
+<!--                      <form class="needs-validation" id="myForm" novalidate="" th:object="${orders}" th:action="*{'/admin/newOrder'}" method="post">-->
+<!--                          <div class="row g-3">-->
+<!--                              <div class="col-sm-6">-->
+<!--                                  <label  class="form-label" style="color: aqua">Выберите клиента</label>-->
+<!--                                  <select th:if="${clients}" id="client" th:field="${orders.client}">-->
+<!--                                      <option th:each="cl : ${clients}" th:value="${cl.clientId}" th:text="${cl.clientName}"></option>-->
+<!--                                  </select>-->
+<!--                                  <div class="invalid-feedback">-->
+<!--                                      Неверный клиент-->
+<!--                                  </div>-->
+<!--                              </div>-->
+
+<!--                              <div class="col-6">-->
+<!--                                  <label class="form-label" style="color: aqua">Дата поставки </label>-->
+<!--                                  <input type="date" class="form-control" id="date" placeholder="" th:field="${orders.orderDate}">-->
+<!--                                  <div class="invalid-feedback">-->
+<!--                                      Неверная дата-->
+<!--                                  </div>-->
+<!--                              </div>-->
+<!--                              <div class="col-6">-->
+<!--                                  <label class="form-label" style="color: aqua">Статус поставки </label>-->
+<!--                                  <select>&lt;!&ndash;th:if="${status}" class="form-control" id="status" th:field="${orders.orderStatus}">-->
+<!--                                      <option th:each="s : ${status}" th:value="${s.key}" th:text="${s.value}">&ndash;&gt;&lt;!&ndash;</option>&ndash;&gt;-->
+<!--                                  </select>-->
+<!--                                  <div class="invalid-feedback">-->
+<!--                                      Неверная дата-->
+<!--                                  </div>-->
+<!--                              </div>-->
+<!--                              <div>-->
+
+<!--                                  <table id="myTable" style="width: 1000px; ">-->
+<!--                                      <thead>-->
+<!--                                      <tr>-->
+<!--                                          <th style="color: aqua; " scope="col">Товар</th>-->
+<!--                                          <th style="color: aqua; " scope="col">Стоимость за еденицу</th>-->
+<!--                                          <th style="color: aqua; " scope="col">Количество</th>-->
+<!--                                      </tr>-->
+<!--                                      </thead>-->
+<!--                                      &lt;!&ndash;            Тут всё условно пока, бо я хз как вывести в табличку всю инфу по товаррам&ndash;&gt;-->
+<!--                                      &lt;!&ndash;           <tbody>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;            <tr th:each="e:${clients}">&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td  style="color: #2BB789" th:text="${e.id}"/>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td  style="color: #2BB789" th:text="${e.fio}"/>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td  style="color: #2BB789" th:text="${e.adress}"/>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td  style="color: #2BB789" th:text="${e.email}"/>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td  style="color: #2BB789" th:text="${e.phone}"/>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;                <td><a th:href="@{/admin/clients/{id}(id=${e.id})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;            </tr>&ndash;&gt;-->
+<!--                                      &lt;!&ndash;            </tbody>&ndash;&gt;-->
+
+<!--                                  </table>-->
+<!--                                  <a href="#" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px; margin-top: -50px; width: 70px" onclick="addRow()"><img src="/img/+.png" style="height: 50px; width: 50px"></a>-->
+<!--                              </div>-->
+
+<!--                              <button class="w-100 btn btn-primary btn-lg" id="SendBtn" type="submit"  style="background-color: aqua; color: #238182">Сохранить</button>-->
+<!--                          </div>-->
+
+<!--                      </form>                  </div>-->
+<!--                  <div class="modal-footer">-->
+<!--                      <button type="submit" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--      </div>-->
+
   </div>
 </main>
 <!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->

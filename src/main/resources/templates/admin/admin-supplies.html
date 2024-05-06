@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="blocks/links::div"></div>
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
@@ -31,6 +39,37 @@
                   </tbody>
     </table>
     <a  href="/admin/newSupply" type="button"  class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+      <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
+              data-toggle="modal" data-target="#modalDetails">
+          кнопка
+      </button>
+      <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalDetailsLabel">Подробнее</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>ID: <span id="modalDetailsID"></span></p>
+                      <p>Дата: <span id="modalDetailsDate"></span></p>
+                      <p>Товар: <span id="modalDetailsProduct"></span></p>
+                      <p>Цена: <span id="modalDetailsPrice"></span></p>
+                      <p>Количество: <span id="modalDetailsQuantity"></span></p>
+                      <p>Статус: <span id="modalDetailsStatus"></span></p>
+                      <p>Поставщик: <span id="modalDetailsSupplier"></span></p>
+
+                  </div>
+                  <div class="modal-footer">
+<!--                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedOrders">Изменить</button>-->
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
   </div>
 </main>
 <!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
