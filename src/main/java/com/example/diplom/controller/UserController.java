@@ -1,8 +1,6 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.service.AssortmentService;
-import com.example.diplom.service.ClientService;
-import com.example.diplom.service.ProvidersService;
+import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,9 @@ public class UserController {
     private final ClientService clientService;
     private final ProvidersService providersService;
     private final AssortmentService assortmentService;
-
+    private final OrderService orderService;
+    private final ProductService productService;
+    private final SupplyService supplyService;
     @GetMapping("/user")
     public String getStart() {
         return "/user/userpanel";
@@ -33,5 +33,10 @@ public class UserController {
     public String getAssortPage(Model model){
         model.addAttribute("assortments", assortmentService.getAllAssortment());
         return "/user/user-ass";
+    }
+    @GetMapping("/user/products")
+    public  String getProductsPage(Model model){
+        model.addAttribute("products", productService.getAllProducts());
+        return "/user/user-products";
     }
 }
