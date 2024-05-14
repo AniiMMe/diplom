@@ -60,4 +60,15 @@ public class UserController {
         model.addAttribute("status", StatusOrder.getStatus());
         return "/user/newOrder";
     }
+    @GetMapping("/user/supplies")
+    public  String getSuppliesPage(Model model){
+        model.addAttribute("supplies", supplyService.getAllSupplies());
+        return "/user/user-supplies";
+    }
+    @GetMapping("/user/newSupply")
+    public  String getNewSypplyPage(Model model){
+        model.addAttribute("provider", providersService.getAllProvider());
+        model.addAttribute("supply", new SupplyDTO());
+        return "user/newSupply";
+    }
 }
