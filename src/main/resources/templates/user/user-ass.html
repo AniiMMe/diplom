@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<div th:insert="blocks/links::div"></div>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/userSidebare :: userSidebare"></div>
+<main>
+  <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
+      <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
+          <div th:name="sort" style="width: 475px; display: flex; align-items: center;">
+              <button class="btn btn-primary rounded-pill px-3" type="button" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>
+              <select class="form-select" style="margin-left: 10px; width: 150px">
+                  <option value="" selected disabled>По признаку</option>
+                  <option value="признак1">Признак 1</option>
+                  <option value="признак2">Признак 2</option>
+                  <option value="признак3">Признак 3</option>
+              </select>
+          </div>
+
+
+          <div th:name="search" style="width: 475px; display: flex; align-items: end;">
+              <form role="search">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">
+              </form>
+              <select class="form-select" style="margin-left: 10px; width: 160px">
+                  <option value="" selected disabled>По параметру</option>
+                  <option value="признак1">Параметр 1</option>
+                  <option value="признак2">Параметр 2</option>
+                  <option value="признак3">Параметр 3</option>
+              </select>
+          </div>
+      </div>
+
+      <table class="table table-striped table-sm" style="margin-top: 20px">
+      <thead>
+      <tr>
+        <th style="color: #2BB789" scope="col">ID</th>
+        <th  style="color: #2BB789" scope="col">Изготовитель</th>
+        <th  style="color: #2BB789" scope="col">Название</th>
+        <th  style="color: #2BB789" scope="col">Тип продукта</th>
+        <th  style="color: #2BB789" scope="col">Форма выпуска</th>
+        <th></th>
+      </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:if="${assortments}" th:each="e:${assortments}">
+                      <td  style="color: #2BB789" th:text="${e.idAssort}"/>
+                      <td  style="color: #2BB789" th:text="${e.manufacturer}"/>
+                      <td  style="color: #2BB789" th:text="${e.productName}"/>
+                      <td  style="color: #2BB789" th:text="${e.productType}"/>
+                      <td  style="color: #2BB789" th:text="${e.count}"/>
+                      <td><a th:href="@{/admin/clients/{id}(id=${e.idAssort})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
+                  </tr>
+                  </tbody>
+    </table>
+      <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
+              data-toggle="modal" data-target="#modalDetails">
+          кнопка
+      </button>
+      <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalDetailsLabel">Подробнее</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>Изготовитель: <span id="modalDetailsMan"></span></p>
+                      <p>Название: <span id="modalDetailsName"></span></p>
+                      <p>Тип продукта: <span id="modalDetailsType"></span></p>
+                      <p>Форма выпуска: <span id="modalDetailsForm"></span></p>
+
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</main>
+<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
+</body>
+</html>
