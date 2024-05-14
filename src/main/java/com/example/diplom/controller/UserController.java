@@ -1,6 +1,7 @@
 package com.example.diplom.controller;
 
 import com.example.diplom.service.ClientService;
+import com.example.diplom.service.ProvidersService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class UserController {
     private final ClientService clientService;
+    private final ProvidersService providersService;
 
     @GetMapping("/user")
     public String getStart() {
@@ -20,4 +22,9 @@ public class UserController {
         model.addAttribute("clients", clientService.getAllClients());
         return "/user/user-clients";
 }
+    @GetMapping("/user/providers")
+    public  String getProvidersPage(Model model){
+        model.addAttribute("providers", providersService.getAllProvider());
+        return "/user/user-providers";
+    }
 }
