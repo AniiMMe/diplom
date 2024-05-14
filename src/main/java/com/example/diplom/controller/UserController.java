@@ -82,4 +82,13 @@ public class UserController {
         model.addAttribute("newIvent", new InfoForIventDTO());
         return "user/newInvent";
     }
+    @GetMapping("/user/returns")
+    public String getReturns() {
+        return "/user/user-returns";
+    }
+
+    @GetMapping("/user/newReturn")
+    public String getNewReturn() {
+        return "/user/newReturn";
+    }
 }
