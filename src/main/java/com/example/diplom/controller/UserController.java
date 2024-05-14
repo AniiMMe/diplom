@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserController {
     @GetMapping("/user")
     public String getStart() {
-        return "/userpanel";
+        return "/user/userpanel";
     }
 }
