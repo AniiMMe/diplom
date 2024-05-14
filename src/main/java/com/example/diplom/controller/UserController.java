@@ -1,10 +1,16 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.OrderDTO;
+import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.entity.StatusOrder;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -38,5 +44,20 @@ public class UserController {
     public  String getProductsPage(Model model){
         model.addAttribute("products", productService.getAllProducts());
         return "/user/user-products";
+    }
+    @GetMapping("/user/orders")
+    public  String getOrdersPage(Model model){
+        model.addAttribute("order", orderService.getAllOrder());
+        return "/user/user-order";
+    }
+    @GetMapping("/user/newOrder")
+    public  String getNewOrderPage(Model model){
+        List<OrderProductDTO> products = new ArrayList<>();
+        List<String> assortment = new ArrayList<>();
+        model.addAttribute("orders", new OrderDTO());
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("products", products);
+        model.addAttribute("status", StatusOrder.getStatus());
+        return "/user/newOrder";
     }
 }
