@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.StatusOrder;
@@ -70,5 +71,15 @@ public class UserController {
         model.addAttribute("provider", providersService.getAllProvider());
         model.addAttribute("supply", new SupplyDTO());
         return "user/newSupply";
+    }
+    @GetMapping("/user/invent")
+    public  String getInventPage(){
+        return "/user/user-invent";
+    }
+    @GetMapping("/user/newInvent")
+    public  String getNewInventPage(Model model){
+        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
+        model.addAttribute("newIvent", new InfoForIventDTO());
+        return "user/newInvent";
     }
 }
