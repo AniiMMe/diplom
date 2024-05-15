@@ -11,7 +11,7 @@
 
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
-<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<div th:insert="blocks/userSidebare :: userSidebare"></div>
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
       <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
@@ -54,18 +54,16 @@
                   <tr th:if="${supplies}" th:each="e:${supplies}">
                       <td  style="color: #2BB789" th:text="${e.supplyId}"/>
                       <td  style="color: #2BB789" th:text="${e.supplyDate}"/>
-                      <td style="color: #2BB789">
-                          <span th:if="${e.productsList}" th:each="pr:${e.productsList}">
-                           <span style="color: #2BB789" th:text="${pr.assortment.productName}"></span><br>
-                          </span>
-                      </td>
+                    <table th:if="${e.productsList}" th:each="pr:${e.productsList}">
+                      <tr style="color: #2BB789" th:text="${pr.assortment.productName}" ></tr>
+                    </table>
                       <td  style="color: #2BB789" th:text="${e.supplyCost}"/>
                       <td  style="color: #2BB789" th:text="${e.providers.providerName}"/>
                       <td><a th:href="@{/admin/clients/{id}(id=${e.supplyId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
                   </tr>
                   </tbody>
     </table>
-    <a  href="/admin/newSupply" type="button"  class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+    <a  href="/user/newSupply" type="button"  class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
       <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
               data-toggle="modal" data-target="#modalDetails">
           кнопка

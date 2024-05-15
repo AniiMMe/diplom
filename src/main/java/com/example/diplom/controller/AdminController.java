@@ -131,6 +131,15 @@ public class AdminController {
         return "/admin/inventSecondPage";
     }
 
+    @GetMapping("/admin/returns")
+    public String getReturns() {
+        return "/admin/admin-returns";
+    }
+
+    @GetMapping("/admin/newReturn")
+    public String getNewReturn() {
+        return "/newReturn";
+    }
 
 
 }

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
 <head>
     <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
 </head>
-<div th:insert="blocks/links::div"></div>
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
-<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<div th:insert="blocks/userSidebare :: userSidebare"></div>
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
       <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
@@ -52,18 +52,16 @@
       </tr>
                   </thead>
                   <tbody>
-                  <tr th:if="${clients}" th:each="e:${clients}">
-                      <td  style="color: #2BB789" th:text="${e.clientId}"/>
-                      <td  style="color: #2BB789" th:text="${e.clientName}"/>
-                      <td  style="color: #2BB789" th:text="${e.clientAddress}"/>
-                      <td  style="color: #2BB789" th:text="${e.clientEmail}"/>
-                      <td  style="color: #2BB789" th:text="${e.clientTel}"/>
-                      <td><a th:href="@{/admin/clients/{id}(id=${e.clientId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
+                  <tr th:if="${providers}" th:each="e:${providers}">
+                      <td  style="color: #2BB789" th:text="${e.providerId}"/>
+                      <td  style="color: #2BB789" th:text="${e.providerName}"/>
+                      <td  style="color: #2BB789" th:text="${e.providerAddress}"/>
+                      <td  style="color: #2BB789" th:text="${e.providerEmail}"/>
+                      <td  style="color: #2BB789" th:text="${e.providerTel}"/>
+                      <td><a th:href="@{/admin/clients/{id}(id=${e.providerId})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>
                   </tr>
                   </tbody>
     </table>
-    <a href="/admin/newClient" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
-
       <button type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px"
               data-toggle="modal" data-target="#modalDetails">
           кнопка
@@ -85,17 +83,16 @@
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedProvid">Изменить</button>
                   </div>
               </div>
           </div>
       </div>
-      <div class="modal fade" id="modalRedClient" tabindex="-1" role="dialog" aria-labelledby="modalAddClientLabel" aria-hidden="true">
+      <div class="modal fade" id="modalRedProvid" tabindex="-1" role="dialog" aria-labelledby="modalAddClientLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="modalAddClientLabel">Изменить клиента</h5>
+                      <h5 class="modal-title" id="modalAddClientLabel">Изменить поставщика</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -144,6 +141,7 @@
               </div>
           </div>
       </div>
+
   </div>
 </main>
 <!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
