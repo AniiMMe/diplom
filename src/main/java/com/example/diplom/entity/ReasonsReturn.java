@@ -1,6 +1,7 @@
 package com.example.diplom.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class ReasonsReturn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +19,8 @@ public class ReasonsReturn {
     @Column
     private String reasons;
     @Column
-    private Long countProduct;
+    private int countProduct;
     @OneToOne
     private Product product;
-    @ManyToOne
-    private ReturnProduct returnProduct;
+
 }

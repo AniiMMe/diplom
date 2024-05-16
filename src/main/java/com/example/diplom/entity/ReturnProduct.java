@@ -1,6 +1,7 @@
 package com.example.diplom.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class ReturnProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

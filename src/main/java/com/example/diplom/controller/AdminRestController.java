@@ -1,5 +1,6 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.config.AnswerMessage;
 import com.example.diplom.dto.*;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.Order;
@@ -27,6 +29,7 @@ public class AdminRestController {
     private final OrderService orderService;
     private final ProductService productService;
     private final SupplyService supplyService;
+    private final ReturnProductService returnProductService;
     @PostMapping("/admin/newUser")
     public ResponseEntity<String> checkNewUser(@RequestBody Workers workers, @RequestParam("userStatys") String status, Model model){
         workers.setRoles(Collections.singleton(UserRole.USER));
@@ -105,7 +108,14 @@ public class AdminRestController {
     }
     @PostMapping("/admin/addNewReturn")
     public ResponseEntity<Map<String, String>> addNewReturn(@RequestBody
-                                                                @Valid ReturnProductDto returnProductDto){
-        return null;
+                                                                @Valid ReturnProductDto returnProductDto,
+                                                            BindingResult result){
+        if (result.hasErrors()){
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(
+               returnProductService.checkError(returnProductDto, result)
+            ));
+        }
+        returnProductService.add(returnProductDto);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Возврат успешно оформлен!"));
     }
 }

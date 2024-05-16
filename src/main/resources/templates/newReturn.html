@@ -121,7 +121,7 @@
             returnProduct.innerHTML +=
                 `  <tr >
                                 <td  style="color: #2BB789">
-                                <input type="hidden" id="idProduct${count}">
+                                <input type="hidden" id="idProduct${count}" value="${x.productId}">
                                 <input type="text" readonly id="nameProduct${count}" value="${x.productName}">
                                 </td>
                                 <td  style="color: #2BB789">
@@ -164,7 +164,18 @@
             body: JSON.stringify(data)
         }).then(response => response.json())
             .then(answer=>{
-
+                if (answer.status === "success") {
+                    alert(answer.message);
+                    window.location.href = '/admin';
+                } else if (answer.status === "bad") {
+                    for (const x in answer) {
+                        if (x!=="bad"){
+                            alert(answer[x]);
+                        }}
+                }
+                else {
+                    console.error('Произошла ошибка:', answer.message);
+                }
             });
     }
 </script>
