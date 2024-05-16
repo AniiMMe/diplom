@@ -11,7 +11,9 @@
     <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
         <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
             <div th:name="sort" style="width: 475px; display: flex; align-items: center;">
-                <button class="btn btn-primary rounded-pill px-3" type="button" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>
+                <button class="btn btn-primary rounded-pill px-3" type="button"
+                        style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать
+                </button>
                 <select class="form-select" style="margin-left: 10px; width: 150px">
                     <option value="" selected disabled>По признаку</option>
                     <option value="признак1">Признак 1</option>
@@ -23,7 +25,8 @@
 
             <div th:name="search" style="width: 475px; display: flex; align-items: end;">
                 <form role="search">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                           style="background-color: #31bfc6; color: #f2f0f8">
                 </form>
                 <select class="form-select" style="margin-left: 10px; width: 160px">
                     <option value="" selected disabled>По параметру</option>
@@ -38,25 +41,31 @@
             <thead>
             <tr>
                 <th style="color: #2BB789" scope="col">ID возврата</th>
-                <th  style="color: #2BB789" scope="col">Дата</th>
-                <th  style="color: #2BB789" scope="col">Клиент</th>
-                <th  style="color: #2BB789" scope="col">Причина</th>
-                <th  style="color: #2BB789" scope="col">Наименование</th>
+                <th style="color: #2BB789" scope="col">Дата</th>
+                <th style="color: #2BB789" scope="col">Клиент</th>
+                <th style="color: #2BB789" scope="col">Причина</th>
+                <th style="color: #2BB789" scope="col">Наименование</th>
                 <th></th>
             </tr>
             </thead>
-<!--            <tbody>-->
-<!--            <tr th:if="${assortments}" th:each="e:${assortments}">-->
-<!--                <td  style="color: #2BB789" th:text="${e.idAssort}"/>-->
-<!--                <td  style="color: #2BB789" th:text="${e.manufacturer}"/>-->
-<!--                <td  style="color: #2BB789" th:text="${e.productName}"/>-->
-<!--                <td  style="color: #2BB789" th:text="${e.productType}"/>-->
-<!--                <td  style="color: #2BB789" th:text="${e.count}"/>-->
-<!--                <td><a th:href="@{/admin/clients/{id}(id=${e.idAssort})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
+            <tbody th:if="${!returnProductList.isEmpty()}" th:each="retProd:${returnProductList}">
+            <tr th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                th:text="${retProd.idReturnProduct}"></tr>
+            <tr th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                th:text="${retProd.idReturnProduct}"></tr>
+            <tr th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                th:text="${retProd.idReturnProduct}"></tr>
+            <tr th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                th:text="${retProd.idReturnProduct}"></tr>
+            <tr style="color: #2BB789" th:each="info, i:${retProd.reasonsReturns}">
+                <td style="color: #2BB789" th:text="${info.product.assortment.productName}"></td>
+                <td style="color: #2BB789" th:text="${info.reasons}"></td>
+                <td style="color: #2BB789" th:text="${info.countProduct}"></td>
+            </tr>
+            </tbody>
         </table>
-        <a href="/admin/newReturn" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+        <a href="/admin/newReturn" type="button" class="btn btn-outline-primary me-2"
+           style="background-color: #238182; border-color: #238182; margin-left: 900px"> <img src="/img/+.png" style="height: 50px; width: 50px"></a>
     </div>
 </main>
 <!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->

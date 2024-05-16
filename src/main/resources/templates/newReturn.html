@@ -15,11 +15,12 @@
 <main>
     <div class="col-md-7 col-lg-8" style="margin-left: 300px; margin-top: -600px">
         <h4 class="mb-3" style="color: aqua">Выберите товары для возврата</h4>
-        <form class="needs-validation" id="chooseReturnForm" novalidate="" >
+        <form class="needs-validation" id="chooseReturnForm" novalidate="">
             <div class="row g-3">
                 <div class="col-sm-6">
-                    <label  class="form-label" style="color: aqua">id заказа</label>
-                    <input type="text" class="form-control" id="idorder" placeholder="" >
+                    <label class="form-label" style="color: aqua">id заказа</label>
+                    <input type="text" class="form-control" id="idorder" placeholder="">
+                    <button type="button" th:onclick="|findOrder()|"></button>
                     <div class="invalid-feedback">
                         Неверный id
                     </div>
@@ -27,7 +28,7 @@
 
                 <div class="col-6">
                     <label class="form-label" style="color: aqua">Дата возврата </label>
-                    <input type="date" class="form-control" id="date" placeholder="" >
+                    <input type="date" class="form-control" id="date" placeholder="">
                     <div class="invalid-feedback">
                         Неверная дата
                     </div>
@@ -44,52 +45,129 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <!--           <tbody>-->
-                        <!--            <tr th:each="e:${clients}">-->
-                        <!--                <td  style="color: #2BB789" th:text="${e.id}"/>-->
-                        <!--                <td  style="color: #2BB789" th:text="${e.fio}"/>-->
-                        <!--                <td  style="color: #2BB789" th:text="${e.adress}"/>-->
-<!--                        <input class="form-check-input" type="checkbox" value="НАЖМИ НА МЕНЯ" id="flexCheckDefault"> &lt;!&ndash;//МАША ВОТ ЕЩЁ ОДИН ЧЕКБОКС КОТОРЫЙ НАДО ВПИХНУТЬ В СКРИПТ)))))) &ndash;&gt;-->
+                        <tbody id="bodyCheckBox">
 
-                        <!--            </tr>-->
-                        <!--            </tbody>-->
+                        </tbody>
 
                     </table>
                 </div>
 
-                <button class="w-100 btn btn-primary btn-lg" id="SendBtn" type="submit"  style="background-color: aqua; color: #238182">Выбрать товары</button>
+                <button class="w-100 btn btn-primary btn-lg" id="SendBtn" type="button" onclick="chooseProduct()"
+                        style="background-color: aqua; color: #238182">Выбрать товары
+                </button>
             </div>
         </form>
         <h4 class="mb-3" style="color: aqua">Оформить возврат</h4>
-        <form class="needs-validation" id="returnForm" novalidate="" >
+        <form class="needs-validation" id="returnForm" novalidate="">
             <table id="ReturnTable" style="width: 1000px; ">
                 <thead>
                 <tr>
-                    <th style="color: aqua; " scope="col">Наименование товара</th> <!--Тут короче в строку перекинешь те товары, которые выбрали выше-->
+                    <th style="color: aqua; " scope="col">Наименование товара</th>
                     <th style="color: aqua; " scope="col">Количество возврата</th>
                     <th style="color: aqua; " scope="col">Причина возврата</th>
                 </tr>
                 </thead>
-                <!--           <tbody>-->
-                <!--            <tr >-->
-                <!--                <td  style="color: #2BB789"/>-->
-<!--                <td  style="color: #2BB789">-->
-<!--               <input type="number" class="form-control" id="colvo" placeholder="" >-->
-<!--                </td>-->
-<!--                <td  style="color: #2BB789">-->
-<!--                    <input type="text" class="form-control" id="prichina" placeholder="" >-->
-<!--                </td>-->
-                <!--            </tr>-->
-                <!--            </tbody>-->
+                <tbody id="returnProduct">
+
+                </tbody>
 
             </table>
-            <button class="w-100 btn btn-primary btn-lg" id="endBut" type="submit"  style="background-color: aqua; color: #238182; margin-top: 20px">Оформить возврат</button>
+            <button class="w-100 btn btn-primary btn-lg" id="endBut" onclick="sendFormReturn()" type="button"
+                    style="background-color: aqua; color: #238182; margin-top: 20px">Оформить возврат
+            </button>
 
         </form>
     </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script  th:src="@{/js/main.js}" >
+<script>
+    let count = 0;
+    let info = [];
+
+    function findOrder() {
+        const id = document.getElementById("idorder").value;
+        fetch("/admin/findOrder/" + id, {
+            method: 'GET'
+        }).then(res => res.json())
+            .then(data => {
+                const idCheckOrder = document.getElementById("bodyCheckBox");
+                info = data;
+                data.forEach(prod => {
+                    idCheckOrder.innerHTML += `
+                                    <tr >
+                                        <td  style="color: #2BB789">${prod.productName}</td>
+                                        <td  style="color: #2BB789">${prod.productPrice}</td>
+                                        <td  style="color: #2BB789">${prod.productQuantity}</td>
+                        <td><input class="form-check-input" name="prodCheck" type="checkbox" value="${prod.productId}" id="flexCheckDefault"></td>
+                                    </tr>`;
+                });
+
+            })
+    }
+
+    function chooseProduct() {
+        var checkboxes = document.getElementsByName('prodCheck');
+        var selectedValues = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                info.forEach(x => {
+                    if (x.productId.toString() === checkboxes[i].value)
+                        selectedValues.push(x);
+                });
+            }
+        }
+        const returnProduct = document.getElementById("returnProduct");
+        selectedValues.forEach(x=>{
+            returnProduct.innerHTML +=
+                `  <tr >
+                                <td  style="color: #2BB789">
+                                <input type="hidden" id="idProduct${count}">
+                                <input type="text" readonly id="nameProduct${count}" value="${x.productName}">
+                                </td>
+                                <td  style="color: #2BB789">
+                               <input type="number" class="form-control" id="colvo${count}" placeholder="" >
+                                </td>
+                                <td  style="color: #2BB789">
+                                    <input type="text" class="form-control" id="prichina${count}" placeholder="" >
+                                </td>
+                            </tr>`;
+            count++;
+        });
+    }
+    function sendFormReturn(){
+        const idOrder = document.getElementById("idorder").value;
+        const dateReturn = document.getElementById("date").value;
+        let lisReturnsProducts = [];
+        for(let i=0; i <count; i++){
+            const nameProduct = document.getElementById("nameProduct"+i).value;
+            const colvo = document.getElementById("colvo"+i).value;
+            const prichina = document.getElementById("prichina"+i).value;
+            const idProduct = document.getElementById("idProduct"+i).value;
+            const prod =  {
+                idProduct: idProduct,
+                nameProduct: nameProduct,
+                colvo: colvo,
+                prichina: prichina
+            }
+            lisReturnsProducts.push(prod)
+        }
+        const data = {
+            idOrder: idOrder,
+            dateReturn: dateReturn,
+            products: lisReturnsProducts
+        }
+        fetch('/admin/addNewReturn',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+            .then(answer=>{
+
+            });
+    }
 </script>
+
 </body>
 </html>

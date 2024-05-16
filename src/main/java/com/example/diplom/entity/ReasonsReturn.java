@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class ReasonsReturn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

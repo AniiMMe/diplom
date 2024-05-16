@@ -28,6 +28,7 @@ public class AdminController {
     private final OrderService orderService;
     private final ProductService productService;
     private final SupplyService supplyService;
+    private final ReturnProductService returnProductService;
 
     @GetMapping("/admin")
     public String getStart() {
@@ -132,7 +133,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/returns")
-    public String getReturns() {
+    public String getReturns(Model model) {
+        model.addAttribute("returnProductList", returnProductService.getAll());
         return "/admin/admin-returns";
     }
 

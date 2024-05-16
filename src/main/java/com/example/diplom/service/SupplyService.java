@@ -26,6 +26,7 @@ public class SupplyService {
         List<Product> productList = new ArrayList<>();
         products.forEach(x->{
             productList.add(productRepository.save(Product.builder()
+                            .productName(assortmentRepository.findById(x.getIdAssortment()).orElse(null).getProductName())
                             .productStartdata(x.getProductStartdata())
                             .productQuantity(x.getCountProductFromAssortment())
                             .productPrice(x.getCostForOneProduct())

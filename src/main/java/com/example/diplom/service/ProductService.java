@@ -1,8 +1,10 @@
 package com.example.diplom.service;
 
 import com.example.diplom.entity.Assortment;
+import com.example.diplom.entity.Orders;
 import com.example.diplom.entity.Product;
 import com.example.diplom.reposiroty.AssortmentRepository;
+import com.example.diplom.reposiroty.OrdersRepository;
 import com.example.diplom.reposiroty.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProductService {
     private final ProductRepository productRepository;
     private final AssortmentRepository assortmentRepository;
+    private final OrdersRepository ordersRepository;
 
     public List<Product> addNewProduct(List<Product> productList, List<String> assortment) {
         List<Product> productListFromDB = new ArrayList<>();
@@ -79,5 +82,10 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getAllProductsByOrder(int id) {
+        Orders orders = ordersRepository.getById(id);
+        return orders.getProducts();
     }
 }

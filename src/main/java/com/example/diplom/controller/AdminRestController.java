@@ -4,14 +4,17 @@ import com.example.diplom.dto.*;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -95,5 +98,14 @@ public class AdminRestController {
                                                          HttpSession session){
         session.setAttribute("listForIvent", infoDTOS);
         return ResponseEntity.ok("");
+    }
+    @GetMapping("/admin/findOrder/{id}")
+    public List<Product> findProductByOrder(@PathVariable int id){
+        return productService.getAllProductsByOrder(id);
+    }
+    @PostMapping("/admin/addNewReturn")
+    public ResponseEntity<Map<String, String>> addNewReturn(@RequestBody
+                                                                @Valid ReturnProductDto returnProductDto){
+        return null;
     }
 }

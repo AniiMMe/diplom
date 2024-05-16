@@ -60,6 +60,7 @@ async function send(url, method, data) {
 
 const form = document.getElementById("formOrder");
 form.addEventListener("submit", function (event) {
+    event.preventDefault();
     var form = document.getElementById('formOrder');
     var formData = new FormData(form);
     var products = [];

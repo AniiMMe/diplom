@@ -58,6 +58,7 @@ public class OrderService {
                 .orderStatus(order.getOrderStatus())
                 .client(client)
                 .build();
+        orders.setProducts(productOrder);
         ordersRepository.save(orders);
     }
 
