@@ -91,4 +91,8 @@ public class UserController {
     public String getNewReturn() {
         return "/user/newReturn";
     }
+    @GetMapping("/user/inventSecondPage")
+    public String getInventSecondPage() {
+        return "/user/inventSecondPage";
+    }
 }
