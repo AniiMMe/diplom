@@ -1,7 +1,9 @@
 package com.example.diplom.service;
 
+import com.example.diplom.dto.AssortmentDTO;
 import com.example.diplom.dto.InfoDTO;
 import com.example.diplom.dto.InfoForIventDTO;
+import com.example.diplom.dto.ReturnProductDto;
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.InfoForIvent;
 import com.example.diplom.entity.Product;
@@ -9,11 +11,11 @@ import com.example.diplom.reposiroty.AssortmentRepository;
 import com.example.diplom.reposiroty.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -30,7 +32,24 @@ public class AssortmentService {
         if (assortmentRepository.existsByProductName(assortment.getProductName())) return "Такая товар уже существует";
         return null;
     }
-
+    //бегаешь по case и смотришь где ошибка
+    public Map<String, String> checkErrorSwitch(AssortmentDTO returnProductDto, BindingResult result) {
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "dateReturn":{
+                    descriptionError.put("dateReturn", "ТЫ ДУРАК!");
+                    break;
+                }
+            }});
+        return descriptionError;
+    }
+    // проверяешь логику
+    public Map<String, String> checkError(AssortmentDTO returnProductDto, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        if (returnProductDto.getCount()<0) descriptionError.put("count","Ты лох!");
+        return descriptionError;
+    }
     public void addNewAssortment(Assortment assortment) {
         assortmentRepository.save(assortment);
     }
