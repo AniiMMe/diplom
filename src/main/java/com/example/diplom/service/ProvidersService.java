@@ -1,11 +1,16 @@
 package com.example.diplom.service;
 
+
+import com.example.diplom.dto.ProvidersDTO;
 import com.example.diplom.entity.Providers;
 import com.example.diplom.reposiroty.ProvidersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +21,31 @@ public class ProvidersService {
         if (providersRepository.existsByProviderEmail(provider.getProviderEmail())) return "Такая почта уже существует";
         return null;
     }
+    public Map<String, String> checkErrorSwitch(ProvidersDTO returnProvidersDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "providerName":{
+                    descriptionError.put("providerName", "Введите ФИО");
+                    break;
+                }
+                case "providerEmail":{
+                    descriptionError.put("providerEmail", "Введите Электронную почту");
+                    break;
+                }
+                case "providerAddress":{
+                    descriptionError.put("providerAddress", "Введите адрес клиента");
+                    break;
+                }
+                case "providerTel":{
+                    descriptionError.put("providerTel", "Введите номер телефона");
+                    break;
+                }
+            }});
+
+        return descriptionError;
+    }
+
 
     public void addNewProvider(Providers provider) {
         providersRepository.save(provider);
