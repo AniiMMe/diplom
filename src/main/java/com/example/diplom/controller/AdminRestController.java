@@ -31,10 +31,10 @@ public class AdminRestController {
     private final SupplyService supplyService;
     private final ReturnProductService returnProductService;
     @PostMapping("/admin/newUser")
-    public ResponseEntity<String> checkNewUser(@RequestBody Workers workers, @RequestParam("userStatys") String status, Model model){
+    public ResponseEntity<String> checkNewUser(@ModelAttribute Workers workers,
+
+                                               Model model){
         workers.setRoles(Collections.singleton(UserRole.USER));
-        if (status.equals("true")) workers.setActive(true);
-        else workers.setActive(false);
         if (userService.checkNewUser(workers) == null) {
             userService.addNewUser(workers);
             return ResponseEntity.ok("Пользователь успешно добавлен!");

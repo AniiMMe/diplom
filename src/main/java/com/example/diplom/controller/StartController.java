@@ -13,6 +13,6 @@ public class StartController {
         return "/main";
     }
     //добавишь страницу входа
-    @GetMapping("/logIn")
+    @GetMapping("/login")
     public String  getLogIn(){ return "/logIn";}
 }

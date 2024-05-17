@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final MailSender mailSender;
     public String checkNewUser(Workers workers) {
         if (userRepository.existsByLogin(workers.getLogin())) return "Такой логин уже существует!";
         if (userRepository.existsByWorkerEmail(workers.getWorkerEmail())) return "Такая почта уже существует";
@@ -24,6 +26,16 @@ public class UserService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(workers.getPassword());
         workers.setUserPassward(encodedPassword);
+        if (!StringUtils.isEmpty(workers.getWorkerEmail())) {
+            String message = String.format(
+                    "Здравствуйте, %s %s %s! \n" +
+                            "Добро пожаловать в систему склада. " +
+                            "Перейдите по ссылке для авторизации: http://localhost:8088/login",
+                    workers.getWorkerSurname(), workers.getWorkerName()
+            );
+
+            mailSender.send(workers.getWorkerEmail(), "Activation code", message);
+        }
         userRepository.save(workers);
 
     }
