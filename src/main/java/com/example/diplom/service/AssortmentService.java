@@ -29,7 +29,7 @@ public class AssortmentService {
 
     // в этом методе я предполагаю уникального название товара
     public String checkNewAssortment(Assortment assortment) {
-        if (assortmentRepository.existsByProductName(assortment.getProductName())) return "Такая товар уже существует";
+        if (assortmentRepository.existsByProductName(assortment.getProductName())) return "Такой товар уже существует";
         return null;
     }
     //бегаешь по case и смотришь где ошибка
@@ -38,7 +38,7 @@ public class AssortmentService {
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){
                 case "dateReturn":{
-                    descriptionError.put("dateReturn", "ТЫ ДУРАК!");
+                    descriptionError.put("dateReturn", "Неверная дата");
                     break;
                 }
             }});
@@ -47,7 +47,7 @@ public class AssortmentService {
     // проверяешь логику
     public Map<String, String> checkError(AssortmentDTO returnProductDto, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
-        if (returnProductDto.getCount()<0) descriptionError.put("count","Ты лох!");
+        if (returnProductDto.getCount()<0) descriptionError.put("count","Неверное количество!");
         return descriptionError;
     }
     public void addNewAssortment(Assortment assortment) {
