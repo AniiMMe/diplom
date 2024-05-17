@@ -142,6 +142,9 @@ public class AdminController {
     public String getNewReturn() {
         return "/newReturn";
     }
-
+    @GetMapping("/admin/analit")
+    public String getAnailt() {
+        return "/admin/admin-analit";
+    }
 
 }
