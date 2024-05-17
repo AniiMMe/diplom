@@ -1,5 +1,8 @@
 package com.example.diplom.service;
 
+
+import com.example.diplom.dto.UserDTO;
+import com.example.diplom.dto.WorkersDTO;
 import com.example.diplom.entity.Workers;
 import com.example.diplom.reposiroty.UserRepository;
 import lombok.AllArgsConstructor;
@@ -7,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +46,42 @@ public class UserService {
         }
         userRepository.save(workers);
 
+    }
+    public Map<String, String> checkErrorSwitch(UserDTO userDTO, WorkersDTO workersDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "workerName":{
+                    descriptionError.put("workerName", "Введите имя");
+                    break;
+                }
+                case "workerSurname":{
+                    descriptionError.put("workerSurname", "Введите фамилию");
+                    break;
+                }
+                case "workerEmail":{
+                    descriptionError.put("workerEmail", "Введите Электронную почту");
+                    break;
+                }
+                case "active":{
+                    descriptionError.put("active", "Активируйте пользователя");
+                    break;
+                }
+                case "workerTel":{
+                    descriptionError.put("workerTel", "Введите номер телефона");
+                    break;
+                }
+                case "login":{
+                    descriptionError.put("login", "Введите логин");
+                    break;
+                }
+                case "userPassward":{
+                    descriptionError.put("userPassward", "Введите пароль");
+                    break;
+                }
+            }});
+
+        return descriptionError;
     }
 
     public List<Workers> getAllWorkers(){
