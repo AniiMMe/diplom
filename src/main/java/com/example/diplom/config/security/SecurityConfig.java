@@ -1,9 +1,10 @@
 package com.example.diplom.config.security;
 
+
+
 import com.example.diplom.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,11 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**","/registration","/infoBox","/").permitAll()
+                .antMatchers("/**","/js/**","/css/**","/registration","/infoBox","/").permitAll()
                 .antMatchers("/admin/**", "/user/**").hasAuthority("ADMIN")
-                .antMatchers("/employee/**").hasAuthority("EMPLOYEE")
-                .antMatchers("/manager/**").hasAuthority("MANAGER")
-                .antMatchers(HttpMethod.POST, "/employee/add-new-product").hasAuthority("EMPLOYEE")
+                .antMatchers("/employee/**").hasAuthority("CLIENT")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
