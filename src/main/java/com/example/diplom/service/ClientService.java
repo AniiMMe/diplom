@@ -29,7 +29,7 @@ public class ClientService {
 
     }
 
-    public Map<String, String> checkErrorSwitch(ClientDTO returnClientDTO,  BindingResult result){
+    public Map<String, String> checkErrorSwitch(ClientDTO clientDTO,  BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){
@@ -50,8 +50,8 @@ public class ClientService {
                     break;
                 }
             }});
-        if (checkNewUser(returnClientDTO)!=null)
-            descriptionError.put("clientEmail", checkNewUser(returnClientDTO));
+        if (checkNewUser(clientDTO)!=null)
+            descriptionError.put("clientEmail", checkNewUser(clientDTO));
         return descriptionError;
     }
 

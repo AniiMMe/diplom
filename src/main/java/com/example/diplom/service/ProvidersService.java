@@ -21,7 +21,7 @@ public class ProvidersService {
         if (providersRepository.existsByProviderEmail(provider.getProviderEmail())) return "Такая почта уже существует";
         return null;
     }
-    public Map<String, String> checkErrorSwitch(ProvidersDTO returnProvidersDTO, BindingResult result){
+    public Map<String, String> checkErrorSwitch(ProvidersDTO providersDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){
