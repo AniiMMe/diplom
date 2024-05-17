@@ -23,7 +23,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public String checkNewUser(Client client) {
+    public String checkNewUser(ClientDTO client) {
         if (clientRepository.existsClientByClientEmail(client.getClientEmail())) return "Такая почта уже существует";
         return null;
 
@@ -33,23 +33,25 @@ public class ClientService {
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){
-                case "fio":{
-                    descriptionError.put("fio", "Введите ФИО");
+                case "clientName":{
+                    descriptionError.put("clientName", "Введите ФИО");
                     break;
                 }
-                case "email":{
-                    descriptionError.put("email", "Введите Электронную почту");
+                case "clientEmail":{
+                    descriptionError.put("clientEmail", "Введите Электронную почту");
                     break;
                 }
-                case "address":{
-                    descriptionError.put("address", "Введите адрес клиента");
+                case "clientAddress":{
+                    descriptionError.put("clientAddress", "Введите адрес клиента");
                     break;
                 }
-                case "phone":{
-                    descriptionError.put("phone", "Введите номер телефона");
+                case "clientTel":{
+                    descriptionError.put("clientTel", "Введите номер телефона");
                     break;
                 }
             }});
+        if (checkNewUser(returnClientDTO)!=null)
+            descriptionError.put("clientEmail", checkNewUser(returnClientDTO));
         return descriptionError;
     }
 

@@ -44,12 +44,14 @@ public class AdminRestController {
         return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkNewUser(workers)));
     }
     @PostMapping("/admin/newClient")
-    public ResponseEntity<String>  checkNewClient(@ModelAttribute Client client){
-        if (clientService.checkNewUser(client) == null) {
-            clientService.addNewUser(client);
-            return ResponseEntity.ok("");
+    public ResponseEntity<Map<String, String>> checkNewClient(@ModelAttribute @Valid ClientDTO client,
+                                                              BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            clientService.checkNewUser(client);
+            return ResponseEntity.ok(AnswerMessage.getOKMessage("Клиент успешно прошел регистрацию!"));
         }
-        return ResponseEntity.badRequest().body(clientService.checkNewUser(client));
+        clientService.addNewUser(client.build());
+        return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(clientService.checkErrorSwitch(client, bindingResult)));
     }
     @PostMapping("/admin/newProvider")
     public ResponseEntity<String>  checkNewProvider(@ModelAttribute Providers provider){

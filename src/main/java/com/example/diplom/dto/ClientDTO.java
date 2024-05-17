@@ -1,5 +1,6 @@
 package com.example.diplom.dto;
 
+import com.example.diplom.entity.Client;
 import com.example.diplom.entity.Orders;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +26,6 @@ public class ClientDTO {
     @NotEmpty
     @NonNull
     @Pattern(regexp = "^\\+(375|80)(29|33|25|44)\\d{7}$")
-    private String phone;
     private String clientTel;
     @NotEmpty
     @NonNull
@@ -33,4 +33,13 @@ public class ClientDTO {
     private String clientEmail;
 
     private List<Orders> orders;
+
+    public Client build() {
+        return Client.builder()
+                .clientName(clientName)
+                .clientAddress(clientAddress)
+                .clientEmail(clientEmail)
+                .clientTel(clientTel)
+                .build();
+    }
 }
