@@ -8,18 +8,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final MailSender mailSender;
-    public String checkNewUser(Workers workers) {
-        if (userRepository.existsByLogin(workers.getLogin())) return "Такой логин уже существует!";
-        if (userRepository.existsByWorkerEmail(workers.getWorkerEmail())) return "Такая почта уже существует";
-        if (userRepository.existsByWorkerTel(workers.getWorkerTel())) return "Такой номер уже существует";
-        return null;
+    public Map<String, String> checkNewUser(Workers workers) {
+        Map<String,String> descriptionError = new HashMap<>();
+        if (userRepository.existsByLogin(workers.getLogin())) descriptionError.put("login", "Такой логин уже существует!");
+        if (userRepository.existsByWorkerEmail(workers.getWorkerEmail())) descriptionError.put("workerEmail", "Такая почта уже существует");
+        if (userRepository.existsByWorkerTel(workers.getWorkerTel())) descriptionError.put("workerTel", "Такой номер уже существует!");
+        return descriptionError;
     }
 
     public void addNewUser(Workers workers) {

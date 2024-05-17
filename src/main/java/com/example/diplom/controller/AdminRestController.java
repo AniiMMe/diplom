@@ -31,7 +31,7 @@ public class AdminRestController {
     private final SupplyService supplyService;
     private final ReturnProductService returnProductService;
     @PostMapping("/admin/newUser")
-    public ResponseEntity<String> checkNewUser(@ModelAttribute Workers workers,
+    public ResponseEntity<Map<String, String>> checkNewUser(@ModelAttribute Workers workers,
                                                @RequestParam("userStatys") String status, Model model){
         workers.setRoles(Collections.singleton(UserRole.USER));
         if (status.equals("true")) workers.setActive(true);
@@ -39,9 +39,9 @@ public class AdminRestController {
         workers.setRoles(Collections.singleton(UserRole.USER));
         if (userService.checkNewUser(workers) == null) {
             userService.addNewUser(workers);
-            return ResponseEntity.ok("Пользователь успешно добавлен!");
+            return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
         }
-        return ResponseEntity.badRequest().body(userService.checkNewUser(workers));
+        return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkNewUser(workers)));
     }
     @PostMapping("/admin/newClient")
     public ResponseEntity<String>  checkNewClient(@ModelAttribute Client client){
