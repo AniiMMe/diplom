@@ -32,8 +32,10 @@ public class AdminRestController {
     private final ReturnProductService returnProductService;
     @PostMapping("/admin/newUser")
     public ResponseEntity<String> checkNewUser(@ModelAttribute Workers workers,
-
-                                               Model model){
+                                               @RequestParam("userStatys") String status, Model model){
+        workers.setRoles(Collections.singleton(UserRole.USER));
+        if (status.equals("true")) workers.setActive(true);
+        else workers.setActive(false);
         workers.setRoles(Collections.singleton(UserRole.USER));
         if (userService.checkNewUser(workers) == null) {
             userService.addNewUser(workers);

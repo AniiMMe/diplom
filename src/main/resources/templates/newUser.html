@@ -12,7 +12,7 @@
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label class="form-label" style="color: aqua">Фамилия</label>
-                    <input type="text" class="form-control" id="surname" placeholder="" value="" required=""
+                    <input type="text" class="form-control" id="workerSurname" placeholder="" value="" required=""
                            th:field="${user.workerSurname}">
                     <div class="invalid-feedback">
                         Некорректная фамилия
@@ -21,7 +21,7 @@
 
                 <div class="col-sm-6">
                     <label class="form-label" style="color: aqua">Имя</label>
-                    <input type="text" class="form-control" id="name" placeholder="" value="" required=""
+                    <input type="text" class="form-control" name="workerName" placeholder="" value="" required=""
                            th:field="${user.workerName}">
                     <div class="invalid-feedback">
                         Некорректное имя
@@ -29,9 +29,9 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="email" class="form-label" style="color: aqua">Email <span
+                    <label  class="form-label" style="color: aqua">Email <span
                             class="text-body-secondary"></span></label>
-                    <input type="email" class="form-control" id="email" maxlength="47" minlength="2" required
+                    <input type="email" class="form-control" name="workerEmail" maxlength="47" minlength="2" required
                            placeholder="you@example.com" th:field="${user.workerEmail}">
                     <div class="invalid-feedback">
                         Проверьте правильность имейла
@@ -40,7 +40,7 @@
 
                 <div class="col-12">
                     <label class="form-label" style="color: aqua">Телефон</label>
-                    <input type="text" class="form-control" id="phone" placeholder="+37544..." required=""
+                    <input type="text" class="form-control" name="workerTel" placeholder="+37544..." required=""
                            th:field="${user.workerTel}">
                     <div class="invalid-feedback">
                         Проверьте телефон
@@ -49,7 +49,7 @@
 
                 <div class="col-sm-6">
                     <label class="form-label" style="color: aqua">Логин</label>
-                    <input type="text" class="form-control" id="login" placeholder="" value="" required=""
+                    <input type="text" class="form-control" name="login" placeholder="" value="" required=""
                            th:field="${user.login}">
                     <div class="invalid-feedback">
                         Некорректный логин
@@ -58,7 +58,7 @@
 
                 <div class="col-sm-6">
                     <label class="form-label" style="color: aqua">Пароль</label>
-                    <input type="text" class="form-control" id="password" placeholder="" value="" required=""
+                    <input type="text" class="form-control" name="userPassward" placeholder="" value="" required=""
                            th:field="${user.userPassward}">
                     <div class="invalid-feedback">
                         Некорректный пароль
@@ -85,28 +85,28 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const form = document.getElementById("formUser");
-    form.addEventListener("submit", function (event) {
+    document.getElementById('form').addEventListener('submit', function (event) {
         event.preventDefault();
-        var form = document.getElementById('formUser');
-        var formData = new FormData(form);
-        fetch("/admin/newUser", {
-            method: "POST",
-            body: JSON.stringify(formData)
+        fetch('/admin/newUser', {
+            method: 'POST',
+            body: new FormData(this)
         })
             .then(response => response.json())
             .then(data => {
-                // Обработка полученных данных
-                console.log(data);
-                alert("Регистрация прошла успешно!");
-                window.location.href = '/admin';
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = '/client/regAsAComp';
+                } else if (data.status === "bad") {
+                    for (const x in data) {
+                        if (x !== "bad") {
+                            alert(data[x]);
+                        }
+                    }
+                } else {
+                    console.error('Произошла ошибка:', data.message);
+                }
             })
-            .catch(error => {
-                // Обработка ошибок
-                alert("Не удалось добавить пользователя!" + error);
-            });
-
-        });
+    });
 </script>
 </body>
 </html>

@@ -28,13 +28,13 @@ public class UserService {
         workers.setUserPassward(encodedPassword);
         if (!StringUtils.isEmpty(workers.getWorkerEmail())) {
             String message = String.format(
-                    "Здравствуйте, %s %s %s! \n" +
+                    "Здравствуйте, %s %s! \n" +
                             "Добро пожаловать в систему склада. " +
                             "Перейдите по ссылке для авторизации: http://localhost:8088/login",
                     workers.getWorkerSurname(), workers.getWorkerName()
             );
 
-            mailSender.send(workers.getWorkerEmail(), "Activation code", message);
+            mailSender.send(workers.getWorkerEmail(), "Activation url", message);
         }
         userRepository.save(workers);
 
