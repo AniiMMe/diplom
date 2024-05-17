@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +20,15 @@ import java.util.List;
 public class AssortmentDTO {
 
     private int idAssort;
-
+    @NotEmpty
+    @NonNull
     private String manufacturer;
-
+    @NotEmpty
+    @NonNull
     private String productName;
-
+    @NotEmpty
+    @NonNull
+    @Pattern(regexp = "^[А-ЯЁа-яё\s]+$")
     private String productType;
 
     private int count;

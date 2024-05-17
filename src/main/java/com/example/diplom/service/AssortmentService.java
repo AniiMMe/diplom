@@ -32,6 +32,24 @@ public class AssortmentService {
         if (assortmentRepository.existsByProductName(assortment.getProductName())) return "Такой товар уже существует";
         return null;
     }
+    public Map<String, String> checkAssErrorSwitch(AssortmentDTO assortmentDTO, BindingResult result) {
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "productName":{
+                    descriptionError.put("productName", "Проверьте название");
+                    break;
+                }
+                case "manufacturer":{
+                    descriptionError.put("manufacturer", "Проверьте производителя");
+                    break;
+                } case "productType":{
+                    descriptionError.put("productType", "Проверьте тип продукта");
+                    break;
+                }
+            }});
+        return descriptionError;
+    }
     //бегаешь по case и смотришь где ошибка
     public Map<String, String> checkErrorSwitch(AssortmentDTO returnProductDto, BindingResult result) {
         Map<String,String> descriptionError = new HashMap<>();
