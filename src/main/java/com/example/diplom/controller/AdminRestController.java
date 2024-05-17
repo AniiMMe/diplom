@@ -48,10 +48,11 @@ public class AdminRestController {
                                                               BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             clientService.checkNewUser(client);
-            return ResponseEntity.ok(AnswerMessage.getOKMessage("Клиент успешно прошел регистрацию!"));
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(clientService.checkErrorSwitch(client, bindingResult)));
         }
         clientService.addNewUser(client.build());
-        return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(clientService.checkErrorSwitch(client, bindingResult)));
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Клиент успешно прошел регистрацию!"));
+
     }
     @PostMapping("/admin/newProvider")
     public ResponseEntity<String>  checkNewProvider(@ModelAttribute Providers provider){

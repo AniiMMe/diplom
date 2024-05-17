@@ -25,7 +25,7 @@ public class ClientDTO {
     private String clientAddress;
     @NotEmpty
     @NonNull
-    @Pattern(regexp = "^\\+(375|80)(29|33|25|44)\\d{7}$")
+    @Pattern(regexp = "^\\+(375|80)(29|33|25|44|17)\\d{7}$")
     private String clientTel;
     @NotEmpty
     @NonNull
