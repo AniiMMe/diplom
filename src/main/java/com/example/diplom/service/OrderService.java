@@ -77,7 +77,7 @@ public class OrderService {
                     break;
                 }
                 case "countProductFromAssortment":{
-                    descriptionError.put("providerAddress", "Введите количество товара");
+                    descriptionError.put("countProductFromAssortment", "Введите количество товара");
                     break;
                 }
                 case "costForOneProduct":{

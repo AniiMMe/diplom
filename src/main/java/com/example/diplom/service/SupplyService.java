@@ -10,9 +10,12 @@ import com.example.diplom.reposiroty.ProvidersRepository;
 import com.example.diplom.reposiroty.SupplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +47,39 @@ public class SupplyService {
             productRepository.save(x);
         });
 
+    }
+
+    public Map<String, String> checkErrorSwitch(SupplyDTO supplyDTO, SupplyProductDTO supplyProductDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "supplyDate":{
+                    descriptionError.put("supplyDate", "Введите дату");
+                    break;
+                }
+                case "idAssortment":{
+                    descriptionError.put("idAssortment", "Выберите товар");
+                    break;
+                }
+                case "countProductFromAssortment":{
+                    descriptionError.put("countProductFromAssortment", "Введите количество товара");
+                    break;
+                }
+                case "costForOneProduct":{
+                    descriptionError.put("costForOneProduct", "Введите цену за единицу");
+                    break;
+                }
+                case "productStartdata":{
+                    descriptionError.put("productStartdata", "Введите дату изготовления");
+                    break;
+                }
+                case "productEnddata":{
+                    descriptionError.put("productEnddata", "Введите срок годности");
+                    break;
+                }
+            }});
+
+        return descriptionError;
     }
 
     public List<Supply> getAllSupplies() {
