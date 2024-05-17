@@ -12,9 +12,12 @@ import com.example.diplom.reposiroty.OrdersRepository;
 import com.example.diplom.reposiroty.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -60,6 +63,38 @@ public class OrderService {
                 .build();
         orders.setProducts(productOrder);
         ordersRepository.save(orders);
+    }
+    public Map<String, String> checkErrorSwitch(OrderDTO orderDTO, OrderProductDTO orderProductDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        result.getFieldErrors().forEach(error ->{
+            switch (error.getField()){
+                case "orderDate":{
+                    descriptionError.put("orderDate", "Введите дату");
+                    break;
+                }
+                case "idAssortment":{
+                    descriptionError.put("idAssortment", "Выберите товар");
+                    break;
+                }
+                case "countProductFromAssortment":{
+                    descriptionError.put("providerAddress", "Введите количество товара");
+                    break;
+                }
+                case "costForOneProduct":{
+                    descriptionError.put("costForOneProduct", "Введите цену за единицу");
+                    break;
+                }
+                case "client":{
+                    descriptionError.put("client", "Выберите клиента");
+                    break;
+                }
+                case "orderStatus":{
+                    descriptionError.put("orderStatus", "Выберите статус заказа");
+                    break;
+                }
+            }});
+
+        return descriptionError;
     }
 
     public List<Orders> getAllOrder() {

@@ -1,11 +1,9 @@
 package com.example.diplom.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Data
 @AllArgsConstructor
@@ -15,9 +13,13 @@ public class ProductDto {
 
     private int idProduct;
     @NotEmpty
+    @NonNull
     private String nameProduct;
+    @NotEmpty
+    @NonNull
     private int colvo;
     @NotEmpty
+    @Pattern(regexp = "^[А-ЯЁа-яё\s]+$")
     private String prichina;
 
 }
