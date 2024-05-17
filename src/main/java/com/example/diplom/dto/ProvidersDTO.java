@@ -17,6 +17,7 @@ public class ProvidersDTO {
     private int providerId;
     @NotEmpty
     @NonNull
+    @Pattern(regexp = "^[А-ЯЁа-яё\s]+$")
     private String providerName;
     @NotEmpty
     @NonNull

@@ -19,6 +19,7 @@ public class ClientDTO {
     private int clientId;
     @NotEmpty
     @NonNull
+    @Pattern(regexp = "^[А-ЯЁа-яё\s]+$")
     private String clientName;
     @NotEmpty
     @NonNull
