@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+</head>
 <div th:insert="blocks/links::div"></div>
 <body style="background-color: #284B52">
 <div th:insert="blocks/header :: header"></div>
@@ -52,12 +61,12 @@
                       <td  style="color: #2BB789" th:text="${e.productEnddata}"/>
                       <td  style="color: #2BB789" th:text="${e.productPrice}"/>
                       <td  style="color: #2BB789" th:text="${e.productQuantity}"/>
-                      <td><input type="button" value="Списать" style="background-color: #238182; border-color: #238182;font-weight: bold;"  data-toggle="modal" data-target="#modalSpis"></td>
-
+                      <td><input type="button" value="Списать" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalSpis"></td>
                   </tr>
                   </tbody>
     </table>
-      <div class="modal fade" id="modalSpis" tabindex="-1" role="dialog" aria-labelledby="modalSpisLabel" aria-hidden="true">
+
+      <div class="modal fade" id="modalSpis"  tabindex="-1" role="dialog"  aria-labelledby="modalSpisLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
@@ -67,7 +76,7 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <label class="form-label" style="color: aqua">Причина списания</label>
+                      <label class="form-label" style="color: #238182">Причина списания</label>
                       <input type="text" class="form-control" id="spisReason" placeholder="" value="" required="">
 
                   </div>
