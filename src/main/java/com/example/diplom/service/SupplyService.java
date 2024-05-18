@@ -82,6 +82,12 @@ public class SupplyService {
         return descriptionError;
     }
 
+    public Map<String, String> checkError(SupplyProductDTO supplyProductDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        if (supplyProductDTO.getCountProductFromAssortment()<0) descriptionError.put("countProductFromAssortment","Неверное количество!");
+        if (supplyProductDTO.getCostForOneProduct()<0) descriptionError.put("costForOneProduct","Неверная цена!");
+        return descriptionError;
+    }
     public List<Supply> getAllSupplies() {
         return supplyRepository.findAll();
     }

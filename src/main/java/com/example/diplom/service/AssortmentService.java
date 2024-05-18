@@ -97,4 +97,5 @@ public class AssortmentService {
         infoForIvent.setPriseQuantityItog(infoForIvent.getPriseQuantity().stream().mapToDouble(Double::doubleValue).sum());
         return infoForIventRepository.save(infoForIvent);
     }
+
 }

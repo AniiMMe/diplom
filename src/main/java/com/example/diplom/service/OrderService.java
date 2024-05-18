@@ -1,5 +1,6 @@
 package com.example.diplom.service;
 
+import com.example.diplom.dto.AssortmentDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.Assortment;
@@ -96,7 +97,12 @@ public class OrderService {
 
         return descriptionError;
     }
-
+    public Map<String, String> checkError(OrderProductDTO orderProductDTO, BindingResult result){
+        Map<String,String> descriptionError = new HashMap<>();
+        if (orderProductDTO.getCountProductFromAssortment()<0) descriptionError.put("countProductFromAssortment","Неверное количество!");
+        if (orderProductDTO.getCostForOneProduct()<0) descriptionError.put("costForOneProduct","Неверная цена!");
+        return descriptionError;
+    }
     public List<Orders> getAllOrder() {
         return ordersRepository.findAll();
     }
