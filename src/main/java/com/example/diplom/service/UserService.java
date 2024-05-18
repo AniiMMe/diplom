@@ -90,4 +90,7 @@ public class UserService {
     public List<Workers> getAllWorkers(){
         return userRepository.findAll();
     }
+    public String getRole(String login){
+        return userRepository.findByLogin(login).getRoles().toString();
+    }
 }
