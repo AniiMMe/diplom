@@ -146,5 +146,9 @@ public class AdminController {
     public String getAnailt() {
         return "/admin/admin-analit";
     }
+    @GetMapping("/admin/otch")
+    public String getOtch() {
+        return "/admin/admin-otch";
+    }
 
 }

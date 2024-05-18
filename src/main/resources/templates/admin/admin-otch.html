@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="blocks/links::div"></div>
+<head>
+  <link rel="shortcut icon" href="/img/wh.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: #284B52">
+<div th:insert="blocks/header :: header"></div>
+<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<main>
+  <h1>Отчёт по остаткам товара на складе</h1>
+  <iframe id="word-preview" width="100%" height="600"></iframe>
+</main>
+<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
+</body>
+</html>
