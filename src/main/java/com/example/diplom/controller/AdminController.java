@@ -152,5 +152,9 @@ public class AdminController {
     public String getOtch() {
         return "/admin/admin-otch";
     }
+    @GetMapping("/admin/otch2")
+    public String getOtch2() {
+        return "/admin/admin-otch2";
+    }
 
 }
