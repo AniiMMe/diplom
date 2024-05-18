@@ -52,11 +52,31 @@
                       <td  style="color: #2BB789" th:text="${e.productEnddata}"/>
                       <td  style="color: #2BB789" th:text="${e.productPrice}"/>
                       <td  style="color: #2BB789" th:text="${e.productQuantity}"/>
-                      <td><input type="button" value="Списать" style="background-color: #238182; border-color: #238182;font-weight: bold;" ></td>
+                      <td><input type="button" value="Списать" style="background-color: #238182; border-color: #238182;font-weight: bold;"  data-toggle="modal" data-target="#modalSpis"></td>
 
                   </tr>
                   </tbody>
     </table>
+      <div class="modal fade" id="modalSpis" tabindex="-1" role="dialog" aria-labelledby="modalSpisLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalSpisLabel">Списать</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <label class="form-label" style="color: aqua">Причина списания</label>
+                      <input type="text" class="form-control" id="spisReason" placeholder="" value="" required="">
+
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Сгенерировать отчёт</button>
+                  </div>
+              </div>
+          </div>
+      </div>
 
   </div>
 </main>
