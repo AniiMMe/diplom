@@ -65,7 +65,7 @@ public class OrderService {
         orders.setProducts(productOrder);
         ordersRepository.save(orders);
     }
-    public Map<String, String> checkErrorSwitch(OrderDTO orderDTO, OrderProductDTO orderProductDTO, BindingResult result){
+    public Map<String, String> checkErrorSwitch(OrderDTO orderDTO, List<OrderProductDTO> orderProductDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){

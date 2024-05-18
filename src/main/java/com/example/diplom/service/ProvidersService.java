@@ -17,7 +17,7 @@ import java.util.Map;
 public class ProvidersService {
     private final ProvidersRepository providersRepository;
 
-    public String checkNewProvider(Providers provider) {
+    public String checkNewProvider(ProvidersDTO provider) {
         if (providersRepository.existsByProviderEmail(provider.getProviderEmail())) return "Такая почта уже существует";
         return null;
     }
@@ -42,13 +42,15 @@ public class ProvidersService {
                     break;
                 }
             }});
+        if (checkNewProvider(providersDTO)!=null)
+            descriptionError.put("providerEmail", checkNewProvider(providersDTO));
 
         return descriptionError;
     }
 
 
-    public void addNewProvider(Providers provider) {
-        providersRepository.save(provider);
+    public void addNewProvider(ProvidersDTO provider) {
+        providersRepository.save(provider.build());
     }
 
     public List<Providers> getAllProvider() {
