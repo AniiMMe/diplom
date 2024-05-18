@@ -84,6 +84,11 @@ public class SupplyService {
 
     public Map<String, String> checkError(SupplyProductDTO supplyProductDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
+        if(supplyProductDTO.getIdAssortment()==0) descriptionError.put("idAssortment", "Выберите товар!");
+        if(supplyProductDTO.getCountProductFromAssortment()==0) descriptionError.put("countProductFromAssortment", "Введите количество товара!");
+        if(supplyProductDTO.getCostForOneProduct()==0) descriptionError.put("costForOneProduct", "Введите цену за единицу!");
+        if(supplyProductDTO.getProductStartdata() == null) descriptionError.put("productStartdata", "Введите дату изготовления");
+        if(supplyProductDTO.getProductEnddata() == null) descriptionError.put("productEnddata", "Введите срок годности");
         if (supplyProductDTO.getCountProductFromAssortment()<0) descriptionError.put("countProductFromAssortment","Неверное количество!");
         if (supplyProductDTO.getCostForOneProduct()<0) descriptionError.put("costForOneProduct","Неверная цена!");
         return descriptionError;

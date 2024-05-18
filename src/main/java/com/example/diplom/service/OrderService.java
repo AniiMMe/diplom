@@ -99,6 +99,10 @@ public class OrderService {
     }
     public Map<String, String> checkError(OrderProductDTO orderProductDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
+
+        if(orderProductDTO.getIdAssortment()==0) descriptionError.put("idAssortment", "Выберите товар!");
+        if(orderProductDTO.getCountProductFromAssortment()==0) descriptionError.put("countProductFromAssortment", "Введите количество товара!");
+        if(orderProductDTO.getCostForOneProduct()==0) descriptionError.put("costForOneProduct", "Введите цену за единицу!");
         if (orderProductDTO.getCountProductFromAssortment()<0) descriptionError.put("countProductFromAssortment","Неверное количество!");
         if (orderProductDTO.getCostForOneProduct()<0) descriptionError.put("costForOneProduct","Неверная цена!");
         return descriptionError;
