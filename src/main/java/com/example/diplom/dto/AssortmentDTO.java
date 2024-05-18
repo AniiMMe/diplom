@@ -23,9 +23,6 @@ public class AssortmentDTO {
     @NotEmpty
     @NonNull
     private String productName;
-    @NotEmpty
-    @NonNull
-    @Pattern(regexp = "^[А-ЯЁа-яё\s]+$")
     private String productType;
 
     private int count;
