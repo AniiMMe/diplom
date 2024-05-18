@@ -13,9 +13,32 @@
 <div th:insert="blocks/header :: header"></div>
 <div th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <main>
-  <h1>Отчёт по остаткам товара на складе</h1>
-  <iframe id="word-preview" width="100%" height="600"></iframe>
+  <div class="col-md-7 col-lg-8" >
+    <h4 class="mb-3" style="color: #814de5">Отчет о товарах на складе</h4>
+    <iframe id="word-preview" width="100%" height="600"></iframe>
+
+  </div>
 </main>
 <!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+
 </body>
+<script>
+  fetch("/generate-report", {
+    method: 'GET'
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.blob();
+  }).then(blob => {
+    const url = URL.createObjectURL(blob);
+
+    // Создание iframe для отображения PDF файла
+    const iframe = document.getElementById('word-preview');
+    iframe.src = url;
+  }).catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+</script>
 </html>
