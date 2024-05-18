@@ -5,19 +5,17 @@ import com.example.diplom.dto.*;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -148,5 +146,13 @@ public class AdminRestController {
         }
         returnProductService.add(returnProductDto);
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Возврат успешно оформлен!"));
+    }
+    @GetMapping("/admin/getListCountProduct")
+    public Map<String,Integer> getAllCountByProduct(){
+        return assortmentService.getAllAssortment().stream()
+                .collect(Collectors.toMap(
+                        Assortment::getProductName,
+                        Assortment::getCount
+                ));
     }
 }
