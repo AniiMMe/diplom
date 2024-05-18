@@ -68,8 +68,8 @@ public class AssortmentService {
         if (returnProductDto.getCount()<0) descriptionError.put("count","Неверное количество!");
         return descriptionError;
     }
-    public void addNewAssortment(Assortment assortment) {
-        assortmentRepository.save(assortment);
+    public void addNewAssortment(AssortmentDTO assortment) {
+        assortmentRepository.save(assortment.build());
     }
 
     public List<Assortment> getAllAssortment() {

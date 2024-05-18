@@ -1,9 +1,6 @@
 package com.example.diplom.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table
+@Builder
 public class Providers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

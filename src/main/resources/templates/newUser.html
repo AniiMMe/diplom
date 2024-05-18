@@ -95,7 +95,7 @@
             .then(data => {
                 if (data.status === "success") {
                     alert(data.message);
-                    window.location.href = '/admin/newUser';
+                    window.location.href = '/admin/users';
                 } else if (data.status === "bad") {
                     for (const x in data) {
                         if (x !== "bad") {

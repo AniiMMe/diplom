@@ -1,9 +1,6 @@
 package com.example.diplom.dto;
 
-import com.example.diplom.entity.Catalog;
-import com.example.diplom.entity.FormVipuska;
-import com.example.diplom.entity.InfoForIvent;
-import com.example.diplom.entity.Product;
+import com.example.diplom.entity.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -41,5 +38,13 @@ public class AssortmentDTO {
     private List<InfoForIvent> infoForIvents;
 
 
-
+    public Assortment build() {
+        return Assortment.builder()
+                .count(count)
+                .formIn(formIn)
+                .manufacturer(manufacturer)
+                .productName(productName)
+                .productType(productType)
+                .build();
+    }
 }

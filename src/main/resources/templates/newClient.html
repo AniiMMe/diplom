@@ -65,7 +65,7 @@
             .then(data => {
               if (data.status === "success") {
                 alert(data.message);
-                window.location.href = '/admin/newClient';
+                window.location.href = '/admin/clients';
               } else if (data.status === "bad") {
                 for (const x in data) {
                   if (x !== "bad") {

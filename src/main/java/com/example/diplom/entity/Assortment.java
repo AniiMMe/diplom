@@ -15,6 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "assortment")
+@Builder
 public class Assortment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

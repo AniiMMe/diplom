@@ -64,6 +64,7 @@ form.addEventListener("submit", function (event) {
     var form = document.getElementById('formOrder');
     var formData = new FormData(form);
     var products = [];
+    let flag =0;
     for (let i = 0; i < counter; i++) {
         var idAssortment = document.getElementById("product" + i).value;
         var CountProductFromAssortment = document.getElementById("CountProductFromAssortment" + i).value;
@@ -71,6 +72,14 @@ form.addEventListener("submit", function (event) {
         console.log(idAssortment);
         console.log(CountProductFromAssortment);
         console.log(costForOneProduct);
+        if (costForOneProduct<0) {
+            flag++;
+            alert("Стоимость не может быть отрицательной!");
+        }
+        if (CountProductFromAssortment<0>) {
+            flag++;
+            alert("Количество не может быть отрицательным!");
+        }
         var product = {
             idAssortment: idAssortment,
             countProductFromAssortment: CountProductFromAssortment,
@@ -85,9 +94,10 @@ form.addEventListener("submit", function (event) {
         orderDate: document.getElementById("date").value
     }
     console.log(data);
-
+if (flag ===0) {
     send('/admin/newOrderProduct', 'POST', products).then(data => {
         form.submit();
 
     })
+}
 });

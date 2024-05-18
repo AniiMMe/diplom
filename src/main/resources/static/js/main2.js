@@ -78,6 +78,7 @@ form.addEventListener("submit", function(event) {
     // Предотвращаем отправку формы по умолчанию
     event.preventDefault();
     var formData = new FormData(form);
+    let flag=0;
     productsList =[];
     for (let i=0; i<count; i++){
         const idAssortment = document.getElementById("idAssortment"+i).value;
@@ -85,6 +86,23 @@ form.addEventListener("submit", function(event) {
         const productEnddata = document.getElementById("productEnddata"+i).value;
         const costForOneProduct = document.getElementById("costForOneProduct"+i).value;
         const CountProductFromAssortment = document.getElementById("CountProductFromAssortment"+i).value;
+        if (productStartdata> Date.now() || productStartdata< new Date("2020-08-15")) {
+            flag++;
+            alert("Некорректная дата!");
+        }
+        if (productEnddata< Date.now() || productStartdata> new Date("2040-08-15")) {
+            flag++;
+            alert("Некорректная дата срока годности!");
+        }
+        if (costForOneProduct<0) {
+            flag++;
+            alert("Стоимость не может быть отрицательной!");
+        }
+        if (CountProductFromAssortment<0>) {
+            flag++;
+            alert("Количество не может быть отрицательным!");
+        }
+
         const product ={
             idAssortment:idAssortment,
             countProductFromAssortment:CountProductFromAssortment,
@@ -94,8 +112,10 @@ form.addEventListener("submit", function(event) {
         }
         productsList.push(product)
     }
-    send('/admin/newSupplyProduct', 'POST', productsList).then(r  =>{
-        form.submit();
-    })
+    if (flag ===0) {
+        send('/admin/newSupplyProduct', 'POST', productsList).then(r => {
+            form.submit();
+        })
+    }
 
 })

@@ -1,5 +1,6 @@
 package com.example.diplom.dto;
 
+import com.example.diplom.entity.Providers;
 import com.example.diplom.entity.Supply;
 import lombok.*;
 
@@ -34,4 +35,12 @@ public class ProvidersDTO {
 
     private List<Supply> supplies;
 
+    public Providers build() {
+        return Providers.builder()
+                .providerName(providerName)
+                .providerAddress(providerAddress)
+                .providerEmail(providerEmail)
+                .providerTel(providerTel)
+                .build();
+    }
 }

@@ -49,7 +49,7 @@ public class SupplyService {
 
     }
 
-    public Map<String, String> checkErrorSwitch(SupplyDTO supplyDTO, SupplyProductDTO supplyProductDTO, BindingResult result){
+    public Map<String, String> checkErrorSwitch(SupplyDTO supplyDTO, List<SupplyProductDTO> supplyProductDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){
