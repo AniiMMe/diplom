@@ -18,13 +18,13 @@
                 </div>
 
                 <div class="modal-body p-5 pt-0">
-                    <form class="">
+                    <form action="/login" th:action="@{/login}" method="post">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+                            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="login">
                             <label for="floatingInput">Логин</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
                             <label for="floatingPassword">Пароль</label>
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" style="background-color: #284B52;">Войти</button>

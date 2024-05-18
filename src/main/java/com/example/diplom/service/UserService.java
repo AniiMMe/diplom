@@ -1,14 +1,13 @@
 package com.example.diplom.service;
 
 
-import com.example.diplom.dto.UserDTO;
 import com.example.diplom.dto.WorkersDTO;
+import com.example.diplom.entity.UserRole;
 import com.example.diplom.entity.Workers;
 import com.example.diplom.reposiroty.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 
@@ -30,10 +29,14 @@ public class UserService {
         return descriptionError;
     }
 
-    public void addNewUser(Workers workers) {
+    public void addNewUser(WorkersDTO workers) {
+        Workers worker = workers.build();
+        worker.setActive(workers.isActive());
+        worker.setLogin(workers.getLogin());
+        worker.setRoles(Collections.singleton(UserRole.USER));
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(workers.getPassword());
-        workers.setUserPassward(encodedPassword);
+        worker.setUserPassward(encodedPassword);
         if (!StringUtils.isEmpty(workers.getWorkerEmail())) {
             String message = String.format(
                     "Здравствуйте, %s %s! \n" +
@@ -44,10 +47,10 @@ public class UserService {
 
             mailSender.send(workers.getWorkerEmail(), "Activation url", message);
         }
-        userRepository.save(workers);
+        userRepository.save(worker);
 
     }
-    public Map<String, String> checkErrorSwitch(UserDTO userDTO, WorkersDTO workersDTO, BindingResult result){
+    public Map<String, String> checkErrorSwitch(WorkersDTO workersDTO, BindingResult result){
         Map<String,String> descriptionError = new HashMap<>();
         result.getFieldErrors().forEach(error ->{
             switch (error.getField()){

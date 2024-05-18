@@ -30,17 +30,18 @@ public class AdminRestController {
     private final ReturnProductService returnProductService;
 
     @PostMapping("/admin/newUser")
-    public ResponseEntity<Map<String, String>> checkNewUser(@ModelAttribute Workers workers,
+    public ResponseEntity<Map<String, String>> checkNewUser(@ModelAttribute @Valid WorkersDTO workers, BindingResult bindingResult,
                                                             @RequestParam("userStatys") String status, Model model) {
         workers.setRoles(Collections.singleton(UserRole.USER));
         if (status.equals("true")) workers.setActive(true);
         else workers.setActive(false);
-        workers.setRoles(Collections.singleton(UserRole.USER));
-        if (userService.checkNewUser(workers) == null) {
-            userService.addNewUser(workers);
-            return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkErrorSwitch(workers, bindingResult)));
         }
-        return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkNewUser(workers)));
+        workers.setRoles(Collections.singleton(UserRole.USER));
+        userService.addNewUser(workers);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
+
     }
 
     @PostMapping("/admin/newClient")
@@ -147,8 +148,9 @@ public class AdminRestController {
         returnProductService.add(returnProductDto);
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Возврат успешно оформлен!"));
     }
+
     @GetMapping("/admin/getListCountProduct")
-    public Map<String,Integer> getAllCountByProduct(){
+    public Map<String, Integer> getAllCountByProduct() {
         return assortmentService.getAllAssortment().stream()
                 .collect(Collectors.toMap(
                         Assortment::getProductName,

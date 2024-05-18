@@ -1,6 +1,7 @@
 package com.example.diplom.dto;
 
 import com.example.diplom.entity.User;
+import com.example.diplom.entity.Workers;
 import lombok.*;
 
 import javax.persistence.Basic;
@@ -13,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+
 public class WorkersDTO extends User {
     @NotEmpty
     @NonNull
@@ -32,4 +33,7 @@ public class WorkersDTO extends User {
     @Pattern(regexp = "^\\+(375|80)(29|33|25|44|17)\\d{7}$")
     private String workerTel;
 
+    public Workers build() {
+        return new Workers(workerName, workerSurname, workerEmail, workerTel);
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.diplom.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,12 +10,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table
-@Setter
-@Getter
-@NoArgsConstructor
+
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
     @Id
@@ -34,7 +31,7 @@ public class User implements UserDetails {
     @Column(name = "active")
     private boolean active;
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "ID"))
+    @CollectionTable(name = "roleUser", joinColumns = @JoinColumn(name = "ID"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
 
