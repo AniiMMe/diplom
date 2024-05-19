@@ -1,98 +1,133 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.InfoDTO;
 import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
 import com.example.diplom.entity.StatusOrder;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
+
+    private final UserService userService;
     private final ClientService clientService;
     private final ProvidersService providersService;
     private final AssortmentService assortmentService;
     private final OrderService orderService;
     private final ProductService productService;
     private final SupplyService supplyService;
+    private final ReturnProductService returnProductService;
+
     @GetMapping("/user")
-    public String getStart() {
+    public String getStart(Model model,Authentication authentication) {
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/user/userpanel";
     }
     @GetMapping("/user/clients")
-    public  String getClientsPage(Model model){
+    public  String getClientsPage(Model model,Authentication authentication){
         model.addAttribute("clients", clientService.getAllClients());
-        return "/user/user-clients";
-}
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-clients";
+    }
     @GetMapping("/user/providers")
-    public  String getProvidersPage(Model model){
+    public  String getProvidersPage(Model model,Authentication authentication){
         model.addAttribute("providers", providersService.getAllProvider());
-        return "/user/user-providers";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-providers";
     }
     @GetMapping("/user/assortment")
-    public String getAssortPage(Model model){
+    public String getAssortPage(Model model,Authentication authentication){
         model.addAttribute("assortments", assortmentService.getAllAssortment());
-        return "/user/user-ass";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-ass";
     }
     @GetMapping("/user/products")
-    public  String getProductsPage(Model model){
+    public  String getProductsPage(Model model,Authentication authentication){
         model.addAttribute("products", productService.getAllProducts());
-        return "/user/user-products";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-products";
     }
     @GetMapping("/user/orders")
-    public  String getOrdersPage(Model model){
+    public  String getOrdersPage(Model model,Authentication authentication){
         model.addAttribute("order", orderService.getAllOrder());
-        return "/user/user-order";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-order";
     }
     @GetMapping("/user/newOrder")
-    public  String getNewOrderPage(Model model){
+    public  String getNewOrderPage(Model model,Authentication authentication){
         List<OrderProductDTO> products = new ArrayList<>();
         List<String> assortment = new ArrayList<>();
         model.addAttribute("orders", new OrderDTO());
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("products", products);
         model.addAttribute("status", StatusOrder.getStatus());
-        return "/user/newOrder";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/newOrder";
     }
     @GetMapping("/user/supplies")
-    public  String getSuppliesPage(Model model){
+    public  String getSuppliesPage(Model model,Authentication authentication){
         model.addAttribute("supplies", supplyService.getAllSupplies());
-        return "/user/user-supplies";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-supplies";
     }
     @GetMapping("/user/newSupply")
-    public  String getNewSypplyPage(Model model){
+    public  String getNewSypplyPage(Model model,Authentication authentication){
         model.addAttribute("provider", providersService.getAllProvider());
         model.addAttribute("supply", new SupplyDTO());
-        return "user/newSupply";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/newSupply";
     }
     @GetMapping("/user/invent")
-    public  String getInventPage(){
-        return "/user/user-invent";
+    public  String getInventPage(Model model,Authentication authentication){
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-invent";
     }
     @GetMapping("/user/newInvent")
-    public  String getNewInventPage(Model model){
+    public  String getNewInventPage(Model model,Authentication authentication){
         model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
         model.addAttribute("newIvent", new InfoForIventDTO());
-        return "user/newInvent";
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/newInvent";
     }
+    @PostMapping("/user/addNewIvent")
+    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
+                                  Model model,Authentication authentication, HttpSession session){
+        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
+        infoForIventDTO.setInfoDTOS(infoDTOS);
+        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/inventSecondPage";
+    }
+    @GetMapping("/user/inventSecondPage")
+    public String getInventSecondPage(Model model,Authentication authentication) {
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/inventSecondPage";
+    }
+
     @GetMapping("/user/returns")
-    public String getReturns() {
-        return "/user/user-returns";
+    public String getReturns(Model model,Authentication authentication) {
+        model.addAttribute("returnProductList", returnProductService.getAll());
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/admin/admin-returns";
     }
 
     @GetMapping("/user/newReturn")
-    public String getNewReturn() {
-        return "/user/newReturn";
+    public String getNewReturn(Model model,Authentication authentication) {
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/newReturn";
     }
-    @GetMapping("/user/inventSecondPage")
-    public String getInventSecondPage() {
-        return "/user/inventSecondPage";
-    }
+
 }

@@ -36,7 +36,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String getStart(Model model, Authentication authentication) {
-
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/adminpanel";
     }
 
