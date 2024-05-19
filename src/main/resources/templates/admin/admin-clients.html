@@ -83,7 +83,7 @@
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
+                      <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                   </div>
               </div>
@@ -103,7 +103,7 @@
                           <div class="row g-3">
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">ФИО</label>
-                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="">
+                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="" th:field="${client.clientName}">
                                   <div class="invalid-feedback">
                                       Некоректное ФИО
                                   </div>
@@ -111,7 +111,7 @@
 
                               <div class="col-12">
                                   <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-                                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                  <input type="email" class="form-control" id="email" placeholder="you@example.com" th:field="${client.clientEmail}">
                                   <div class="invalid-feedback">
                                       Проверьте правильность имейла
                                   </div>
@@ -119,7 +119,7 @@
 
                               <div class="col-12">
                                   <label for="address" class="form-label" style="color: aqua">Адресс</label>
-                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" >
+                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" th:field="${client.clientAddress}">
                                   <div class="invalid-feedback">
                                       Проверьте адресс
                                   </div>
@@ -127,7 +127,7 @@
 
                               <div class="col-12">
                                   <label class="form-label" style="color: aqua">Телефон</label>
-                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
+                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" th:field="${client.clientTel}">
                                   <div class="invalid-feedback">
                                       Проверьте телефон
                                   </div>

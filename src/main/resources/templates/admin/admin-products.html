@@ -63,7 +63,7 @@
                       <td  style="color: #2BB789" th:text="${e.productEnddata}"/>
                       <td  style="color: #2BB789" th:text="${e.productPrice}"/>
                       <td  style="color: #2BB789" th:text="${e.productQuantity}"/>
-                      <td><input type="button" value="Списать" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalSpis"></td>
+                      <td><input th:if="${role.equals('[ADMIN]')}" type="button" value="Списать" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalSpis"></td>
                   </tr>
                   </tbody>
     </table>

@@ -64,7 +64,7 @@
                   </tr>
                   </tbody>
     </table>
-    <a href="/admin/newAssortment" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+    <a href="/admin/newAssortment" th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
 
       <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -84,7 +84,7 @@
                   </div>
                   <div class="modal-footer">
                       <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedAss">Изменить</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                      <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                   </div>
               </div>
           </div>
