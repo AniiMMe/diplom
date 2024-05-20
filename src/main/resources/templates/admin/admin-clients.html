@@ -103,7 +103,7 @@
                           <div class="row g-3">
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">ФИО</label>
-                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="" th:field="${client.clientName}">
+                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="" >
                                   <div class="invalid-feedback">
                                       Некоректное ФИО
                                   </div>
@@ -111,7 +111,7 @@
 
                               <div class="col-12">
                                   <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-                                  <input type="email" class="form-control" id="email" placeholder="you@example.com" th:field="${client.clientEmail}">
+                                  <input type="email" class="form-control" id="email" placeholder="you@example.com" >
                                   <div class="invalid-feedback">
                                       Проверьте правильность имейла
                                   </div>
@@ -119,7 +119,7 @@
 
                               <div class="col-12">
                                   <label for="address" class="form-label" style="color: aqua">Адресс</label>
-                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" th:field="${client.clientAddress}">
+                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" >
                                   <div class="invalid-feedback">
                                       Проверьте адресс
                                   </div>
@@ -127,7 +127,7 @@
 
                               <div class="col-12">
                                   <label class="form-label" style="color: aqua">Телефон</label>
-                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" th:field="${client.clientTel}">
+                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
                                   <div class="invalid-feedback">
                                       Проверьте телефон
                                   </div>
