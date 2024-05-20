@@ -32,6 +32,7 @@ public class WorkersDTO extends User {
     @NonNull
     @Pattern(regexp = "^\\+(375|80)(29|33|25|44|17)\\d{7}$")
     private String workerTel;
+    String userStatys;
 
     public Workers build() {
         return new Workers(workerName, workerSurname, workerEmail, workerTel);

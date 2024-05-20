@@ -56,10 +56,7 @@
                 <td style="color: #2BB789" th:text="${e.workerEmail}" th:value="${e.workerEmail}"></td>
                 <td style="color: #2BB789" th:text="${e.workerTel}" th:value="${e.workerTel}"></td>
                 <td style="color: #2BB789" th:text="${e.login}" th:value="${e.login}"></td>
-                <td>
-
-                        <input type="button" value="Подробнее" style="font-weight: bold; background-color: #238182; border-color: #238182;"  data-toggle="modal" data-target="#modalDetails">
-
+                <td><input th:onclick="|findWorkers(${e.userId})|" type="button" value="Подробнее" style="font-weight: bold; background-color: #238182; border-color: #238182;"  data-toggle="modal" data-target="#modalDetails">
                 </td>
             </tr>
             </tbody>
@@ -78,16 +75,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <p>Фамилия: <span id="modalDetailsSurname"></span></p>
-                        <p>Имя: <span id="modalDetailsName"></span></p>
-                        <p>Имейл: <span id="modalDetailsEmail"></span></p>
-                        <p>Телефон: <span id="modalDetailsTel"></span></p>
-                        <p>Логин: <span id="modalDetailsLogin"></span></p>
-                        <p>Пароль: <span id="modalDetailsPassword"></span></p>
+                    <div class="modal-body" id="modelBody">
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedWorker">Изменить</button>
+                        <button type="button" th:onclick="|findChange()|" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedWorker">Изменить</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                     </div>
                 </div>
@@ -103,55 +95,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation" >
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Фамилия</label>
-                                    <input type="text" class="form-control" id="surname" placeholder="" value="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректная фамилия
-                                    </div>
-                                </div>
+                        <form class="needs-validation" id="changeForm">
 
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Имя</label>
-                                    <input type="text" class="form-control" id="name" placeholder="" value="" required="">
-                                    <div class="invalid-feedback">
-                                        Некорректное имя
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-                                    <input type="email" class="form-control" id="email" maxlength="47" minlength="2" required placeholder="you@example.com" >
-                                    <div class="invalid-feedback">
-                                        Проверьте правильность имейла
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label" style="color: aqua">Телефон</label>
-                                    <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
-                                    <div class="invalid-feedback">
-                                        Проверьте телефон
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Логин</label>
-                                    <input type="text" class="form-control" id="login" placeholder="" value="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректный логин
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Пароль</label>
-                                    <input type="text" class="form-control" id="password" placeholder="" value="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректный пароль
-                                    </div>
-                                </div>
                                 <div class="my-3">
                                     <div class="form-check">
                                         <input id="active" name="userStatys" value="true" type="radio" class="form-check-input" checked="" required="">
@@ -162,12 +107,10 @@
                                         <label class="form-check-label" style="color: aqua">Не активен</label>
                                     </div>
                                 </div>
-
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
+                        <button type="button"  th:onclick="|changeFindWorker()|" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
                     </div>
                 </div>
             </div>
@@ -176,4 +119,112 @@
 </main>
 
 </body>
+<script>
+    let idWorker =0;
+    function findWorkers(id){
+        idWorker=id;
+        fetch('/find/worker/' + id,{
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(date=>{
+                const model = document.getElementById("modelBody");
+                model.innerHTML = `
+                        <p>Фамилия: <span id="modalDetailsSurname">${date.workerSurname}</span></p>
+                        <p>Имя: <span id="modalDetailsName">${date.workerName}</span></p>
+                        <p>Имейл: <span id="modalDetailsEmail">${date.workerEmail}</span></p>
+                        <p>Телефон: <span id="modalDetailsTel">${date.workerTel}</span></p>
+                        <p>Логин: <span id="modalDetailsLogin">${date.login}</span></p>
+                        <p>Пароль: <span id="modalDetailsPassword">••••••••</span></p>
+                `;
+
+            });
+    }
+    function findChange() {
+        fetch('/find/worker/' + idWorker,{
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const changeForm = document.getElementById("changeForm")
+                changeForm.innerHTML = `   <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Фамилия</label>
+                                    <input value="${data.workerSurname}" name="workerSurname" type="text" class="form-control" id="surname" placeholder="" required="" >
+                                    <div class="invalid-feedback">
+                                        Некорректная фамилия
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Имя</label>
+                                    <input value="${data.workerName}" name="workerName" type="text" class="form-control" id="name" placeholder="" required="">
+                                    <div class="invalid-feedback">
+                                        Некорректное имя
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
+                                    <input value="${data.workerEmail}" name="workerEmail" type="email" class="form-control" id="email" maxlength="47" minlength="2" required placeholder="you@example.com" >
+                                    <div class="invalid-feedback">
+                                        Проверьте правильность имейла
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label" style="color: aqua">Телефон</label>
+                                    <input value="${data.workerTel}" name="workerTel" type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
+                                    <div class="invalid-feedback">
+                                        Проверьте телефон
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Логин</label>
+                                    <input value="${data.login}" name="login" type="text" class="form-control" id="login" placeholder="" value="" required="" >
+                                    <div class="invalid-feedback">
+                                        Некорректный логин
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Пароль</label>
+                                    <input type="text" class="form-control" name="password" placeholder="••••••••" value="" required="" >
+                                    <div class="invalid-feedback">
+                                        Некорректный пароль
+                                    </div>
+                                </div>`;
+
+
+            });
+
+    }
+   function changeFindWorker(){
+        const form = document.getElementById("changeForm");
+        const data = new FormData(form);
+        console.log(JSON.stringify(form));
+       console.log(JSON.stringify(data));
+        fetch("/admin/changeWorker/" + idWorker,{
+            method: 'POST',
+            body: JSON.stringify(form),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res=>res.json())
+            .then(data=>{
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = '/admin/users';
+                } else if (data.status === "bad") {
+                    for (const x in data) {
+                        if (x !== "bad") {
+                            alert(data[x]);
+                        }
+                    }
+                } else {
+                    console.error('Произошла ошибка:', data.message);
+                }
+            });
+   }
+</script>
 </html>

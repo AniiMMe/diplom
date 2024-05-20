@@ -93,4 +93,8 @@ public class UserService {
     public String getRole(String login){
         return userRepository.findByLogin(login).getRoles().toString();
     }
+
+    public Workers getWorkersByID(int id) {
+        return userRepository.getById(id);
+    }
 }

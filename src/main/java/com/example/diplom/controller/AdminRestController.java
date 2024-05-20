@@ -157,4 +157,19 @@ public class AdminRestController {
                         Assortment::getCount
                 ));
     }
+
+    @PostMapping("/admin/changeWorker/{id}")
+    public ResponseEntity<Map<String, String>> checkChangeUser(@RequestBody @Valid WorkersDTO workers,
+                                                               BindingResult bindingResult, Model model, @PathVariable int id) {
+        workers.setRoles(Collections.singleton(UserRole.USER));
+        if (workers.getUserStatys().equals("true")) workers.setActive(true);
+        else workers.setActive(false);
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkErrorSwitch(workers, bindingResult)));
+        }
+        workers.setRoles(Collections.singleton(UserRole.USER));
+        userService.addNewUser(workers);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
+
+    }
 }
