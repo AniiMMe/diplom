@@ -35,9 +35,15 @@
               <td style="color: #2BB789" th:text="${infoForIvent.priseQuantityItog}" ></td>
           </tr>
       </table>
-      <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
+      <button class="w-100 btn btn-primary btn-lg" onclick="alertCheck()" style="background-color: aqua; color: #238182">Сохранить</button>
   </div>
 </main>
 
 </body>
+<script>
+    function alertCheck(){
+        alert("Инвентаризация успешно оформлена");
+        window.location.href="/user/invent";
+    }
+</script>
 </html>

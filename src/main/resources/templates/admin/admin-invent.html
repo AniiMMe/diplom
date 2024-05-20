@@ -43,17 +43,15 @@
 
         <th></th>
       </tr>
-      <!--            </thead>-->
-      <!--            <tbody>-->
-      <!--            <tr th:each="e:${clients}">-->
-      <!--                <td  style="color: #2BB789" th:text="${e.id}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.fio}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.adress}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.email}"/>-->
-      <!--                <td  style="color: #2BB789" th:text="${e.phone}"/>-->
-      <!--                <td><a th:href="@{/admin/clients/{id}(id=${e.id})}"><input type="button" value="Подробнее" style="font-weight: bold;"></a></td>-->
-      <!--            </tr>-->
-      <!--            </tbody>-->
+                  </thead>
+                  <tbody>
+                  <tr th:each="e:${iventList}">
+                      <td  style="color: #2BB789" th:text="${e.idIvent}"/>
+                      <td  style="color: #2BB789" th:text="${e.date}"/>
+                      <td  style="color: #2BB789" th:text="${e.productQuantityItog}"/>
+                      <td  style="color: #2BB789" th:text="${e.productQuantityItog}"/>
+                  </tr>
+                  </tbody>
     </table>
     <a href="/admin/newInvent" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
   </div>

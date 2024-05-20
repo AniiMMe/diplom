@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -18,6 +19,8 @@ public class InfoForIvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idIvent;
+    @Column
+    private Date date;
     @Column
     @ElementCollection
     private List<Integer> factQuantity;

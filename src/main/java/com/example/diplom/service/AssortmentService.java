@@ -91,6 +91,7 @@ public class AssortmentService {
                 .productQuantity(infoForIventDTO.getInfoDTOS().stream().mapToInt(InfoDTO::getProductQuantity).boxed().toList())
                 .factQuantity(infoForIventDTO.getInfoDTOS().stream().mapToInt(InfoDTO::getFactQuantity).boxed().toList())
                 .assortment(assortments)
+                .date(infoForIventDTO.getDate())
                 .build();
         infoForIvent.setFactQuantityItog(infoForIvent.getFactQuantity().stream().mapToInt(Integer::intValue).sum());
         infoForIvent.setProductQuantityItog(infoForIvent.getProductQuantity().stream().mapToInt(Integer::intValue).sum());

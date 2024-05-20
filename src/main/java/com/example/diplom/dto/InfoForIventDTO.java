@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class InfoForIventDTO {
 
     private List<InfoDTO> infoDTOS;
+    private Date date;
 
     private int factQuantityItog;
     private int productQuantityItog;

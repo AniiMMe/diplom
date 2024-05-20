@@ -4,6 +4,7 @@ import com.example.diplom.dto.InfoDTO;
 import com.example.diplom.dto.InfoForIventDTO;
 import com.example.diplom.dto.OrderDTO;
 import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.entity.InfoForIvent;
 import com.example.diplom.entity.StatusOrder;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class UserController {
     private final ProductService productService;
     private final SupplyService supplyService;
     private final ReturnProductService returnProductService;
+    private final InfoForIventService infoForIventService;
 
     @GetMapping("/user")
     public String getStart(Model model,Authentication authentication) {
@@ -93,6 +95,7 @@ public class UserController {
     @GetMapping("/user/invent")
     public  String getInventPage(Model model,Authentication authentication){
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("iventList", infoForIventService.getAll());
         return "/admin/admin-invent";
     }
     @GetMapping("/user/newInvent")
