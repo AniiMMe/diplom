@@ -98,6 +98,21 @@ public class AdminRestController {
         providersService.addNewProvider(provider);
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Поставщик успешно зарегистрирован!"));
     }
+    @PostMapping("/admin/changeProvider/{id}")
+    public ResponseEntity<Map<String, String>> checkChangeProvider(@ModelAttribute @Valid ProvidersDTO provider,
+                                                                   BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(providersService.checkErrorSwitch(provider, bindingResult)));
+        }
+        providersService.changeProvider(provider, id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Поставщик успешно зарегистрирован!"));
+    }
+    @GetMapping("/admin/deleteProvider/{id}")
+    public ResponseEntity<Map<String,String>> deleteProvider(@PathVariable int id){
+
+        productService.deleteProvider(id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Поставщик удален"));
+    }
 
     @PostMapping("/admin/newAssortment")
     public ResponseEntity<Map<String, String>> checkNewAssortment(@ModelAttribute @Valid AssortmentDTO assortment,

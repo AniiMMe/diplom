@@ -88,4 +88,8 @@ public class ProductService {
         Orders orders = ordersRepository.getById(id);
         return orders.getProducts();
     }
+
+    public void deleteProvider(int id) {
+        productRepository.delete(productRepository.getById(id));
+    }
 }

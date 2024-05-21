@@ -15,6 +15,7 @@
 <div  th:if="${role.equals('[ADMIN]')}" th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/header :: header"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
+<input type="hidden" id="role" th:value="${role}">
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
       <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
@@ -60,11 +61,13 @@
                       <td  style="color: #2BB789" th:text="${e.providerAddress}"/>
                       <td  style="color: #2BB789" th:text="${e.providerEmail}"/>
                       <td  style="color: #2BB789" th:text="${e.providerTel}"/>
-                      <td><input type="button" value="Подробнее" style="background-color: #238182; border-color: #238182;font-weight: bold;" data-toggle="modal" data-target="#modalDetails"></td>
+                      <td><input type="button" th:onclick="|findProvider(${e.providerId})|" value="Подробнее" style="background-color: #238182; border-color: #238182;font-weight: bold;" data-toggle="modal" data-target="#modalDetails"></td>
                   </tr>
                   </tbody>
     </table>
-    <a href="/admin/newProvider" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+    <a th:if="${role.equals('[ADMIN]')}"  href="/admin/newProvider" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+      <a th:if="${role.equals('[USER]')}"  href="/user/newProvider" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+
       <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -74,16 +77,12 @@
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <div class="modal-body">
-                      <p>Фамилия: <span id="modalDetailsSurname"></span></p>
-                      <p>Имя: <span id="modalDetailsName"></span></p>
-                      <p>Имейл: <span id="modalDetailsEmail"></span></p>
-                      <p>Телефон: <span id="modalDetailsTel"></span></p>
+                  <div class="modal-body" id="modalProvider">
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedProvid">Изменить</button>
-                      <button th:if="${role.equals('[ADMIN]')}"  type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                      <button type="button" th:onclick="|findChangeProvider()|" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedProvid">Изменить</button>
+                      <button th:if="${role.equals('[ADMIN]')}" th:onclick="|deleteProvider()|" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                   </div>
               </div>
           </div>
@@ -98,11 +97,11 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <form class="needs-validation" novalidate="" >
+                      <form class="needs-validation" novalidate="" id="changeProvider" th:object="${newProvider}">
                           <div class="row g-3">
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">ФИО</label>
-                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required=""
+                                  <input th:field="${newProvider.providerName}" type="text" class="form-control" id="fio" placeholder="" value="" required=""
                                          >
                                   <div class="invalid-feedback">
                                       Некоректное ФИО
@@ -112,7 +111,7 @@
                               <div class="col-12">
                                   <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
                                   <input type="email" class="form-control" id="email" placeholder="you@example.com"
-                                         >
+                                         th:field="${newProvider.providerEmail}" >
                                   <div class="invalid-feedback">
                                       Проверьте правильность имейла
                                   </div>
@@ -121,7 +120,7 @@
                               <div class="col-12">
                                   <label for="address" class="form-label" style="color: aqua">Адресс</label>
                                   <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required=""
-                                         >
+                                         th:field="${newProvider.providerAddress}"  >
                                   <div class="invalid-feedback">
                                       Проверьте адресс
                                   </div>
@@ -130,24 +129,118 @@
                               <div class="col-12">
                                   <label class="form-label" style="color: aqua">Телефон</label>
                                   <input type="text" class="form-control" id="phone" placeholder="+37544..." required=""
-                                         >
+                                         th:field="${newProvider.providerTel}" >
                                   <div class="invalid-feedback">
                                       Проверьте телефон
                                   </div>
                               </div>
 
                           </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-secondary">Сохранить</button>
+                          </div>
                       </form>
                   </div>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
-                  </div>
+
               </div>
           </div>
       </div>
 
   </div>
 </main>
-<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
 </body>
+<script>
+    let idProviderFind;
+    function findProvider(idProvider){
+        idProviderFind =idProvider;
+        fetch('/find/provider/' + idProvider,{
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const modalProvider =document.getElementById("modalProvider");
+                modalProvider.innerHTML = `
+                <p>Фамилия: <span id="modalDetailsSurname">${data.providerName}</span></p>
+                <p>Адрес: <span id="modalDetailsName">${data.providerAddress}</span></p>
+                <p>Имейл: <span id="modalDetailsEmail">${data.providerEmail}</span></p>
+                <p>Телефон: <span id="modalDetailsTel">${data.providerTel}</span></p>
+
+                `;
+            });
+    }
+    function findChangeProvider(){
+        fetch('/find/provider/' + idProviderFind,{
+            method: 'GET'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                const fio = document.getElementById("fio");
+                const address = document.getElementById("address");
+                const phone = document.getElementById("phone");
+                const email = document.getElementById("email");
+                fio.value = data.providerName;
+                address.value = data.providerAddress;
+                phone.value = data.providerTel;
+                email.value = data.providerEmail;
+
+            });
+        document.getElementById("changeProvider").addEventListener("submit", function (event){
+            event.preventDefault();
+            if (document.getElementById("role").value === '[ADMIN]'){
+                fetch('/admin/changeProvider/' + idProviderFind, {
+                    method: 'POST',
+                    body: new FormData(this)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            alert(data.message);
+                            window.location.href = '/admin/providers';
+                        } else if (data.status === "bad") {
+                            for (const x in data) {
+                                if (x !== "bad") {
+                                    alert(data[x]);
+                                }
+                            }
+                        } else {
+                            console.error('Произошла ошибка:', data.message);
+                        }
+                    })
+            }
+            else {
+                fetch('/user/changeProvider/' + idProviderFind, {
+                    method: 'POST',
+                    body: new FormData(this)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            alert(data.message);
+                            window.location.href = '/user/providers';
+                        } else if (data.status === "bad") {
+                            for (const x in data) {
+                                if (x !== "bad") {
+                                    alert(data[x]);
+                                }
+                            }
+                        } else {
+                            console.error('Произошла ошибка:', data.message);
+                        }
+                    })
+            }
+        });
+    }
+    function deleteProvider(){
+            fetch("/admin/deleteProvider/" + idProviderFind, {
+                method: 'GET'
+            }).then(res=>res.json())
+                .then(data=>{
+                    if (data.status === "success") {
+                        alert(data.message);
+                        window.location.href = '/admin/providers';
+                    }
+                })
+
+    }
+</script>
 </html>

@@ -53,6 +53,7 @@ public class UserController {
     public  String getProvidersPage(Model model,Authentication authentication){
         model.addAttribute("providers", providersService.getAllProvider());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("newProvider", new ProvidersDTO());
         return "/admin/admin-providers";
     }
     @GetMapping("/user/assortment")

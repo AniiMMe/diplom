@@ -1,6 +1,7 @@
 package com.example.diplom.service;
 
 
+import com.example.diplom.dto.ClientDTO;
 import com.example.diplom.dto.ProvidersDTO;
 import com.example.diplom.entity.Providers;
 import com.example.diplom.reposiroty.ProvidersRepository;
@@ -55,5 +56,22 @@ public class ProvidersService {
 
     public List<Providers> getAllProvider() {
         return providersRepository.findAll();
+    }
+
+    public ProvidersDTO findById(int id) {
+        return providersRepository.getById(id).build();
+    }
+
+    public void changeProvider(ProvidersDTO provider, int id) {
+        Providers providersDB = providersRepository.getById(id);
+        if (!providersDB.getProviderAddress().equals(provider.getProviderAddress()))
+            providersDB.setProviderAddress(provider.getProviderAddress());
+        if (!providersDB.getProviderName().equals(provider.getProviderName()))
+            providersDB.setProviderName(provider.getProviderName());
+        if (!providersDB.getProviderEmail().equals(provider.getProviderEmail()))
+            providersDB.setProviderEmail(provider.getProviderEmail());
+        if (!providersDB.getProviderTel().equals(provider.getProviderTel()))
+            providersDB.setProviderTel(provider.getProviderTel());
+        providersRepository.save(providersDB);
     }
 }
