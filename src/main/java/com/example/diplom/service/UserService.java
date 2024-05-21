@@ -97,4 +97,29 @@ public class UserService {
     public Workers getWorkersByID(int id) {
         return userRepository.getById(id);
     }
+
+
+    public void changeUser(WorkersDTO workers, int id) {
+        Workers workersFromDB = userRepository.getById(id);
+        if (workers.isActive()!=workersFromDB.isActive())
+            workersFromDB.setActive(workers.isActive());
+        if (!workers.getWorkerSurname().equals(workersFromDB.getWorkerSurname()))
+            workersFromDB.setWorkerSurname(workers.getWorkerSurname());
+        if (!workers.getWorkerName().equals(workersFromDB.getWorkerName()))
+            workersFromDB.setWorkerName(workers.getWorkerName());
+        if (!workers.getWorkerEmail().equals(workersFromDB.getWorkerEmail()))
+            workersFromDB.setWorkerEmail(workers.getWorkerEmail());
+        if (!workers.getWorkerTel().equals(workersFromDB.getWorkerTel()))
+            workersFromDB.setWorkerTel(workers.getWorkerTel());
+        if (workers.getPassword()!=null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(workers.getPassword());
+            workersFromDB.setUserPassward(encodedPassword);
+        }
+        userRepository.save(workersFromDB);
+    }
+
+    public void deleteClient(int id) {
+        userRepository.delete(userRepository.getById(id));
+    }
 }

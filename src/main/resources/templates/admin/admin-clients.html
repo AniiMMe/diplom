@@ -15,6 +15,7 @@
 <div  th:if="${role.equals('[ADMIN]')}" th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/header :: header"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
+<input type="hidden" id="role" th:value="${role}">
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
       <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
@@ -60,11 +61,12 @@
                       <td  style="color: #2BB789" th:text="${e.clientAddress}"/>
                       <td  style="color: #2BB789" th:text="${e.clientEmail}"/>
                       <td  style="color: #2BB789" th:text="${e.clientTel}"/>
-                      <td><input type="button" value="Подробнее" style="background-color: #238182; border-color: #238182;font-weight: bold;"  data-toggle="modal" data-target="#modalDetails"></td>
+                      <td><input th:onclick="|findClientByID(${e.clientId})|" type="button" value="Подробнее" style="background-color: #238182; border-color: #238182;font-weight: bold;"  data-toggle="modal" data-target="#modalDetails"></td>
                   </tr>
                   </tbody>
     </table>
-    <a href="/admin/newClient" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+    <a th:if="${role.equals('[ADMIN]')}" href="/admin/newClient" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
+      <a th:if="${role.equals('[USER]')}" href="/user/newClient" type="button" class="btn btn-outline-primary me-2" style="background-color: #238182; border-color: #238182; margin-left: 900px">  <img src="/img/+.png" style="height: 50px; width: 50px"></a>
 
       <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -75,7 +77,7 @@
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" id="modelBodyClient">
                       <p>Фамилия: <span id="modalDetailsSurname"></span></p>
                       <p>Имя: <span id="modalDetailsName"></span></p>
                       <p>Имейл: <span id="modalDetailsEmail"></span></p>
@@ -83,8 +85,8 @@
 
                   </div>
                   <div class="modal-footer">
-                      <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                      <button th:if="${role.equals('[ADMIN]')}"  th:onclick="|findClientForChange()|" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
+                      <button th:if="${role.equals('[ADMIN]')}" th:onclick="|deleteClient()|" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                   </div>
               </div>
           </div>
@@ -99,11 +101,11 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <form class="needs-validation" novalidate="" >
+                      <form class="needs-validation" novalidate="" id="clientForm" th:object="${changeClients}">
                           <div class="row g-3">
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">ФИО</label>
-                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="" >
+                                  <input type="text" class="form-control" id="fio" placeholder="" value="" required="" th:field="${changeClients.clientName}">
                                   <div class="invalid-feedback">
                                       Некоректное ФИО
                                   </div>
@@ -111,7 +113,7 @@
 
                               <div class="col-12">
                                   <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-                                  <input type="email" class="form-control" id="email" placeholder="you@example.com" >
+                                  <input type="email" class="form-control" id="email" placeholder="you@example.com" th:field="${changeClients.clientEmail}" >
                                   <div class="invalid-feedback">
                                       Проверьте правильность имейла
                                   </div>
@@ -119,7 +121,7 @@
 
                               <div class="col-12">
                                   <label for="address" class="form-label" style="color: aqua">Адресс</label>
-                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" >
+                                  <input type="text" class="form-control" id="address" placeholder="г. Минск,ул. ..." required="" th:field="${changeClients.clientAddress}" >
                                   <div class="invalid-feedback">
                                       Проверьте адресс
                                   </div>
@@ -127,23 +129,100 @@
 
                               <div class="col-12">
                                   <label class="form-label" style="color: aqua">Телефон</label>
-                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
+                                  <input type="text" class="form-control" id="phone" placeholder="+37544..." required=""  th:field="${changeClients.clientTel}">
                                   <div class="invalid-feedback">
                                       Проверьте телефон
                                   </div>
                               </div>
 
                           </div>
+                          <div class="modal-footer">
+                          <input type="submit" class="btn btn-secondary" value="Сохранить"/>
+                      </div>
                       </form>
+
                   </div>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
-                  </div>
+
               </div>
           </div>
       </div>
   </div>
 </main>
-<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
 </body>
+<script>
+    let idClientFind;
+    function findClientByID(idClient){
+        idClientFind =idClient;
+        fetch('/find/client/' + idClient,{
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+                const modelBodyClient = document.getElementById("modelBodyClient");
+                modelBodyClient.innerHTML = `
+                 <p>ФИО: <span id="modalDetailsSurname">${data.clientName}</span></p>
+                 <p>Имейл: <span id="modalDetailsEmail">${data.clientEmail}</span></p>
+                 <p>Телефон: <span id="modalDetailsTel">${data.clientTel}</span></p>
+                 <p>Имейл: <span id="modalDetailsAddres">${data.clientAddress}</span></p>
+
+                `;
+            });
+    }
+    function findClientForChange() {
+        fetch('/find/client/' + idClientFind,{
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+                const fio = document.getElementById("fio");
+                const email = document.getElementById("email");
+                const address = document.getElementById("address");
+                const phone = document.getElementById("phone");
+                fio.value = data.clientName;
+                email.value = data.clientEmail;
+                address.value = data.clientAddress;
+                phone.value = data.clientTel;
+
+            });
+    }
+    function deleteClient(){
+        fetch('/admin/deleteClient/' + idClientFind,{
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = '/admin/clients';
+                }
+                else {
+                    alert(data.message);
+                    window.location.href = '/admin/clients';
+                }
+            });
+    }
+    document.getElementById('clientForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const role = document.getElementById("role").value;
+        if (role === '[ADMIN]'){
+            fetch('/admin/changeClient/' + idClientFind, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        alert(data.message);
+                        window.location.href = '/admin/clients';
+                    } else if (data.status === "bad") {
+                        for (const x in data) {
+                            if (x !== "bad") {
+                                alert(data[x]);
+                            }
+                        }
+                    } else {
+                        console.error('Произошла ошибка:', data.message);
+                    }
+                })
+        }
+
+    });
+</script>
 </html>

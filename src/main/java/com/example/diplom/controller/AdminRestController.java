@@ -43,6 +43,21 @@ public class AdminRestController {
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
 
     }
+    @PostMapping("/admin/changeWorker/{id}")
+    public ResponseEntity<Map<String,String>> checkChangeUser(@ModelAttribute @Valid WorkersDTO workers, BindingResult bindingResult,
+                                                              Model model, @PathVariable int id){
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkErrorSwitch(workers, bindingResult)));
+        }
+        userService.changeUser(workers, id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно изменен!"));
+    }
+    @GetMapping("/admin/deleteWorker/{id}")
+    public ResponseEntity<Map<String, String>> deleteWorker(@PathVariable int id)
+    {
+        userService.deleteClient(id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Успешно удалено!"));
+    }
 
     @PostMapping("/admin/newClient")
     public ResponseEntity<Map<String, String>> checkNewClient(@ModelAttribute @Valid ClientDTO client,
@@ -54,6 +69,24 @@ public class AdminRestController {
         clientService.addNewUser(client.build());
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Клиент успешно прошел регистрацию!"));
 
+    }
+    @PostMapping("/admin/changeClient/{id}")
+    public ResponseEntity<Map<String, String>> checkChangeClient(@ModelAttribute @Valid ClientDTO client,
+                                                                 BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors()) {
+            clientService.checkNewUser(client);
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(clientService.checkErrorSwitch(client, bindingResult)));
+
+        }
+        clientService.changeClient(client.build(), id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Клиент успешно изменен!"));
+
+    }
+    @GetMapping("/admin/deleteClient/{id}")
+    public ResponseEntity<Map<String, String>> deleteClient(@PathVariable int id)
+    {
+        clientService.deleteClient(id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Успешно удалено!"));
     }
 
     @PostMapping("/admin/newProvider")
@@ -158,18 +191,4 @@ public class AdminRestController {
                 ));
     }
 
-    @PostMapping("/admin/changeWorker/{id}")
-    public ResponseEntity<Map<String, String>> checkChangeUser(@RequestBody @Valid WorkersDTO workers,
-                                                               BindingResult bindingResult, Model model, @PathVariable int id) {
-        workers.setRoles(Collections.singleton(UserRole.USER));
-        if (workers.getUserStatys().equals("true")) workers.setActive(true);
-        else workers.setActive(false);
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(userService.checkErrorSwitch(workers, bindingResult)));
-        }
-        workers.setRoles(Collections.singleton(UserRole.USER));
-        userService.addNewUser(workers);
-        return ResponseEntity.ok(AnswerMessage.getOKMessage("Пользователь успешно добавлен!"));
-
-    }
 }

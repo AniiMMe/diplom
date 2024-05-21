@@ -1,5 +1,6 @@
 package com.example.diplom.entity;
 
+import com.example.diplom.dto.ClientDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,4 +36,14 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
+
+    public ClientDTO build() {
+        return ClientDTO.builder()
+                .clientId(clientId)
+                .clientName(clientName)
+                .clientAddress(clientAddress)
+                .clientTel(clientTel)
+                .clientEmail(clientEmail)
+                .build();
+    }
 }

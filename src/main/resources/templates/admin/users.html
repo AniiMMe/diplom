@@ -80,7 +80,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" th:onclick="|findChange()|" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedWorker">Изменить</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                        <button type="button" th:onclick="|deleteWorker()|" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
                     </div>
                 </div>
             </div>
@@ -95,23 +95,61 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="needs-validation" id="changeForm">
-
-                                <div class="my-3">
-                                    <div class="form-check">
-                                        <input id="active" name="userStatys" value="true" type="radio" class="form-check-input" checked="" required="">
-                                        <label class="form-check-label" style="color: aqua">Активен</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input id="notactive" name="userStatys" value="false" type="radio" class="form-check-input" required="">
-                                        <label class="form-check-label" style="color: aqua">Не активен</label>
+                        <form class="needs-validation" id="changeFormWorker" th:object="${changeUser}">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Фамилия</label>
+                                    <input th:field="${changeUser.workerSurname}" name="workerSurname" type="text" class="form-control" id="surname" placeholder="" required="" >
+                                    <div class="invalid-feedback">
+                                        Некорректная фамилия
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Имя</label>
+                                    <input th:field="${changeUser.workerName}" name="workerName" type="text" class="form-control" id="name" placeholder="" required="">
+                                    <div class="invalid-feedback">
+                                        Некорректное имя
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
+                                    <input th:field="${changeUser.workerEmail}" name="workerEmail" type="email" class="form-control" id="email" maxlength="47" minlength="2" required placeholder="you@example.com" >
+                                    <div class="invalid-feedback">
+                                        Проверьте правильность имейла
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label" style="color: aqua">Телефон</label>
+                                    <input th:field="${changeUser.workerTel}" name="workerTel" type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
+                                    <div class="invalid-feedback">
+                                        Проверьте телефон
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Логин</label>
+                                    <input th:field="${changeUser.login}" name="login" type="text" class="form-control" id="login" placeholder="" value="" required="" >
+                                    <div class="invalid-feedback">
+                                        Некорректный логин
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="color: aqua">Пароль</label>
+                                    <input th:field="${changeUser.password}" type="text" class="form-control" id="password" placeholder="••••••••" value="">
+                                    <div class="invalid-feedback">
+                                        Некорректный пароль
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-secondary"  value="Сохранить"/>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button"  th:onclick="|changeFindWorker()|" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
-                    </div>
+
                 </div>
             </div>
     </div>
@@ -146,75 +184,32 @@
         })
             .then(res=>res.json())
             .then(data=>{
-                const changeForm = document.getElementById("changeForm")
-                changeForm.innerHTML = `   <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Фамилия</label>
-                                    <input value="${data.workerSurname}" name="workerSurname" type="text" class="form-control" id="surname" placeholder="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректная фамилия
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Имя</label>
-                                    <input value="${data.workerName}" name="workerName" type="text" class="form-control" id="name" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Некорректное имя
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="email" class="form-label" style="color: aqua">Email <span class="text-body-secondary"></span></label>
-                                    <input value="${data.workerEmail}" name="workerEmail" type="email" class="form-control" id="email" maxlength="47" minlength="2" required placeholder="you@example.com" >
-                                    <div class="invalid-feedback">
-                                        Проверьте правильность имейла
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label" style="color: aqua">Телефон</label>
-                                    <input value="${data.workerTel}" name="workerTel" type="text" class="form-control" id="phone" placeholder="+37544..." required="" >
-                                    <div class="invalid-feedback">
-                                        Проверьте телефон
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Логин</label>
-                                    <input value="${data.login}" name="login" type="text" class="form-control" id="login" placeholder="" value="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректный логин
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="form-label" style="color: aqua">Пароль</label>
-                                    <input type="text" class="form-control" name="password" placeholder="••••••••" value="" required="" >
-                                    <div class="invalid-feedback">
-                                        Некорректный пароль
-                                    </div>
-                                </div>`;
-
-
+                const surname = document.getElementById("surname");
+                const name = document.getElementById("name");
+                const email = document.getElementById("email");
+                const phone = document.getElementById("phone");
+                const login = document.getElementById("login");
+                surname.value = data.workerSurname;
+                name.value = data.workerName;
+                email.value = data.workerEmail;
+                phone.value = data.workerTel;
+                login.value = data.login;
             });
 
     }
-   function changeFindWorker(){
-        const form = document.getElementById("changeForm");
-        const data = new FormData(form);
-        console.log(JSON.stringify(form));
-       console.log(JSON.stringify(data));
-        fetch("/admin/changeWorker/" + idWorker,{
+
+    document.getElementById('changeFormWorker').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+        fetch('/admin/changeWorker/' + idWorker, {
             method: 'POST',
-            body: JSON.stringify(form),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res=>res.json())
-            .then(data=>{
+            body: new FormData(this)
+        })
+            .then(response => response.json())
+            .then(data => {
                 if (data.status === "success") {
                     alert(data.message);
-                    window.location.href = '/admin/users';
+                    window.location.href = '/admin/user';
                 } else if (data.status === "bad") {
                     for (const x in data) {
                         if (x !== "bad") {
@@ -224,7 +219,19 @@
                 } else {
                     console.error('Произошла ошибка:', data.message);
                 }
-            });
-   }
+            })
+    });
+    function deleteWorker(){
+        fetch("/admin/deleteWorker/" + idWorker, {
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = '/admin/users';
+                }
+            })
+    }
+
 </script>
 </html>

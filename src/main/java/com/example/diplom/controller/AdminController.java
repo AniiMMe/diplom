@@ -1,9 +1,6 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.dto.InfoDTO;
-import com.example.diplom.dto.InfoForIventDTO;
-import com.example.diplom.dto.OrderDTO;
-import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.dto.*;
 import com.example.diplom.entity.*;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
@@ -44,12 +41,14 @@ public class AdminController {
     public String getUsersPage(Model model, Authentication authentication) {
         model.addAttribute("workers", userService.getAllWorkers());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeUser", new WorkersDTO());
         return "/admin/users";
     }
     @GetMapping("/admin/clients")
     public  String getClientsPage(Model model,Authentication authentication){
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeClients", new ClientDTO());
         return "/admin/admin-clients";
     }
     @GetMapping("/admin/providers")

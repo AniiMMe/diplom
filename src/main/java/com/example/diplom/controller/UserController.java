@@ -1,9 +1,7 @@
 package com.example.diplom.controller;
 
-import com.example.diplom.dto.InfoDTO;
-import com.example.diplom.dto.InfoForIventDTO;
-import com.example.diplom.dto.OrderDTO;
-import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.dto.*;
+import com.example.diplom.entity.Client;
 import com.example.diplom.entity.InfoForIvent;
 import com.example.diplom.entity.StatusOrder;
 import com.example.diplom.service.*;
@@ -42,7 +40,14 @@ public class UserController {
     public  String getClientsPage(Model model,Authentication authentication){
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeClients", new ClientDTO());
         return "/admin/admin-clients";
+    }
+    @GetMapping("/user/newClient")
+    public  String getNewClientPage(Model model,Authentication authentication){
+        model.addAttribute("client", new Client());
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        return "/newClient";
     }
     @GetMapping("/user/providers")
     public  String getProvidersPage(Model model,Authentication authentication){

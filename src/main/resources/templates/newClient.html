@@ -6,11 +6,12 @@
 <div  th:if="${role.equals('[ADMIN]')}" th:insert="blocks/adminSidebare :: adminSidebare"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/header :: header"></div>
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
+<input type="hidden" id="role" th:value="${role}">
 
 <main>
 <div class="col-md-7 col-lg-8" style="margin-left: 350px; margin-top: -600px">
   <h4 class="mb-3" style="color: aqua">Добавить нового клиента</h4>
-  <form id="clientForm" class="needs-validation" novalidate="" th:object="${client}" th:action="*{'/admin/newClient'}" method="POST">
+  <form id="clientForm" class="needs-validation" novalidate="" th:object="${client}" method="POST">
     <div class="row g-3">
       <div class="col-sm-12">
         <label  class="form-label" style="color: aqua">ФИО</label>
@@ -43,41 +44,61 @@
           Проверьте телефон
         </div>
       </div>
-
-
-
-
-
     <button class="w-100 btn btn-primary btn-lg" type="submit" style="background-color: aqua; color: #238182">Сохранить</button>
     </div>
 
   </form>
 </div>
 
+
 </main>
 </body>
 <script>
   document.getElementById('clientForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    fetch('/admin/newClient', {
-      method: 'POST',
-      body: new FormData(this)
-    })
-            .then(response => response.json())
-            .then(data => {
-              if (data.status === "success") {
-                alert(data.message);
-                window.location.href = '/admin/clients';
-              } else if (data.status === "bad") {
-                for (const x in data) {
-                  if (x !== "bad") {
-                    alert(data[x]);
+    const role = document.getElementById("role").value;
+    if (role === '[ADMIN]'){
+      fetch('/admin/newClient', {
+        method: 'POST',
+        body: new FormData(this)
+      })
+              .then(response => response.json())
+              .then(data => {
+                if (data.status === "success") {
+                  alert(data.message);
+                  window.location.href = '/admin/clients';
+                } else if (data.status === "bad") {
+                  for (const x in data) {
+                    if (x !== "bad") {
+                      alert(data[x]);
+                    }
                   }
+                } else {
+                  console.error('Произошла ошибка:', data.message);
                 }
-              } else {
-                console.error('Произошла ошибка:', data.message);
-              }
-            })
+              })
+    }
+    else {
+      fetch('/user/newClient', {
+        method: 'POST',
+        body: new FormData(this)
+      })
+              .then(response => response.json())
+              .then(data => {
+                if (data.status === "success") {
+                  alert(data.message);
+                  window.location.href = '/user/clients';
+                } else if (data.status === "bad") {
+                  for (const x in data) {
+                    if (x !== "bad") {
+                      alert(data[x]);
+                    }
+                  }
+                } else {
+                  console.error('Произошла ошибка:', data.message);
+                }
+              })
+    }
   });
 </script>
 </html>

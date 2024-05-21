@@ -60,4 +60,25 @@ public class ClientService {
     public void addNewUser(Client client) {
         clientRepository.save(client);
     }
+
+    public ClientDTO findById(int id) {
+        return clientRepository.getById(id).build();
+    }
+
+    public void changeClient(Client build, int id) {
+        Client client = clientRepository.getById(id);
+        if (!client.getClientAddress().equals(build.getClientAddress()))
+            client.setClientAddress(build.getClientAddress());
+        if (!client.getClientName().equals(build.getClientName()))
+            client.setClientName(build.getClientName());
+        if (!client.getClientEmail().equals(build.getClientEmail()))
+            client.setClientEmail(build.getClientEmail());
+        if (!client.getClientTel().equals(build.getClientTel()))
+            client.setClientTel(build.getClientTel());
+        clientRepository.save(client);
+    }
+
+    public void deleteClient(int id) {
+        clientRepository.delete(clientRepository.getById(id));
+    }
 }
