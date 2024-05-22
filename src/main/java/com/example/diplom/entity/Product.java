@@ -36,6 +36,8 @@ public class Product {
     @Basic
     @Column(name = "product_quantity")
     private int productQuantity;
+    @Column
+    private Boolean writeOff = false;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idAssortment")
     @JsonIgnore

@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final ProductRepository productRepository;
+    private final ProductRepository   productRepository;
     private final AssortmentRepository assortmentRepository;
     private final OrdersRepository ordersRepository;
 
@@ -46,7 +46,8 @@ public class ProductService {
         for (Product product : productList){
              count-= product.getProductId();
             if (count>0 || count==0) {
-                productRepository.delete(product);
+                product.setWriteOff(true);
+                productRepository.save(product);
             }
             else {
                 count = product.getProductQuantity() + count;
@@ -81,7 +82,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findAllByWriteOff(false);
     }
 
     public List<Product> getAllProductsByOrder(int id) {

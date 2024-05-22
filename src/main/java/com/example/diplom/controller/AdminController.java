@@ -30,6 +30,7 @@ public class AdminController {
     private final ProductService productService;
     private final SupplyService supplyService;
     private final ReturnProductService returnProductService;
+    private final WriteOffProductService writeOffProductService;
 
     @GetMapping("/admin")
     public String getStart(Model model, Authentication authentication) {
@@ -69,7 +70,13 @@ public class AdminController {
     public  String getProductsPage(Model model,Authentication authentication){
         model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("newSpis", new WriteOffProduct());
         return "/admin/admin-products";
+    }
+    @GetMapping("/admin/productWriteOff")
+    public String writeOffProduct(@ModelAttribute WriteOffProduct writeOffProduct){
+        writeOffProductService.addProduct(writeOffProduct);
+        return "redirect:/admin/products";
     }
 //    @GetMapping("/admin/orders")
 //    public  String getOrdersPage(Model model,Authentication authentication){

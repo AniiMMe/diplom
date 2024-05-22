@@ -1,6 +1,5 @@
 package com.example.diplom.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +17,10 @@ public class WriteOffProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idWriteOffProduct;
+    @Column
+    private int idProduct;
+    @Column
+    private String reasonWriteOff;
     @Column
     private String productName;
     @Basic

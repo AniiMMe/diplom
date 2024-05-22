@@ -16,4 +16,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "WHERE pr.assortment =?1 " +
             "ORDER BY pr.productEnddata asc ")
     List<Product> findAllByAssortmentOrderByProductEnddataDesc(Assortment assortment);
+    List<Product> findAllByWriteOff(Boolean writeOff);
 }
