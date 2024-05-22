@@ -85,12 +85,21 @@ public class UserController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newOrder";
     }
+
+
     @GetMapping("/user/supplies")
     public  String getSuppliesPage(Model model,Authentication authentication){
         model.addAttribute("supplies", supplyService.getAllSupplies());
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-supplies";
     }
+    //    @GetMapping("/admin/newSupply")
+//    public  String getNewSypplyPage(Model model,Authentication authentication){
+//        model.addAttribute("provider", providersService.getAllProvider());
+//        model.addAttribute("supply", new SupplyDTO());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/newSupply";
+//    }
     @GetMapping("/user/newSupply")
     public  String getNewSypplyPage(Model model,Authentication authentication){
         model.addAttribute("provider", providersService.getAllProvider());

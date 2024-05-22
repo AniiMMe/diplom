@@ -113,7 +113,7 @@ form.addEventListener("submit", function(event) {
         productsList.push(product)
     }
     if (flag ===0) {
-        send('/admin/newSupplyProduct', 'POST', productsList).then(r => {
+        send('/user/newSupplyProduct', 'POST', productsList).then(r => {
             form.submit();
         })
     }

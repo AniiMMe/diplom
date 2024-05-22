@@ -126,6 +126,7 @@ public class AdminRestController {
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Ассортимент успешно добавлен!"));
     }
 
+
     @PostMapping("/admin/newSupply")
     public ResponseEntity<Map<String, String>> checkNewSupply(@ModelAttribute @Valid SupplyDTO supply,
                                                               BindingResult bindingResult,
@@ -138,49 +139,12 @@ public class AdminRestController {
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Паставка успешно оформлена!"));
     }
 
-    @PostMapping("/admin/newSupplyProduct")
-    public ResponseEntity<String> addSupplyProductInSession(@RequestBody List<SupplyProductDTO> supplyProductDTO,
-                                                            HttpSession session) {
-        session.setAttribute("supplyProductDTO", supplyProductDTO);
-        return ResponseEntity.ok("записан");
-    }
-
-    @PostMapping("/admin/newOrder")
-    public ResponseEntity<Map<String, String>> checkNewOrder(@ModelAttribute @Valid OrderDTO orderDTO,
-                                                             BindingResult bindingResult,
-                                                             HttpSession session) {
-        List<OrderProductDTO> orderProductDTOS = (List<OrderProductDTO>) session.getAttribute("orderProductDTOS");
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(orderService.checkErrorSwitch(orderDTO, orderProductDTOS, bindingResult)));
-        }
-        orderService.addNewOrder(orderDTO, orderProductDTOS);
-        return ResponseEntity.ok(AnswerMessage.getOKMessage("Паставка успешно оформлена!"));
-    }
-
-    @PostMapping("/admin/newOrderProduct")
-    public ResponseEntity<String> addOrderProductInSession(@RequestBody
-                                                           List<OrderProductDTO> orderProductDTOS,
-                                                           HttpSession session) {
-        session.setAttribute("orderProductDTOS", orderProductDTOS);
-        return ResponseEntity.ok("");
-    }
-
-    @GetMapping("/admin/productsList")
-    public List<Assortment> getAllAssortment() {
-        return assortmentService.getAllAssortment();
-    }
-
     @PostMapping("/admin/listForIvent")
     public ResponseEntity<String> addNewInfoForIventInSession(@RequestBody
                                                               List<InfoDTO> infoDTOS,
                                                               HttpSession session) {
         session.setAttribute("listForIvent", infoDTOS);
         return ResponseEntity.ok("");
-    }
-
-    @GetMapping("/admin/findOrder/{id}")
-    public List<Product> findProductByOrder(@PathVariable int id) {
-        return productService.getAllProductsByOrder(id);
     }
 
 

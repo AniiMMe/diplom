@@ -88,7 +88,7 @@
 
     function findOrder() {
         const id = document.getElementById("idorder").value;
-        fetch("/admin/findOrder/" + id, {
+        fetch("/find/findOrder/" + id, {
             method: 'GET'
         }).then(res => res.json())
             .then(data => {

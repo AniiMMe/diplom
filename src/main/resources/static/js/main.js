@@ -9,7 +9,7 @@ function addRow() {
     dropdown.id = "product" + counter;
 
     // Вызов AJAX-запроса для получения списка продуктов
-    fetch('/admin/productsList')
+    fetch('/user/productsList')
         .then(response => response.json())
         .then(productList => {
             productList.forEach(x => {
@@ -95,8 +95,26 @@ form.addEventListener("submit", function (event) {
     }
     console.log(data);
 if (flag ===0) {
-    send('/admin/newOrderProduct', 'POST', products).then(data => {
-        form.submit();
+    send('/user/newOrderProduct', 'POST', products).then(data => {
+        fetch('/user/newOrder',{
+            method: 'POST',
+            body: new FormData(this)
+        }).then(res=>res.json())
+            .then(data=>{
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = '/user/orders';
+                } else if (data.status === "bad") {
+                    for (const x in data) {
+                        if (x !== "bad") {
+                            alert(data[x]);
+                        }
+                    }
+                } else {
+                    console.error('Произошла ошибка:', data.message);
+                }
+            })
+
 
     })
 }

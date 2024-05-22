@@ -113,24 +113,8 @@ public class AdminController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newUser";
     }
-//    @GetMapping("/admin/newSupply")
-//    public  String getNewSypplyPage(Model model,Authentication authentication){
-//        model.addAttribute("provider", providersService.getAllProvider());
-//        model.addAttribute("supply", new SupplyDTO());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/newSupply";
-//    }
-//    @GetMapping("/admin/newOrder")
-//    public  String getNewOrderPage(Model model,Authentication authentication){
-//        List<OrderProductDTO> products = new ArrayList<>();
-//        List<String> assortment = new ArrayList<>();
-//        model.addAttribute("orders", new OrderDTO());
-//        model.addAttribute("clients", clientService.getAllClients());
-//        model.addAttribute("products", products);
-//        model.addAttribute("status", StatusOrder.getStatus());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/newOrder";
-//    }
+
+
 //    @GetMapping("/admin/newInvent")
 //    public  String getNewInventPage(Model model,Authentication authentication){
 //        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());

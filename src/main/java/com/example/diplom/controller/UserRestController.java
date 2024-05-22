@@ -2,14 +2,12 @@ package com.example.diplom.controller;
 
 import com.example.diplom.config.AnswerMessage;
 import com.example.diplom.dto.*;
+import com.example.diplom.entity.Assortment;
 import com.example.diplom.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,6 +22,7 @@ public class UserRestController {
     private final ClientService clientService;
     private final ProvidersService providersService;
     private final SupplyService supplyService;
+    private final AssortmentService assortmentService;
 
     @PostMapping("/user/newClient")
     public ResponseEntity<Map<String, String>> checkNewClient(@ModelAttribute @Valid ClientDTO client,
@@ -67,4 +66,26 @@ public class UserRestController {
         orderService.addNewOrder(orderDTO, orderProductDTOS);
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Паставка успешно оформлена!"));
     }
+    @GetMapping("/user/productsList")
+    public List<Assortment> getAllAssortment() {
+        return assortmentService.getAllAssortment();
+    }
+
+    @PostMapping("/user/newOrderProduct")
+    public ResponseEntity<String> addOrderProductInSession(@RequestBody
+                                                           List<OrderProductDTO> orderProductDTOS,
+                                                           HttpSession session) {
+        session.setAttribute("orderProductDTOS", orderProductDTOS);
+        return ResponseEntity.ok("");
+    }
+
+
+    @PostMapping("/user/newSupplyProduct")
+    public ResponseEntity<String> addSupplyProductInSession(@RequestBody List<SupplyProductDTO> supplyProductDTO,
+                                                            HttpSession session) {
+        session.setAttribute("supplyProductDTO", supplyProductDTO);
+        return ResponseEntity.ok("записан");
+    }
+
+
 }
