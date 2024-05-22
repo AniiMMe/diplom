@@ -20,8 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class OrderDTO {
-    @NonNull
-    @NotEmpty
+
     private int client;
     private StatusOrder orderStatus;
     @NonNull

@@ -70,23 +70,23 @@ public class AdminController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-products";
     }
-    @GetMapping("/admin/orders")
-    public  String getOrdersPage(Model model,Authentication authentication){
-        model.addAttribute("order", orderService.getAllOrder());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/admin-order";
-    }
-    @GetMapping("/admin/invent")
-    public  String getInventPage(Model model,Authentication authentication){
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/admin-invent";
-    }
-    @GetMapping("/admin/supplies")
-    public  String getSuppliesPage(Model model,Authentication authentication){
-        model.addAttribute("supplies", supplyService.getAllSupplies());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/admin-supplies";
-    }
+//    @GetMapping("/admin/orders")
+//    public  String getOrdersPage(Model model,Authentication authentication){
+//        model.addAttribute("order", orderService.getAllOrder());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/admin-order";
+//    }
+//    @GetMapping("/admin/invent")
+//    public  String getInventPage(Model model,Authentication authentication){
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/admin-invent";
+//    }
+//    @GetMapping("/admin/supplies")
+//    public  String getSuppliesPage(Model model,Authentication authentication){
+//        model.addAttribute("supplies", supplyService.getAllSupplies());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/admin-supplies";
+//    }
     @GetMapping("/admin/newClient")
     public  String getNewClientPage(Model model,Authentication authentication){
         model.addAttribute("client", new Client());
@@ -113,59 +113,59 @@ public class AdminController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newUser";
     }
-    @GetMapping("/admin/newSupply")
-    public  String getNewSypplyPage(Model model,Authentication authentication){
-        model.addAttribute("provider", providersService.getAllProvider());
-        model.addAttribute("supply", new SupplyDTO());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/newSupply";
-    }
-    @GetMapping("/admin/newOrder")
-    public  String getNewOrderPage(Model model,Authentication authentication){
-        List<OrderProductDTO> products = new ArrayList<>();
-        List<String> assortment = new ArrayList<>();
-        model.addAttribute("orders", new OrderDTO());
-        model.addAttribute("clients", clientService.getAllClients());
-        model.addAttribute("products", products);
-        model.addAttribute("status", StatusOrder.getStatus());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/newOrder";
-    }
-    @GetMapping("/admin/newInvent")
-    public  String getNewInventPage(Model model,Authentication authentication){
-        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
-        model.addAttribute("newIvent", new InfoForIventDTO());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/newInvent";
-    }
+//    @GetMapping("/admin/newSupply")
+//    public  String getNewSypplyPage(Model model,Authentication authentication){
+//        model.addAttribute("provider", providersService.getAllProvider());
+//        model.addAttribute("supply", new SupplyDTO());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/newSupply";
+//    }
+//    @GetMapping("/admin/newOrder")
+//    public  String getNewOrderPage(Model model,Authentication authentication){
+//        List<OrderProductDTO> products = new ArrayList<>();
+//        List<String> assortment = new ArrayList<>();
+//        model.addAttribute("orders", new OrderDTO());
+//        model.addAttribute("clients", clientService.getAllClients());
+//        model.addAttribute("products", products);
+//        model.addAttribute("status", StatusOrder.getStatus());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/newOrder";
+//    }
+//    @GetMapping("/admin/newInvent")
+//    public  String getNewInventPage(Model model,Authentication authentication){
+//        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
+//        model.addAttribute("newIvent", new InfoForIventDTO());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/newInvent";
+//    }
 
-    @PostMapping("/admin/addNewIvent")
-    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
-                                  Model model,Authentication authentication, HttpSession session){
-        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
-        infoForIventDTO.setInfoDTOS(infoDTOS);
-        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/inventSecondPage";
-    }
-    @GetMapping("/admin/inventSecondPage")
-    public String getInventSecondPage(Model model,Authentication authentication) {
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/inventSecondPage";
-    }
+//    @PostMapping("/admin/addNewIvent")
+//    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
+//                                  Model model,Authentication authentication, HttpSession session){
+//        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
+//        infoForIventDTO.setInfoDTOS(infoDTOS);
+//        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/inventSecondPage";
+//    }
+//    @GetMapping("/admin/inventSecondPage")
+//    public String getInventSecondPage(Model model,Authentication authentication) {
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/inventSecondPage";
+//    }
 
-    @GetMapping("/admin/returns")
-    public String getReturns(Model model,Authentication authentication) {
-        model.addAttribute("returnProductList", returnProductService.getAll());
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/admin-returns";
-    }
+//    @GetMapping("/admin/returns")
+//    public String getReturns(Model model,Authentication authentication) {
+//        model.addAttribute("returnProductList", returnProductService.getAll());
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/admin/admin-returns";
+//    }
 
-    @GetMapping("/admin/newReturn")
-    public String getNewReturn(Model model,Authentication authentication) {
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/newReturn";
-    }
+//    @GetMapping("/admin/newReturn")
+//    public String getNewReturn(Model model,Authentication authentication) {
+//        model.addAttribute("role", userService.getRole(authentication.getName()));
+//        return "/newReturn";
+//    }
     @GetMapping("/admin/analit")
     public String getAnailt(Model model,Authentication authentication) {
         model.addAttribute("role", userService.getRole(authentication.getName()));
