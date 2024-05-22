@@ -45,10 +45,10 @@
                 <th style="color: #2BB789" scope="col">ID возврата</th>
                 <th style="color: #2BB789" scope="col">Дата</th>
                 <th style="color: #2BB789" scope="col">Клиент</th>
+                <th style="color: #2BB789" scope="col"> </th>
                 <th style="color: #2BB789" scope="col">Наименование</th>
                 <th style="color: #2BB789" scope="col">Количество</th>
                 <th style="color: #2BB789" scope="col">Причина</th>
-
                 <th></th>
             </tr>
             </thead>
@@ -60,10 +60,10 @@
 
             <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
                 th:text="${retProd.dateReturn}"></td>
-                <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789; margin-right: 50px"
                     th:text="${retProd.orders.client.clientName}"></td>
             <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"></td>
-                <td style="color: #2BB789" th:text="${retProd.reasonsReturns.get(0).product.productName}"></td>
+                <td style="color: #2BB789;  margin-right: 50px" th:text="${retProd.reasonsReturns.get(0).product.productName}"></td>
                 <td style="color: #2BB789" th:text="${retProd.reasonsReturns.get(0).countProduct}"></td>
                 <td style="color: #2BB789" th:text="${retProd.reasonsReturns.get(0).reasons}"></td>
             </tr>
