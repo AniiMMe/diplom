@@ -40,6 +40,8 @@ public class SupplyService {
         Supply supply = new Supply();
         supply.setProviders(providersRepository.findById(supplyDto.getId()).orElse(null));
         supply.setSupplyDate(supplyDto.getSupplyDate());
+        supply.setSupplyCost(productList.stream().mapToDouble(x->x
+                .getProductPrice()*x.getProductQuantity()).sum());
         supply.setProductsList(productList);
         Supply finalSupply = supplyRepository.save(supply);
         productList.forEach(x->{

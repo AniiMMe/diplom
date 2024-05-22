@@ -6,7 +6,7 @@ function addRow() {
     var dropdownCell = newRow.insertCell();
     var dropdown = document.createElement("select");
     dropdown.id = "idAssortment" + count;
-    fetch('/admin/productsList')
+    fetch('/user/productsList')
         .then(response => response.json())
         .then(data => {
             data.forEach(x=>{
@@ -114,7 +114,24 @@ form.addEventListener("submit", function(event) {
     }
     if (flag ===0) {
         send('/user/newSupplyProduct', 'POST', productsList).then(r => {
-            form.submit();
+            fetch('/user/newSupply',{
+                method: 'POST',
+                body: new FormData(this)
+            }).then(res=>res.json())
+                .then(data=>{
+                    if (data.status === "success") {
+                        alert(data.message);
+                        window.location.href = '/user/supplies';
+                    } else if (data.status === "bad") {
+                        for (const x in data) {
+                            if (x !== "bad") {
+                                alert(data[x]);
+                            }
+                        }
+                    } else {
+                        console.error('Произошла ошибка:', data.message);
+                    }
+                })
         })
     }
 
