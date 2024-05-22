@@ -60,6 +60,8 @@
 
             <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
                 th:text="${retProd.dateReturn}"></td>
+                <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"
+                    th:text="${retProd.orders.client.clientName}"></td>
             <td th:rowspan="${retProd.reasonsReturns.size()}" style="color: #2BB789"></td>
                 <td style="color: #2BB789" th:text="${retProd.reasonsReturns.get(0).product.productName}"></td>
                 <td style="color: #2BB789" th:text="${retProd.reasonsReturns.get(0).countProduct}"></td>
