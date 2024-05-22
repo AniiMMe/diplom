@@ -99,4 +99,18 @@ public class AssortmentService {
         return infoForIventRepository.save(infoForIvent);
     }
 
+    public AssortmentDTO getById(int id) {
+        return assortmentRepository.getById(id).build();
+    }
+
+    public void change(AssortmentDTO assortment, int id) {
+        Assortment assortmentDB = assortmentRepository.getById(id);
+        if (!assortmentDB.getProductType().equals(assortment.getProductType()))
+            assortmentDB.setProductType(assortment.getProductType());
+        if (!assortmentDB.getProductName().equals(assortment.getProductName()))
+            assortmentDB.setProductName(assortment.getProductName());
+        if (!assortmentDB.getManufacturer().equals(assortment.getManufacturer()))
+            assortmentDB.setManufacturer(assortment.getManufacturer());
+        assortmentRepository.save(assortmentDB);
+    }
 }

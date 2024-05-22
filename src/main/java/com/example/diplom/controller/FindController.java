@@ -1,14 +1,12 @@
 package com.example.diplom.controller;
 
+import com.example.diplom.dto.AssortmentDTO;
 import com.example.diplom.dto.ClientDTO;
 import com.example.diplom.dto.ProvidersDTO;
 import com.example.diplom.dto.WorkersDTO;
 import com.example.diplom.entity.Product;
 import com.example.diplom.entity.Workers;
-import com.example.diplom.service.ClientService;
-import com.example.diplom.service.ProductService;
-import com.example.diplom.service.ProvidersService;
-import com.example.diplom.service.UserService;
+import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +21,7 @@ public class FindController {
     private final ClientService clientService;
     private final ProvidersService providersService;
     private final ProductService productService;
+    private final AssortmentService assortmentService;
 
     @GetMapping("/find/findOrder/{id}")
     public List<Product> findProductByOrder(@PathVariable int id) {
@@ -41,5 +40,9 @@ public class FindController {
     @GetMapping("/find/provider/{id}")
     public ProvidersDTO getProvider(@PathVariable int id) {
         return providersService.findById(id);
+    }
+    @GetMapping("/find/findAssort/{id}")
+    public AssortmentDTO getAssort(@PathVariable int id){
+        return assortmentService.getById(id);
     }
 }

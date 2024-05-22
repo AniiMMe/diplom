@@ -139,11 +139,6 @@ public class AdminRestController {
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Паставка успешно оформлена!"));
     }
 
-
-
-
-
-
     @GetMapping("/admin/getListCountProduct")
     public Map<String, Integer> getAllCountByProduct() {
         return assortmentService.getAllAssortment().stream()
@@ -151,6 +146,17 @@ public class AdminRestController {
                         Assortment::getProductName,
                         Assortment::getCount
                 ));
+    }
+    @PostMapping("/admin/changeAssortment/{id}")
+    public ResponseEntity<Map<String, String>> changeAssortment(@ModelAttribute @Valid AssortmentDTO assortment,
+                                                                BindingResult bindingResult, @PathVariable int id) {
+        if (bindingResult.hasErrors()) {
+            assortmentService.checkError(assortment, bindingResult);
+            return ResponseEntity.badRequest().body(AnswerMessage
+                    .getBadMessage(assortmentService.checkAssErrorSwitch(assortment, bindingResult)));
+        }
+        assortmentService.change(assortment, id);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Ассортимент успешно изменен!"));
     }
 
 }

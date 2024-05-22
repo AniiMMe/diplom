@@ -60,7 +60,7 @@
                       <td  style="color: #2BB789" th:text="${e.productName}"/>
                       <td  style="color: #2BB789" th:text="${e.productType}"/>
                       <td  style="color: #2BB789" th:text="${e.getFormIn().getName(e.getFormIn())}"/>
-                      <td><input type="button"  th:if="${role.equals('[ADMIN]')}"  value="Подробнее" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalDetails"></td>
+                      <td><button type="button"  th:if="${role.equals('[ADMIN]')}" th:onclick="|findAssortment(${e.idAssort})|"  style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalDetails">Подробнее</button></td>
                   </tr>
                   </tbody>
     </table>
@@ -75,16 +75,11 @@
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
-                  <div class="modal-body">
-                      <p>Изготовитель: <span id="modalDetailsMan"></span></p>
-                      <p>Название: <span id="modalDetailsName"></span></p>
-                      <p>Тип продукта: <span id="modalDetailsType"></span></p>
-                      <p>Форма выпуска: <span id="modalDetailsForm"></span></p>
+                  <div class="modal-body" id="modalAssort">
 
                   </div>
                   <div class="modal-footer">
-                      <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedAss">Изменить</button>
-                      <button th:if="${role.equals('[ADMIN]')}" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+                      <button th:if="${role.equals('[ADMIN]')}" th:onclick="|findAssortChange()|" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedAss">Изменить</button>
                   </div>
               </div>
           </div>
@@ -99,11 +94,11 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                      <form class="needs-validation" novalidate="" >
+                      <form class="needs-validation" id="formAssort" novalidate="" th:object="${changeAssort}" >
                           <div class="row g-3">
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">Название</label>
-                                  <input type="text" class="form-control" id="name" placeholder="" value="" required="" >
+                                  <input th:field="${changeAssort.productName}" type="text" class="form-control" id="name" placeholder="" value="" required=""/>
                                   <div class="invalid-feedback">
                                       Некоректное название
                                   </div>
@@ -111,7 +106,7 @@
 
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">Изготовитель</label>
-                                  <input type="text" class="form-control" id="manufacturer" placeholder="" value="" required="" >
+                                  <input type="text" th:field="${changeAssort.manufacturer}" class="form-control" id="manufacturer" placeholder="" value="" required="" >
                                   <div class="invalid-feedback">
                                       Некоректный производитель
                                   </div>
@@ -119,7 +114,7 @@
 
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">Тип продукта</label>
-                                  <input type="text" class="form-control" id="prod_type" placeholder="" value="" required="" >
+                                  <input type="text" th:field="${changeAssort.productType}" class="form-control" id="prod_type" placeholder="" value="" required="" >
                                   <div class="invalid-feedback">
                                       Некоректный тип
                                   </div>
@@ -127,23 +122,91 @@
 
                               <div class="col-sm-12">
                                   <label class="form-label" style="color: aqua">Форма выпуска</label>
-                                  <input type="text" class="form-control" id="form" placeholder="" value="" required="" >
+                                  <input type="text" readonly class="form-control" id="form" placeholder="" value="" required="" >
                                   <div class="invalid-feedback">
                                       Некоректная форма
                                   </div>
                               </div>
 
                           </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-secondary" >Сохранить</button>
+                          </div>
                       </form>
                   </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Сохранить</button>
-                  </div>
+
               </div>
           </div>
       </div>
   </div>
 </main>
-<!--<div th:insert="blocks/footer :: footer" style="margin-top: 120px"></div>-->
 </body>
+<script>
+    let idAssortFind;
+    formIn = "";
+    let formInValue;
+    function findAssortment(idAssort){
+        const modalAddAssort = document.getElementById("modalAssort");
+        idAssortFind = idAssort;
+        fetch("/find/findAssort/" + idAssort,{
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+                formInValue = data.formIn;
+                if (data.formIn === 'PACK') formIn = 'Пачка';
+                if (data.formIn === 'BOX') formIn = 'Коробка';
+                if (data.formIn === 'BOTTLE') formIn = 'Бутылка';
+                if (data.formIn === 'PACK') formIn = 'Рулон';
+                modalAddAssort.innerHTML=
+                    `
+                      <p>Изготовитель: <span id="modalDetailsMan">${data.manufacturer}</span></p>
+                      <p>Название: <span id="modalDetailsName">${data.productName}</span></p>
+                      <p>Тип продукта: <span id="modalDetailsType">${data.productType}</span></p>
+                      <p>Форма выпуска: <span id="modalDetailsForm">${formIn}</span></p>
+
+                    `;
+
+            });
+    }
+    function findAssortChange(){
+        fetch("/find/findAssort/" + idAssortFind,{
+            method: 'GET'
+        }).then(res=>res.json())
+            .then(data=>{
+
+                const name = document.getElementById("name");
+                const manufacturer = document.getElementById("manufacturer");
+                const prod_type = document.getElementById("prod_type")
+                const form = document.getElementById("form");
+                name.value = data.productName;
+                manufacturer.value = data.manufacturer;
+                prod_type.value = data.productType;
+                form.value = formIn;
+
+
+            });
+    }
+    document.getElementById("formAssort").addEventListener("submit", function (event){
+        const input = document.getElementById("form");
+        input.value = formInValue;
+       fetch('/admin/changeAssortment/'+idAssortFind,{
+           method: 'POST',
+           body: new FormData(this)
+       }).then(response => response.json())
+           .then(answer=>{
+               if (answer.status === "success") {
+                   alert(answer.message);
+                   window.location.href = '/admin/assortment';
+               } else if (answer.status === "bad") {
+                   for (const x in answer) {
+                       if (x!=="bad"){
+                           alert(answer[x]);
+                       }}
+               }
+               else {
+                   console.error('Произошла ошибка:', answer.message);
+               }
+           });
+    });
+</script>
 </html>
