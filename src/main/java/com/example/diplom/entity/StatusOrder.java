@@ -9,8 +9,8 @@ public enum StatusOrder {
     COMPLETED,      // Завершено
     CANCELLED,      // Отменено
     DELIVERED;     // Доставлено
-
-    private static Map<StatusOrder, String> statusInRussian = new HashMap<>();
+@Getter
+    public static Map<StatusOrder, String> statusInRussian = new HashMap<>();
 
     static {
         statusInRussian.put(StatusOrder.PROCESSING,"Обработка");
