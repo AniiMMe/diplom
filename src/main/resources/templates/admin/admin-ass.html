@@ -60,7 +60,7 @@
                       <td  style="color: #2BB789" th:text="${e.productName}"/>
                       <td  style="color: #2BB789" th:text="${e.productType}"/>
                       <td  style="color: #2BB789" th:text="${e.getFormIn().getName(e.getFormIn())}"/>
-                      <td><input type="button" value="Подробнее" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalDetails"></td>
+                      <td><input type="button"  th:if="${role.equals('[ADMIN]')}"  value="Подробнее" style="font-weight: bold; background-color: #238182; border-color: #238182;" data-toggle="modal" data-target="#modalDetails"></td>
                   </tr>
                   </tbody>
     </table>
