@@ -168,7 +168,7 @@
             .then(answer=>{
                 if (answer.status === "success") {
                     alert(answer.message);
-                    window.location.href = '/admin/returns';
+                    window.location.href = '/user/returns';
                 } else if (answer.status === "bad") {
                     for (const x in answer) {
                         if (x!=="bad"){

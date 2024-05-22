@@ -26,6 +26,7 @@ public class UserRestController {
     private final SupplyService supplyService;
     private final AssortmentService assortmentService;
     private final InfoForIventService infoForIventService;
+    private final ReturnProductService returnProductService;
 
     @PostMapping("/user/newClient")
     public ResponseEntity<Map<String, String>> checkNewClient(@ModelAttribute @Valid ClientDTO client,
@@ -108,6 +109,19 @@ public class UserRestController {
         session.setAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Инвентаризация сформирована!"));
     }
+    @PostMapping("/user/addNewReturn")
+    public ResponseEntity<Map<String, String>> addNewReturn(@RequestBody
+                                                            @Valid ReturnProductDto returnProductDto,
+                                                            BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(
+                    returnProductService.checkError(returnProductDto, result)
+            ));
+        }
+        returnProductService.add(returnProductDto);
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Возврат успешно оформлен!"));
+    }
+
 
 
 }

@@ -142,18 +142,7 @@ public class AdminRestController {
 
 
 
-    @PostMapping("/admin/addNewReturn")
-    public ResponseEntity<Map<String, String>> addNewReturn(@RequestBody
-                                                            @Valid ReturnProductDto returnProductDto,
-                                                            BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(
-                    returnProductService.checkError(returnProductDto, result)
-            ));
-        }
-        returnProductService.add(returnProductDto);
-        return ResponseEntity.ok(AnswerMessage.getOKMessage("Возврат успешно оформлен!"));
-    }
+
 
     @GetMapping("/admin/getListCountProduct")
     public Map<String, Integer> getAllCountByProduct() {

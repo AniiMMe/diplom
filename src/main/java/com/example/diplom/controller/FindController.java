@@ -24,7 +24,7 @@ public class FindController {
     private final ProvidersService providersService;
     private final ProductService productService;
 
-    @GetMapping("/admin/findOrder/{id}")
+    @GetMapping("/find/findOrder/{id}")
     public List<Product> findProductByOrder(@PathVariable int id) {
         return productService.getAllProductsByOrder(id);
     }

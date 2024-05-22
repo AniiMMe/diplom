@@ -136,11 +136,7 @@ public class AdminController {
 //        return "/admin/admin-returns";
 //    }
 
-//    @GetMapping("/admin/newReturn")
-//    public String getNewReturn(Model model,Authentication authentication) {
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/newReturn";
-//    }
+
     @GetMapping("/admin/analit")
     public String getAnailt(Model model,Authentication authentication) {
         model.addAttribute("role", userService.getRole(authentication.getName()));
