@@ -78,10 +78,6 @@
                 </div>
 
             </div>
-
-    </div>
-
-
 </main>
 <script>
 const form = document.getElementById("formIvent");
@@ -104,8 +100,25 @@ form.addEventListener("submit", function (event){
         }
         list.push(element);
     }
-    send("/admin/listForIvent", 'POST', list).then(data=>{
-        form.submit()
+    send("/user/listForIvent", 'POST', list).then(data=>{
+        fetch("/user/addNewIvent",{
+            method: 'POST',
+            body: new FormData(this)
+        }).then(res => res.json())
+            .then(data=>{
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href="/user/infoIvent";
+                } else if (data.status === "bad") {
+                    for (const x in data) {
+                        if (x !== "bad") {
+                            alert(data[x]);
+                        }
+                    }
+                } else {
+                    console.error('Произошла ошибка:', data.message);
+                }
+            });
     });
 
 });

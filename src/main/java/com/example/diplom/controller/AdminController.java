@@ -123,15 +123,6 @@ public class AdminController {
 //        return "/newInvent";
 //    }
 
-//    @PostMapping("/admin/addNewIvent")
-//    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
-//                                  Model model,Authentication authentication, HttpSession session){
-//        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
-//        infoForIventDTO.setInfoDTOS(infoDTOS);
-//        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/inventSecondPage";
-//    }
 //    @GetMapping("/admin/inventSecondPage")
 //    public String getInventSecondPage(Model model,Authentication authentication) {
 //        model.addAttribute("role", userService.getRole(authentication.getName()));

@@ -6,6 +6,8 @@ import com.example.diplom.entity.InfoForIvent;
 import com.example.diplom.entity.StatusOrder;
 import com.example.diplom.service.*;
 import lombok.AllArgsConstructor;
+import org.bouncycastle.math.raw.Mod;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,15 +122,7 @@ public class UserController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newInvent";
     }
-    @PostMapping("/user/addNewIvent")
-    public String getInfoForIvent(@ModelAttribute InfoForIventDTO infoForIventDTO,
-                                  Model model,Authentication authentication, HttpSession session){
-        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
-        infoForIventDTO.setInfoDTOS(infoDTOS);
-        model.addAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
-        model.addAttribute("role", userService.getRole(authentication.getName()));
-        return "/admin/inventSecondPage";
-    }
+
     @GetMapping("/user/inventSecondPage")
     public String getInventSecondPage(Model model,Authentication authentication) {
         model.addAttribute("role", userService.getRole(authentication.getName()));
@@ -146,6 +140,12 @@ public class UserController {
     public String getNewReturn(Model model,Authentication authentication) {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newReturn";
+    }
+    @GetMapping("/user/infoIvent")
+    public String getAllIvent(Model model, Authentication authentication, HttpSession session){
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("infoForIvent", session.getAttribute("infoForIvent"));
+        return "/admin/inventSecondPage";
     }
 
 }

@@ -139,13 +139,7 @@ public class AdminRestController {
         return ResponseEntity.ok(AnswerMessage.getOKMessage("Паставка успешно оформлена!"));
     }
 
-    @PostMapping("/admin/listForIvent")
-    public ResponseEntity<String> addNewInfoForIventInSession(@RequestBody
-                                                              List<InfoDTO> infoDTOS,
-                                                              HttpSession session) {
-        session.setAttribute("listForIvent", infoDTOS);
-        return ResponseEntity.ok("");
-    }
+
 
 
     @PostMapping("/admin/addNewReturn")

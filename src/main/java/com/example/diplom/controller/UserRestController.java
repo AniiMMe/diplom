@@ -6,6 +6,8 @@ import com.example.diplom.entity.Assortment;
 import com.example.diplom.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ public class UserRestController {
     private final ProvidersService providersService;
     private final SupplyService supplyService;
     private final AssortmentService assortmentService;
+    private final InfoForIventService infoForIventService;
 
     @PostMapping("/user/newClient")
     public ResponseEntity<Map<String, String>> checkNewClient(@ModelAttribute @Valid ClientDTO client,
@@ -85,6 +88,25 @@ public class UserRestController {
                                                             HttpSession session) {
         session.setAttribute("supplyProductDTO", supplyProductDTO);
         return ResponseEntity.ok("записан");
+    }
+    @PostMapping("/user/listForIvent")
+    public ResponseEntity<String> addNewInfoForIventInSession(@RequestBody
+                                                              List<InfoDTO> infoDTOS,
+                                                              HttpSession session) {
+        session.setAttribute("listForIvent", infoDTOS);
+        return ResponseEntity.ok("");
+    }
+    @PostMapping("/user/addNewIvent")
+    public ResponseEntity<Map<String,String>> getInfoForIvent(@ModelAttribute @Valid InfoForIventDTO infoForIventDTO,
+                                  BindingResult result,
+                                  Model model, Authentication authentication, HttpSession session){
+        List<InfoDTO> infoDTOS = (List<InfoDTO>) session.getAttribute("listForIvent");
+//        if (result.hasErrors()){
+//            return ResponseEntity.badRequest().body(AnswerMessage.getBadMessage(infoForIventService.checkIvent(infoForIventDTO, result)));
+//        }
+        infoForIventDTO.setInfoDTOS(infoDTOS);
+        session.setAttribute("infoForIvent", assortmentService.addInfoForIvent(infoForIventDTO));
+        return ResponseEntity.ok(AnswerMessage.getOKMessage("Инвентаризация сформирована!"));
     }
 
 
