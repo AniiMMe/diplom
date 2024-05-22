@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:insert="blocks/links::div"></div>
 <body style="background-color: #284B52">
-<div th:insert="blocks/header :: header"></div>
-<div th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<div  th:if="${role.equals('[ADMIN]')}" th:insert="blocks/header :: header"></div>
+<div  th:if="${role.equals('[ADMIN]')}" th:insert="blocks/adminSidebare :: adminSidebare"></div>
+<div th:if="${role.equals('[USER]')}" th:insert="blocks/header :: header"></div>
+<div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
+
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
     <h4 class="mb-3" style="color: aqua">Итог инвентаризации:</h4>

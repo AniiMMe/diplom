@@ -76,7 +76,7 @@ form.addEventListener("submit", function (event) {
             flag++;
             alert("Стоимость не может быть отрицательной!");
         }
-        if (CountProductFromAssortment<0>) {
+        if (CountProductFromAssortment<0) {
             flag++;
             alert("Количество не может быть отрицательным!");
         }
