@@ -56,8 +56,8 @@ public class OrderService {
 
         });
         Orders orders = Orders.builder()
-                .orderCost(productList.stream().mapToDouble(x -> x.getCostForOneProduct() * x.getCountProductFromAssortment()).sum())
-                .orderQuantity(productList.stream().mapToDouble(OrderProductDTO::getCountProductFromAssortment).sum())
+                .orderCost(productOrder.stream().mapToDouble(x -> x.getProductQuantity() * x.getProductPrice()).sum())
+                .orderQuantity(productOrder.stream().mapToDouble(Product::getProductQuantity).sum())
                 .orderDate(order.getOrderDate())
                 .orderStatus(order.getOrderStatus())
                 .client(client)

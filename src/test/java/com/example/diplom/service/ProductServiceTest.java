@@ -48,16 +48,12 @@ class ProductServiceTest {
         productList.add(product1);
         when(productRepository.findAllByAssortmentAndProductEnddataIsBetween(any(), any(), any()))
                 .thenReturn(productList);
-
         boolean result = productService.checkProduct(assortment, col);
-
         assertFalse(result);
         verify(productRepository, times(1)).delete(product1);
     }
-
     @Test
     public void testGetProductForOrder() {
-        // Создание тестовых данных
         List<Product> productList = new ArrayList<>();
         Product product1 = new Product();
         product1.setProductQuantity(5);
@@ -70,11 +66,8 @@ class ProductServiceTest {
         assortment2.setCount(3);
         when(assortmentRepository.findAllByProductName("Assortment1")).thenReturn(assortment1);
         when(assortmentRepository.findAllByProductName("Assortment2")).thenReturn(assortment2);
-
-        // Выполнение тестируемого метода
         Map<Assortment, String> result = productService.getProductForOrder(productList, assortmentList);
 
-        // Проверка результата
         assertEquals(1, result.size());
         assertEquals("Недостаточно товара", result.get(assortment1));
         verify(assortmentRepository, times(1)).save(assortment1);

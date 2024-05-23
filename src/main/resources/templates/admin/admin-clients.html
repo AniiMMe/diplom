@@ -17,32 +17,35 @@
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
 <input type="hidden" id="role" th:value="${role}">
 <main>
-  <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
-      <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
-          <div th:name="sort" style="width: 475px; display: flex; align-items: center;">
-              <button class="btn btn-primary rounded-pill px-3" type="button" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>
-              <select class="form-select" style="margin-left: 10px; width: 150px">
-                  <option value="" selected disabled>По признаку</option>
-                  <option value="признак1">Признак 1</option>
-                  <option value="признак2">Признак 2</option>
-                  <option value="признак3">Признак 3</option>
-              </select>
-          </div>
+<!--  <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">-->
+<!--      <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">-->
+<!--          <div th:name="sort" style="width: 475px; display: flex; align-items: center;">-->
+<!--              <button class="btn btn-primary rounded-pill px-3" type="button" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>-->
+<!--              <select th:field="search.sort" class="form-select" style="margin-left: 10px; width: 150px">-->
+<!--                  <option value="" selected disabled>По признаку</option>-->
+<!--                  <option value="clientId"> По ID</option>-->
+<!--                  <option value="clientName"> По имени</option>-->
+<!--                  <option value="clientAddress">По адресу</option>-->
+<!--                  <option value="clientTel">По номеру телефона</option>-->
+<!--                  <option value="clientEmail">По электронной почте</option>-->
+<!--              </select>-->
+<!--          </div>-->
 
 
-          <div th:name="search" style="width: 475px; display: flex; align-items: end;">
-              <form role="search">
-                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">
-              </form>
-              <select class="form-select" style="margin-left: 10px; width: 160px">
-                  <option value="" selected disabled>По параметру</option>
-                  <option value="признак1">Параметр 1</option>
-                  <option value="признак2">Параметр 2</option>
-                  <option value="признак3">Параметр 3</option>
-              </select>
-          </div>
-      </div>
-
+<!--          <div th:name="search" style="width: 475px; display: flex; align-items: end;">-->
+<!--              <form role="search">-->
+<!--                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">-->
+<!--              </form>-->
+<!--              <select th:field="search.search" class="form-select" style="margin-left: 10px; width: 160px">-->
+<!--                  <option value="" selected disabled>По признаку</option>-->
+<!--                  <option value="clientId"> По ID</option>-->
+<!--                  <option value="clientName"> По имени</option>-->
+<!--                  <option value="clientAddress">По адресу</option>-->
+<!--                  <option value="clientTel">По номеру телефона</option>-->
+<!--                  <option value="clientEmail">По электронной почте</option>-->
+<!--              </select>-->
+<!--          </div>-->
+<!--      </div>-->
       <table class="table table-striped table-sm" style="margin-top: 20px">
       <thead>
       <tr>
@@ -85,7 +88,7 @@
                   </div>
                   <div class="modal-footer">
                       <button th:if="${role.equals('[ADMIN]')}"  th:onclick="|findClientForChange()|" type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#modalRedClient">Изменить</button>
-                      <button th:if="${role.equals('[ADMIN]')}" th:onclick="|deleteClient()|" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>
+<!--                      <button th:if="${role.equals('[ADMIN]')}" th:onclick="|deleteClient()|" type="button" class="btn btn-secondary" data-dismiss="modal">Удалить</button>-->
                   </div>
               </div>
           </div>

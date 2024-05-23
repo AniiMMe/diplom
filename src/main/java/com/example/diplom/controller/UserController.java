@@ -62,6 +62,7 @@ public class UserController {
     public String getAssortPage(Model model,Authentication authentication){
         model.addAttribute("assortments", assortmentService.getAllAssortment());
         model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeAssort", new AssortmentDTO());
         return "/admin/admin-ass";
     }
     @GetMapping("/user/products")
