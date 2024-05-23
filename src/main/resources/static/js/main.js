@@ -21,6 +21,12 @@ function addRow() {
         })
         .catch(error => console.log(error));
     dropdownCell.appendChild(dropdown);
+    var numberCell = newRow.insertCell();
+    var numberInput = document.createElement("input");
+    numberInput.type = "number";
+    numberInput.classList.add("input-cell");
+    numberInput.id = "costForOneProduct" + counter;
+    numberCell.appendChild(numberInput);
     var floatCell = newRow.insertCell();
     var floatInput = document.createElement("input");
     floatInput.type = "number";
@@ -30,12 +36,7 @@ function addRow() {
     console.log("CountProductFromAssortment" + counter);
     floatCell.appendChild(floatInput);
 
-    var numberCell = newRow.insertCell();
-    var numberInput = document.createElement("input");
-    numberInput.type = "number";
-    numberInput.classList.add("input-cell");
-    numberInput.id = "costForOneProduct" + counter;
-    numberCell.appendChild(numberInput);
+
     counter++;
 }
 
