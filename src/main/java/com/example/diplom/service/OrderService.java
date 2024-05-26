@@ -1,20 +1,18 @@
 package com.example.diplom.service;
 
-import com.example.diplom.dto.AssortmentDTO;
-import com.example.diplom.dto.OrderDTO;
-import com.example.diplom.dto.OrderProductDTO;
+import com.example.diplom.dto.*;
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.Client;
 import com.example.diplom.entity.Orders;
 import com.example.diplom.entity.Product;
-import com.example.diplom.reposiroty.AssortmentRepository;
-import com.example.diplom.reposiroty.ClientRepository;
-import com.example.diplom.reposiroty.OrdersRepository;
-import com.example.diplom.reposiroty.ProductRepository;
+import com.example.diplom.reposiroty.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.validation.BindingResult;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +25,8 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final AssortmentRepository assortmentRepository;
     private final ClientRepository clientRepository;
-
+    private final UserRepository userRepository;
+    private final EntityManager entityManager;
 
     public void addNewOrder(OrderDTO order, List<OrderProductDTO> productList) {
         List<Product> productOrder = new ArrayList<>();
@@ -110,4 +109,91 @@ public class OrderService {
     public List<Orders> getAllOrder() {
         return ordersRepository.findAll();
     }
+
+//    public List<UserDTO> findAllByAccount(String name, SearchData searchData) {
+//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+//
+//        CriteriaQuery<OrderDTO> query = builder.createQuery(OrderDTO.class);
+//        Root<OrderDTO> root = query.from(OrderDTO.class);
+//        query.select(root);
+//
+//        List<Order> orders = new ArrayList<>();
+//
+//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+//            if (searchData.getHowSort().equals("asc")) {
+//                switch (searchData.getSortParam()) {
+//                    case "ordersId":
+//                        orders.add(builder.asc(root.get("ordersId")));
+//                        break;
+//                    case "orderDate":
+//                        orders.add(builder.asc(root.get("orderDate")));
+//                        break;
+//                    case "orderQuantity":
+//                        orders.add(builder.asc(root.get("orderQuantity")));
+//                        break;
+//                    case "orderStatus":
+//                        orders.add(builder.asc(root.get("orderStatus")));
+//                        break;
+//
+//                    default:
+//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+//                }
+//            } else {
+//                switch (searchData.getSortParam()) {
+//                    case "ordersId":
+//                        orders.add(builder.desc(root.get("ordersId")));
+//                        break;
+//                    case "orderDate":
+//                        orders.add(builder.desc(root.get("orderDate")));
+//                        break;
+//                    case "orderQuantity":
+//                        orders.add(builder.desc(root.get("orderQuantity")));
+//                        break;
+//
+//                    case "orderStatus":
+//                        orders.add(builder.desc(root.get("orderStatus")));
+//                        break;
+//
+//
+//                }
+//            }
+//        }
+//
+//        if (!orders.isEmpty()) {
+//            query.orderBy(orders);
+//        }
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+//            switch (searchData.getSearchParam()) {
+//
+//                case "ordersId":
+//                    predicates.add(builder.like(root.get("ordersId"), searchData.getSearchQuery()));
+//                    break;
+//                case "orderDate":
+//                    predicates.add(builder.like(root.get("orderDate"), searchData.getSearchQuery()));
+//                    break;
+//                case "orderQuantity":
+//                    predicates.add(builder.like(root.get("orderQuantity"), searchData.getSearchQuery()));
+//                    break;
+//                case "orderStatus":
+//                    predicates.add(builder.like(root.get("orderStatus"), searchData.getSearchQuery()));
+//                    break;
+//
+//
+//            }
+//        }
+//
+//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+//        query.where(searchPredicate);
+//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
+//        query.where(searchPredicate);
+//        TypedQuery<OrderDTO> typedQuery = entityManager.createQuery(query);
+//        List<OrderDTO> orderDTOList = new ArrayList<>();
+//        typedQuery.getResultList().forEach(x->{
+//            orderDTOList.add(x.build());
+//        });
+//        return orderDTOList;
+//    }
 }

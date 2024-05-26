@@ -1,18 +1,23 @@
 package com.example.diplom.service;
 
-import com.example.diplom.dto.AssortmentDTO;
-import com.example.diplom.dto.InfoDTO;
-import com.example.diplom.dto.InfoForIventDTO;
-import com.example.diplom.dto.ReturnProductDto;
+import com.example.diplom.dto.*;
 import com.example.diplom.entity.Assortment;
 import com.example.diplom.entity.InfoForIvent;
 import com.example.diplom.entity.Product;
 import com.example.diplom.reposiroty.AssortmentRepository;
 import com.example.diplom.reposiroty.ProductRepository;
+import com.example.diplom.reposiroty.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -23,10 +28,12 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @Service
 @RequiredArgsConstructor
 public class AssortmentService {
+
     private final AssortmentRepository assortmentRepository;
     private final ProductRepository productRepository;
     private final InfoForIventRepository infoForIventRepository;
-
+    private final EntityManager entityManager;
+    private final UserRepository userRepository;
     // в этом методе я предполагаю уникального название товара
     public String checkNewAssortment(Assortment assortment) {
         if (assortmentRepository.existsByProductName(assortment.getProductName())) return "Такой товар уже существует";
@@ -113,4 +120,88 @@ public class AssortmentService {
             assortmentDB.setManufacturer(assortment.getManufacturer());
         assortmentRepository.save(assortmentDB);
     }
+//    public List<AssortmentDTO> findAllByAccount(String name, SearchData searchData) {
+//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+//
+//        CriteriaQuery<AssortmentDTO> query = builder.createQuery(AssortmentDTO.class);
+//        Root<AssortmentDTO> root = query.from(AssortmentDTO.class);
+//        query.select(root);
+//
+//        List<Assortment> assortments = new ArrayList<>();
+//
+//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+//            if (searchData.getHowSort().equals("asc")) {
+//                switch (searchData.getSortParam()) {
+//                    case "idAssort":
+//                        assortments.add(builder.asc(root.get("idAssort")));
+//                        break;
+//                    case "manufacturer":
+//                        assortments.add(builder.asc(root.get("manufacturer")));
+//                        break;
+//                    case "productName":
+//                        assortments.add(builder.asc(root.get("productName")));
+//                        break;
+//                    case "productType":
+//                        assortments.add(builder.asc(root.get("productType")));
+//                        break;
+//                    default:
+//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+//                }
+//            } else {
+//                switch (searchData.getSortParam()) {
+//                    case "idAssort":
+//                        assortments.add(builder.desc(root.get("idAssort")));
+//                        break;
+//                    case "manufacturer":
+//                        assortments.add(builder.desc(root.get("manufacturer")));
+//                        break;
+//                    case "productName":
+//                        assortments.add(builder.desc(root.get("productName")));
+//                        break;
+//                    case "productType":
+//                        assortments.add(builder.desc(root.get("productType")));
+//                        break;
+//
+//
+//                }
+//            }
+//        }
+//
+//        if (!assortments.isEmpty()) {
+//            query.orderBy(assortments);
+//        }
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+//            switch (searchData.getSearchParam()) {
+//
+//                case "idAssort":
+//                    predicates.add(builder.like(root.get("idAssort"), searchData.getSearchQuery()));
+//                    break;
+//                case "manufacturer":
+//                    predicates.add(builder.like(root.get("manufacturer"), searchData.getSearchQuery()));
+//                    break;
+//                case "productName":
+//                    predicates.add(builder.like(root.get("productName"), searchData.getSearchQuery()));
+//                    break;
+//                case "productType":
+//                    predicates.add(builder.like(root.get("productType"), searchData.getSearchQuery()));
+//                    break;
+//
+//
+//            }
+//        }
+//
+//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+//        query.where(searchPredicate);
+//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
+//        query.where(searchPredicate);
+//        TypedQuery<AssortmentDTO> typedQuery = entityManager.createQuery(query);
+//        List<AssortmentDTO> AssortmentDTOList = new ArrayList<>();
+//        typedQuery.getResultList().forEach(x->{
+//            AssortmentDTOList.add(x.build());
+//        });
+//        return AssortmentDTOList;
+//    }
 }

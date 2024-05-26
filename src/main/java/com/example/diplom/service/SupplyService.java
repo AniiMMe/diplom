@@ -1,17 +1,23 @@
 package com.example.diplom.service;
 
 import com.example.diplom.controller.SupplyDTO;
+import com.example.diplom.dto.SearchData;
 import com.example.diplom.dto.SupplyProductDTO;
+import com.example.diplom.dto.UserDTO;
 import com.example.diplom.entity.Product;
 import com.example.diplom.entity.Supply;
-import com.example.diplom.reposiroty.AssortmentRepository;
-import com.example.diplom.reposiroty.ProductRepository;
-import com.example.diplom.reposiroty.ProvidersRepository;
-import com.example.diplom.reposiroty.SupplyRepository;
+import com.example.diplom.reposiroty.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +30,8 @@ public class SupplyService {
     private final ProductRepository productRepository;
     private final AssortmentRepository assortmentRepository;
     private final ProvidersRepository providersRepository;
+    private final EntityManager entityManager;
+    private final UserRepository userRepository;
 
     public void addNewSupply(SupplyDTO supplyDto, List<SupplyProductDTO> products) {
         List<Product> productList = new ArrayList<>();
@@ -98,4 +106,79 @@ public class SupplyService {
     public List<Supply> getAllSupplies() {
         return supplyRepository.findAll();
     }
+
+//    public List<SupplyDTO> findAllByAccount(String name, SearchData searchData) {
+//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+//
+//        CriteriaQuery<SupplyDTO> query = builder.createQuery(SupplyDTO.class);
+//        Root<SupplyDTO> root = query.from(SupplyDTO.class);
+//        query.select(root);
+//
+//        List<SupplyRepository> supplyRepositories = new ArrayList<>();
+//
+//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+//            if (searchData.getHowSort().equals("asc")) {
+//                switch (searchData.getSortParam()) {
+//                    case "supplyId":
+//                        supplyRepositories.add(builder.asc(root.get("supplyId")));
+//                        break;
+//                    case "supplyDate":
+//                        supplyRepositories.add(builder.asc(root.get("supplyDate")));
+//                        break;
+//                    case "supplyCost":
+//                        supplyRepositories.add(builder.asc(root.get("supplyCost")));
+//                        break;
+//                    default:
+//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+//                }
+//            } else {
+//                switch (searchData.getSortParam()) {
+//                    case "supplyId":
+//                        supplyRepositories.add(builder.desc(root.get("supplyId")));
+//                        break;
+//                    case "supplyDate":
+//                        supplyRepositories.add(builder.desc(root.get("supplyDate")));
+//                        break;
+//                    case "supplyCost":
+//                        supplyRepositories.add(builder.desc(root.get("supplyCost")));
+//                        break;
+//
+//
+//                }
+//            }
+//        }
+//
+//        if (!supplyRepositories.isEmpty()) {
+//            query.orderBy(supplyRepositories);
+//        }
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+//            switch (searchData.getSearchParam()) {
+//
+//                case "supplyId":
+//                    predicates.add(builder.like(root.get("supplyId"), searchData.getSearchQuery()));
+//                    break;
+//                case "supplyDate":
+//                    predicates.add(builder.like(root.get("supplyDate"), searchData.getSearchQuery()));
+//                    break;
+//                case "supplyCost":
+//                    predicates.add(builder.like(root.get("supplyCost"), searchData.getSearchQuery()));
+//                    break;
+//
+//            }
+//        }
+//
+//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+//        query.where(searchPredicate);
+//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
+//        query.where(searchPredicate);
+//        TypedQuery<SupplyDTO> typedQuery = entityManager.createQuery(query);
+//        List<SupplyDTO>SupplyList = new ArrayList<>();
+//        typedQuery.getResultList().forEach(x->{
+//            SupplyList.add(x.build());
+//        });
+//        return SupplyList;
+//    }
 }
