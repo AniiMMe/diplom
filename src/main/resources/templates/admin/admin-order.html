@@ -69,7 +69,7 @@
               <td style="color: #2BB789" th:text="${e.ordersId}"></td>
               <td style="color: #2BB789" th:text="${e.orderDate}"></td>
               <td style="color: #2BB789">
-                  <span th:if="${e.products}" th:each="pr:${e.products}" th:text="${pr.assortment.productName}"></span>
+                  <span th:if="${e.products}" th:each="pr:${e.products}" th:text="${pr.productName}"></span>
               </td>
               <td style="color: #2BB789" th:text="${e.orderCost}"></td>
               <td style="color: #2BB789" th:text="${e.orderQuantity}"></td>

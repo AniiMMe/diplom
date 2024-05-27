@@ -38,11 +38,13 @@ public class OrderService {
             List<Product> productListDB = productRepository.findAllByAssortmentOrderByProductEnddataDesc(assortment);
             int count = x.getCountProductFromAssortment();
             for (Product p: productListDB) {
-                if (p.getProductQuantity() > count) {
+                if (p.getProductQuantity() < count) {
                     p.setProductQuantity(p.getProductQuantity() - count);
+                    productOrder.add(productRepository.save(p));
                     break;
                 } else if (p.getProductQuantity() == count) {
                     p.setProductQuantity(0);
+                    productOrder.add(productRepository.save(p));
                     break;
                 } else {
                     int del = count - p.getProductQuantity();
