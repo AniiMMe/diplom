@@ -110,90 +110,84 @@ public class OrderService {
         return ordersRepository.findAll();
     }
 
-//    public List<UserDTO> findAllByAccount(String name, SearchData searchData) {
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//
-//        CriteriaQuery<OrderDTO> query = builder.createQuery(OrderDTO.class);
-//        Root<OrderDTO> root = query.from(OrderDTO.class);
-//        query.select(root);
-//
-//        List<Order> orders = new ArrayList<>();
-//
-//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
-//            if (searchData.getHowSort().equals("asc")) {
-//                switch (searchData.getSortParam()) {
-//                    case "ordersId":
-//                        orders.add(builder.asc(root.get("ordersId")));
-//                        break;
-//                    case "orderDate":
-//                        orders.add(builder.asc(root.get("orderDate")));
-//                        break;
-//                    case "orderQuantity":
-//                        orders.add(builder.asc(root.get("orderQuantity")));
-//                        break;
-//                    case "orderStatus":
-//                        orders.add(builder.asc(root.get("orderStatus")));
-//                        break;
-//
-//                    default:
-//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
-//                }
-//            } else {
-//                switch (searchData.getSortParam()) {
-//                    case "ordersId":
-//                        orders.add(builder.desc(root.get("ordersId")));
-//                        break;
-//                    case "orderDate":
-//                        orders.add(builder.desc(root.get("orderDate")));
-//                        break;
-//                    case "orderQuantity":
-//                        orders.add(builder.desc(root.get("orderQuantity")));
-//                        break;
-//
-//                    case "orderStatus":
-//                        orders.add(builder.desc(root.get("orderStatus")));
-//                        break;
-//
-//
-//                }
-//            }
-//        }
-//
-//        if (!orders.isEmpty()) {
-//            query.orderBy(orders);
-//        }
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
-//            switch (searchData.getSearchParam()) {
-//
-//                case "ordersId":
-//                    predicates.add(builder.like(root.get("ordersId"), searchData.getSearchQuery()));
-//                    break;
-//                case "orderDate":
-//                    predicates.add(builder.like(root.get("orderDate"), searchData.getSearchQuery()));
-//                    break;
-//                case "orderQuantity":
-//                    predicates.add(builder.like(root.get("orderQuantity"), searchData.getSearchQuery()));
-//                    break;
-//                case "orderStatus":
-//                    predicates.add(builder.like(root.get("orderStatus"), searchData.getSearchQuery()));
-//                    break;
-//
-//
-//            }
-//        }
-//
-//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
-//        query.where(searchPredicate);
-//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
-//        query.where(searchPredicate);
-//        TypedQuery<OrderDTO> typedQuery = entityManager.createQuery(query);
-//        List<OrderDTO> orderDTOList = new ArrayList<>();
-//        typedQuery.getResultList().forEach(x->{
-//            orderDTOList.add(x.build());
-//        });
-//        return orderDTOList;
-//    }
+    public List<Orders> getAllOrder( SearchData searchData) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Orders> query = builder.createQuery(Orders.class);
+        Root<Orders> root = query.from(Orders.class);
+        query.select(root);
+
+        List<Order> orders = new ArrayList<>();
+
+        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+            if (searchData.getHowSort().equals("asc")) {
+                switch (searchData.getSortParam()) {
+                    case "ordersId":
+                        orders.add(builder.asc(root.get("ordersId")));
+                        break;
+                    case "orderDate":
+                        orders.add(builder.asc(root.get("orderDate")));
+                        break;
+                    case "orderQuantity":
+                        orders.add(builder.asc(root.get("orderQuantity")));
+                        break;
+                    case "orderStatus":
+                        orders.add(builder.asc(root.get("orderStatus")));
+                        break;
+
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+                }
+            } else {
+                switch (searchData.getSortParam()) {
+                    case "ordersId":
+                        orders.add(builder.desc(root.get("ordersId")));
+                        break;
+                    case "orderDate":
+                        orders.add(builder.desc(root.get("orderDate")));
+                        break;
+                    case "orderQuantity":
+                        orders.add(builder.desc(root.get("orderQuantity")));
+                        break;
+
+                    case "orderStatus":
+                        orders.add(builder.desc(root.get("orderStatus")));
+                        break;
+
+
+                }
+            }
+        }
+
+        if (!orders.isEmpty()) {
+            query.orderBy(orders);
+        }
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+            switch (searchData.getSearchParam()) {
+
+                case "ordersId":
+                    predicates.add(builder.like(root.get("ordersId"), searchData.getSearchQuery()));
+                    break;
+                case "orderDate":
+                    predicates.add(builder.like(root.get("orderDate"), searchData.getSearchQuery()));
+                    break;
+                case "orderQuantity":
+                    predicates.add(builder.like(root.get("orderQuantity"), searchData.getSearchQuery()));
+                    break;
+                case "orderStatus":
+                    predicates.add(builder.like(root.get("orderStatus"), searchData.getSearchQuery()));
+                    break;
+
+
+            }
+        }
+
+        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+        query.where(searchPredicate);
+        TypedQuery<Orders> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getResultList();
+    }
 }

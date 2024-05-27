@@ -17,7 +17,7 @@
 <div th:if="${role.equals('[USER]')}" th:insert="blocks/userSidebare :: userSidebare"></div>
 <main>
     <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
-        <form action="/admin/filter/products" method="get">
+        <form th:action="${role.equals('[ADMIN]') ? '/admin/filter/products':'/user/filter/products'}" method="get">
         <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
             <div th:name="sort" style="width: 475px; display: flex; align-items: center;">
                 <button class="btn btn-primary rounded-pill px-3" type="submit" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>
@@ -36,7 +36,6 @@
                     <option value="desc">По убыванию</option>
                 </select>
             </div>
-
 
             <div th:name="search" style="width: 475px; display: flex; align-items: end;">
 

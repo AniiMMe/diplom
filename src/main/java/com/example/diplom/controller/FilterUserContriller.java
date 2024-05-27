@@ -28,42 +28,49 @@ public class FilterUserContriller {
     private final ReturnProductService returnProductService;
     private final InfoForIventService infoForIventService;
 
-    @GetMapping("/user/clients")
-    public  String getClientsPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("clients", clientService.getAllClients());
+    @GetMapping("/clients")
+    public  String getClientsPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("clients", clientService.getAllClients(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeClients", new ClientDTO());
         return "/admin/admin-clients";
     }
-    @GetMapping("/user/providers")
-    public  String getProvidersPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("providers", providersService.getAllProvider());
-
+    @GetMapping("/providers")
+    public  String getProvidersPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("providers", providersService.getAllProvider(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("newProvider", new ProvidersDTO());
         return "/admin/admin-providers";
     }
-    @GetMapping("/user/assortment")
-    public String getAssortPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("assortments", assortmentService.getAllAssortment());
-
+    @GetMapping("/assortment")
+    public String getAssortPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("assortments", assortmentService.getAllAssortment(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeAssort", new AssortmentDTO());
         return "/admin/admin-ass";
     }
-    @GetMapping("/user/products")
-    public  String getProductsPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("products", productService.getAllProducts());
-
+    @GetMapping("/products")
+    public  String getProductsPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("products", productService.getAllProducts(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-products";
     }
-    @GetMapping("/user/orders")
-    public  String getOrdersPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("order", orderService.getAllOrder());
+    @GetMapping("/orders")
+    public  String getOrdersPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("order", orderService.getAllOrder(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-order";
     }
-    @GetMapping("/user/supplies")
-    public  String getSuppliesPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("supplies", supplyService.getAllSupplies());
+    @GetMapping("/supplies")
+    public  String getSuppliesPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("supplies", supplyService.getAllSupplies(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-supplies";
     }
-    @GetMapping("/user/returns")
-    public String getReturns(Model model, @ModelAttribute SearchData searchData) {
-        model.addAttribute("returnProductList", returnProductService.getAll());
+    @GetMapping("/returns")
+    public String getReturns(Model model, @ModelAttribute SearchData searchData,Authentication authentication) {
+        model.addAttribute("returnProductList", returnProductService.getAll(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/admin/admin-returns";
     }
 }

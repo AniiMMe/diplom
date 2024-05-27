@@ -18,7 +18,7 @@
 <input type="hidden" id="role" th:value="${role}">
 <main>
   <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
-      <form  action="/admin/filter/clients" method="get">
+      <form th:action="${role.equals('[ADMIN]') ? '/admin/filter/clients':'/user/filter/clients'}" method="get">
       <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">
           <div th:name="sort" style="width: 475px; display: flex; align-items: center;">
               <button class="btn btn-primary rounded-pill px-3" type="submit" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>

@@ -16,10 +16,7 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,70 +80,65 @@ public class ReturnProductService {
         returnProduct.setReasonsReturns(productsList);
         returnProductRepository.save(returnProduct);
     }
-//    public List<ReturnProductDto> findAllByAccount(String name, SearchData searchData) {
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//
-//        CriteriaQuery<ReturnProductDto> query = builder.createQuery(ReturnProductDto.class);
-//        Root<ReturnProductDto> root = query.from(ReturnProductDto.class);
-//        query.select(root);
-//
-//        List<ReturnProduct> returnProducts = new ArrayList<>();
-//
-//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
-//            if (searchData.getHowSort().equals("asc")) {
-//                switch (searchData.getSortParam()) {
-//                    case "idReturnProduct":
-//                        returnProducts.add(builder.asc(root.get("idReturnProduct")));
-//                        break;
-//                    case "dateReturn":
-//                        returnProducts.add(builder.asc(root.get("dateReturn")));
-//                        break;
-//
-//                    default:
-//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
-//                }
-//            } else {
-//                switch (searchData.getSortParam()) {
-//                    case "idReturnProduct":
-//                        returnProducts.add(builder.desc(root.get("idReturnProduct")));
-//                        break;
-//                    case "dateReturn":
-//                        returnProducts.add(builder.desc(root.get("dateReturn")));
-//                        break;
-//
-//
-//                }
-//            }
-//        }
-//
-//        if (!returnProducts.isEmpty()) {
-//            query.orderBy(returnProducts);
-//        }
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
-//            switch (searchData.getSearchParam()) {
-//
-//                case "idReturnProduct":
-//                    predicates.add(builder.like(root.get("idReturnProduct"), searchData.getSearchQuery()));
-//                    break;
-//                case "dateReturn":
-//                    predicates.add(builder.like(root.get("dateReturn"), searchData.getSearchQuery()));
-//                    break;
-//
-//            }
-//        }
-//
-//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
-//        query.where(searchPredicate);
-//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
-//        query.where(searchPredicate);
-//        TypedQuery<ReturnProductDto> typedQuery = entityManager.createQuery(query);
-//        List<ReturnProductDto> ReturnProductDtoList = new ArrayList<>();
-//        typedQuery.getResultList().forEach(x->{
-//            ReturnProductDtoList.add(x.build());
-//        });
-//        return ReturnProductDtoList;
-//    }
+    public List<ReturnProduct> getAll(SearchData searchData) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<ReturnProduct> query = builder.createQuery(ReturnProduct.class);
+        Root<ReturnProduct> root = query.from(ReturnProduct.class);
+        query.select(root);
+
+        List<Order> orders = new ArrayList<>();
+
+        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+            if (searchData.getHowSort().equals("asc")) {
+                switch (searchData.getSortParam()) {
+                    case "idReturnProduct":
+                        orders.add(builder.asc(root.get("idReturnProduct")));
+                        break;
+                    case "dateReturn":
+                        orders.add(builder.asc(root.get("dateReturn")));
+                        break;
+
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+                }
+            } else {
+                switch (searchData.getSortParam()) {
+                    case "idReturnProduct":
+                        orders.add(builder.desc(root.get("idReturnProduct")));
+                        break;
+                    case "dateReturn":
+                        orders.add(builder.desc(root.get("dateReturn")));
+                        break;
+
+
+                }
+            }
+        }
+
+        if (!orders.isEmpty()) {
+            query.orderBy(orders);
+        }
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+            switch (searchData.getSearchParam()) {
+
+                case "idReturnProduct":
+                    predicates.add(builder.like(root.get("idReturnProduct"), searchData.getSearchQuery()));
+                    break;
+                case "dateReturn":
+                    predicates.add(builder.like(root.get("dateReturn"), searchData.getSearchQuery()));
+                    break;
+
+            }
+        }
+
+        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+        query.where(searchPredicate);
+        TypedQuery<ReturnProduct> typedQuery = entityManager.createQuery(query);
+        List<ReturnProductDto> ReturnProductDtoList = new ArrayList<>();
+        return typedQuery.getResultList();
+    }
 }

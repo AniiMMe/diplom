@@ -19,7 +19,7 @@
 <main>
 
     <div class="table-responsive " style="width: 1000px; margin-top: -600px; margin-left: 300px">
-        <form action="/admin/filter/providers" method="get">
+        <form th:action="${role.equals('[ADMIN]') ? '/admin/filter/providers':'/user/filter/providers'}"  method="get">
             <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">-->
                 <div th:name="sort" style="width: 475px; display: flex; align-items: center;">-->
                     <button class="btn btn-primary rounded-pill px-3" type="submit"
