@@ -16,10 +16,7 @@ import com.example.diplom.dto.SearchData;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.*;
 
 @Service
@@ -131,104 +128,98 @@ public class UserService {
     }
 
 
-//    public List<UserDTO> findAllByAccount(String name, SearchData searchData) {
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//
-//        CriteriaQuery<UserDTO> query = builder.createQuery(UserDTO.class);
-//        Root<UserDTO> root = query.from(UserDTO.class);
-//        query.select(root);
-//
-//        List<User> users = new ArrayList<>();
-//
-//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
-//            if (searchData.getHowSort().equals("asc")) {
-//                switch (searchData.getSortParam()) {
-//                    case "userId":
-//                        users.add(builder.asc(root.get("userId")));
-//                        break;
-//                    case "login":
-//                        users.add(builder.asc(root.get("login")));
-//                        break;
-//                    case "workerName":
-//                        users.add(builder.asc(root.get("workerName")));
-//                        break;
-//                    case "workerSurname":
-//                        users.add(builder.asc(root.get("workerSurname")));
-//                        break;
-//                    case "workerTel":
-//                        users.add(builder.asc(root.get("workerTel")));
-//                        break;
-//                    case "workerEmail":
-//                        users.add(builder.asc(root.get("workerEmail")));
-//                        break;
-//                    default:
-//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
-//                }
-//            } else {
-//                switch (searchData.getSortParam()) {
-//                    case "userId":
-//                        users.add(builder.desc(root.get("userId")));
-//                        break;
-//                    case "login":
-//                        users.add(builder.desc(root.get("login")));
-//                        break;
-//                    case "workerName":
-//                        users.add(builder.desc(root.get("workerName")));
-//                        break;
-//                    case "workerSurname":
-//                        users.add(builder.desc(root.get("workerSurname")));
-//                        break;
-//                    case "workerTel":
-//                        users.add(builder.desc(root.get("workerTel")));
-//                        break;
-//                    case "workerEmail":
-//                        users.add(builder.desc(root.get("workerEmail")));
-//                        break;
-//
-//                }
-//            }
-//        }
-//
-//        if (!users.isEmpty()) {
-//            query.orderBy(users);
-//        }
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
-//            switch (searchData.getSearchParam()) {
-//
-//                case "userId":
-//                    predicates.add(builder.like(root.get("userId"), searchData.getSearchQuery()));
-//                    break;
-//                case "login":
-//                    predicates.add(builder.like(root.get("login"), searchData.getSearchQuery()));
-//                    break;
-//                case "workerName":
-//                    predicates.add(builder.like(root.get("workerName"), searchData.getSearchQuery()));
-//                    break;
-//                case "workerSurname":
-//                    predicates.add(builder.like(root.get("workerSurname"), searchData.getSearchQuery()));
-//                    break;
-//                case "workerTel":
-//                    predicates.add(builder.like(root.get("workerTel"), searchData.getSearchQuery()));
-//                    break;
-//                case "workerEmail":
-//                    predicates.add(builder.like(root.get("workerEmail"), searchData.getSearchQuery()));
-//                    break;
-//
-//            }
-//        }
-//
-//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
-//        query.where(searchPredicate);
-//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
-//        query.where(searchPredicate);
-//        TypedQuery<UserDTO> typedQuery = entityManager.createQuery(query);
-//        List<UserDTO> UserDTOList = new ArrayList<>();
-//        typedQuery.getResultList().forEach(x->{
-//            UserDTOList.add(x.build());
-//        });
-//        return UserDTOList;
-//    }
+    public List<Workers> getAllWorkers(SearchData searchData) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Workers> query = builder.createQuery(Workers.class);
+        Root<Workers> root = query.from(Workers.class);
+        query.select(root);
+
+        List<Order> orders = new ArrayList<>();
+
+        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+            if (searchData.getHowSort().equals("asc")) {
+                switch (searchData.getSortParam()) {
+                    case "userId":
+                        orders.add(builder.asc(root.get("userId")));
+                        break;
+                    case "login":
+                        orders.add(builder.asc(root.get("login")));
+                        break;
+                    case "workerName":
+                        orders.add(builder.asc(root.get("workerName")));
+                        break;
+                    case "workerSurname":
+                        orders.add(builder.asc(root.get("workerSurname")));
+                        break;
+                    case "workerTel":
+                        orders.add(builder.asc(root.get("workerTel")));
+                        break;
+                    case "workerEmail":
+                        orders.add(builder.asc(root.get("workerEmail")));
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+                }
+            } else {
+                switch (searchData.getSortParam()) {
+                    case "userId":
+                        orders.add(builder.desc(root.get("userId")));
+                        break;
+                    case "login":
+                        orders.add(builder.desc(root.get("login")));
+                        break;
+                    case "workerName":
+                        orders.add(builder.desc(root.get("workerName")));
+                        break;
+                    case "workerSurname":
+                        orders.add(builder.desc(root.get("workerSurname")));
+                        break;
+                    case "workerTel":
+                        orders.add(builder.desc(root.get("workerTel")));
+                        break;
+                    case "workerEmail":
+                        orders.add(builder.desc(root.get("workerEmail")));
+                        break;
+
+                }
+            }
+        }
+
+        if (!orders.isEmpty()) {
+            query.orderBy(orders);
+        }
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+            switch (searchData.getSearchParam()) {
+
+                case "userId":
+                    predicates.add(builder.like(root.get("userId"), searchData.getSearchQuery()));
+                    break;
+                case "login":
+                    predicates.add(builder.like(root.get("login"), searchData.getSearchQuery()));
+                    break;
+                case "workerName":
+                    predicates.add(builder.like(root.get("workerName"), searchData.getSearchQuery()));
+                    break;
+                case "workerSurname":
+                    predicates.add(builder.like(root.get("workerSurname"), searchData.getSearchQuery()));
+                    break;
+                case "workerTel":
+                    predicates.add(builder.like(root.get("workerTel"), searchData.getSearchQuery()));
+                    break;
+                case "workerEmail":
+                    predicates.add(builder.like(root.get("workerEmail"), searchData.getSearchQuery()));
+                    break;
+
+            }
+        }
+
+        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+        query.where(searchPredicate);
+        TypedQuery<Workers> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getResultList();
+    }
 }

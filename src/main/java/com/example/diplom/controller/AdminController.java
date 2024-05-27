@@ -78,23 +78,7 @@ public class AdminController {
         writeOffProductService.addProduct(writeOffProduct);
         return "redirect:/admin/products";
     }
-//    @GetMapping("/admin/orders")
-//    public  String getOrdersPage(Model model,Authentication authentication){
-//        model.addAttribute("order", orderService.getAllOrder());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/admin-order";
-//    }
-//    @GetMapping("/admin/invent")
-//    public  String getInventPage(Model model,Authentication authentication){
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/admin-invent";
-//    }
-//    @GetMapping("/admin/supplies")
-//    public  String getSuppliesPage(Model model,Authentication authentication){
-//        model.addAttribute("supplies", supplyService.getAllSupplies());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/admin-supplies";
-//    }
+
     @GetMapping("/admin/newClient")
     public  String getNewClientPage(Model model,Authentication authentication){
         model.addAttribute("client", new Client());
@@ -121,30 +105,6 @@ public class AdminController {
         model.addAttribute("role", userService.getRole(authentication.getName()));
         return "/newUser";
     }
-
-
-//    @GetMapping("/admin/newInvent")
-//    public  String getNewInventPage(Model model,Authentication authentication){
-//        model.addAttribute("assortmentList", assortmentService.getAllAssortmentForInvent());
-//        model.addAttribute("newIvent", new InfoForIventDTO());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/newInvent";
-//    }
-
-//    @GetMapping("/admin/inventSecondPage")
-//    public String getInventSecondPage(Model model,Authentication authentication) {
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/inventSecondPage";
-//    }
-
-//    @GetMapping("/admin/returns")
-//    public String getReturns(Model model,Authentication authentication) {
-//        model.addAttribute("returnProductList", returnProductService.getAll());
-//        model.addAttribute("role", userService.getRole(authentication.getName()));
-//        return "/admin/admin-returns";
-//    }
-
-
     @GetMapping("/admin/analit")
     public String getAnailt(Model model,Authentication authentication) {
         model.addAttribute("role", userService.getRole(authentication.getName()));

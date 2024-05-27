@@ -14,10 +14,7 @@ import org.springframework.validation.BindingResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -120,88 +117,83 @@ public class AssortmentService {
             assortmentDB.setManufacturer(assortment.getManufacturer());
         assortmentRepository.save(assortmentDB);
     }
-//    public List<AssortmentDTO> findAllByAccount(String name, SearchData searchData) {
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//
-//        CriteriaQuery<AssortmentDTO> query = builder.createQuery(AssortmentDTO.class);
-//        Root<AssortmentDTO> root = query.from(AssortmentDTO.class);
-//        query.select(root);
-//
-//        List<Assortment> assortments = new ArrayList<>();
-//
-//        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
-//            if (searchData.getHowSort().equals("asc")) {
-//                switch (searchData.getSortParam()) {
-//                    case "idAssort":
-//                        assortments.add(builder.asc(root.get("idAssort")));
-//                        break;
-//                    case "manufacturer":
-//                        assortments.add(builder.asc(root.get("manufacturer")));
-//                        break;
-//                    case "productName":
-//                        assortments.add(builder.asc(root.get("productName")));
-//                        break;
-//                    case "productType":
-//                        assortments.add(builder.asc(root.get("productType")));
-//                        break;
-//                    default:
-//                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
-//                }
-//            } else {
-//                switch (searchData.getSortParam()) {
-//                    case "idAssort":
-//                        assortments.add(builder.desc(root.get("idAssort")));
-//                        break;
-//                    case "manufacturer":
-//                        assortments.add(builder.desc(root.get("manufacturer")));
-//                        break;
-//                    case "productName":
-//                        assortments.add(builder.desc(root.get("productName")));
-//                        break;
-//                    case "productType":
-//                        assortments.add(builder.desc(root.get("productType")));
-//                        break;
-//
-//
-//                }
-//            }
-//        }
-//
-//        if (!assortments.isEmpty()) {
-//            query.orderBy(assortments);
-//        }
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
-//            switch (searchData.getSearchParam()) {
-//
-//                case "idAssort":
-//                    predicates.add(builder.like(root.get("idAssort"), searchData.getSearchQuery()));
-//                    break;
-//                case "manufacturer":
-//                    predicates.add(builder.like(root.get("manufacturer"), searchData.getSearchQuery()));
-//                    break;
-//                case "productName":
-//                    predicates.add(builder.like(root.get("productName"), searchData.getSearchQuery()));
-//                    break;
-//                case "productType":
-//                    predicates.add(builder.like(root.get("productType"), searchData.getSearchQuery()));
-//                    break;
-//
-//
-//            }
-//        }
-//
-//        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
-//        query.where(searchPredicate);
-//        predicates.add(builder.equal(root.get("account"), userRepository.findByLogin(name)));
-//        query.where(searchPredicate);
-//        TypedQuery<AssortmentDTO> typedQuery = entityManager.createQuery(query);
-//        List<AssortmentDTO> AssortmentDTOList = new ArrayList<>();
-//        typedQuery.getResultList().forEach(x->{
-//            AssortmentDTOList.add(x.build());
-//        });
-//        return AssortmentDTOList;
-//    }
+    public List<Assortment> getAllAssortment(SearchData searchData) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Assortment> query = builder.createQuery(Assortment.class);
+        Root<Assortment> root = query.from(Assortment.class);
+        query.select(root);
+
+        List<Order> orders = new ArrayList<>();
+
+        if (searchData.getSortParam() != null && !searchData.getSortParam().isEmpty()) {
+            if (searchData.getHowSort().equals("asc")) {
+                switch (searchData.getSortParam()) {
+                    case "idAssort":
+                        orders.add(builder.asc(root.get("idAssort")));
+                        break;
+                    case "manufacturer":
+                        orders.add(builder.asc(root.get("manufacturer")));
+                        break;
+                    case "productName":
+                        orders.add(builder.asc(root.get("productName")));
+                        break;
+                    case "productType":
+                        orders.add(builder.asc(root.get("productType")));
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + searchData.getSortParam());
+                }
+            } else {
+                switch (searchData.getSortParam()) {
+                    case "idAssort":
+                        orders.add(builder.desc(root.get("idAssort")));
+                        break;
+                    case "manufacturer":
+                        orders.add(builder.desc(root.get("manufacturer")));
+                        break;
+                    case "productName":
+                        orders.add(builder.desc(root.get("productName")));
+                        break;
+                    case "productType":
+                        orders.add(builder.desc(root.get("productType")));
+                        break;
+
+
+                }
+            }
+        }
+
+        if (!orders.isEmpty()) {
+            query.orderBy(orders);
+        }
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (searchData.getSearchQuery() != null && !searchData.getSearchQuery().isEmpty()) {
+            switch (searchData.getSearchParam()) {
+
+                case "idAssort":
+                    predicates.add(builder.like(root.get("idAssort"), searchData.getSearchQuery()));
+                    break;
+                case "manufacturer":
+                    predicates.add(builder.like(root.get("manufacturer"), searchData.getSearchQuery()));
+                    break;
+                case "productName":
+                    predicates.add(builder.like(root.get("productName"), searchData.getSearchQuery()));
+                    break;
+                case "productType":
+                    predicates.add(builder.like(root.get("productType"), searchData.getSearchQuery()));
+                    break;
+
+
+            }
+        }
+
+        Predicate searchPredicate = builder.and(predicates.toArray(new Predicate[0]));
+        query.where(searchPredicate);
+        TypedQuery<Assortment> typedQuery = entityManager.createQuery(query);
+        List<AssortmentDTO> AssortmentDTOList = new ArrayList<>();
+        return typedQuery.getResultList();
+    }
 }

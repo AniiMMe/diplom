@@ -23,29 +23,39 @@ public class FilterAdminController {
     private final ProductService productService;
     private final SupplyService supplyService;
 
-    @GetMapping("/admin/users")
-    public String getUsersPage(Model model, @ModelAttribute SearchData searchData) {
-        model.addAttribute("workers", userService.getAllWorkers());
+    @GetMapping("/users")
+    public String getUsersPage(Model model,Authentication authentication, @ModelAttribute SearchData searchData) {
+        model.addAttribute("workers", userService.getAllWorkers(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeUser", new WorkersDTO());
         return "/admin/users";
     }
-    @GetMapping("/admin/clients")
-    public  String getClientsPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("clients", clientService.getAllClients());
+    @GetMapping("/clients")
+    public  String getClientsPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("clients", clientService.getAllClients(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeClients", new ClientDTO());
         return "/admin/admin-clients";
     }
-    @GetMapping("/admin/providers")
-    public  String getProvidersPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("providers", providersService.getAllProvider());
+    @GetMapping("/providers")
+    public  String getProvidersPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("providers", providersService.getAllProvider(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("newProvider", new ProvidersDTO());
         return "/admin/admin-providers";
     }
-    @GetMapping("/admin/assortment")
-    public String getAssortPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("assortments", assortmentService.getAllAssortment());
+    @GetMapping("/assortment")
+    public String getAssortPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("assortments", assortmentService.getAllAssortment(searchData));
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("changeAssort", new AssortmentDTO());
         return "/admin/admin-ass";
     }
-    @GetMapping("/admin/products")
-    public  String getProductsPage(Model model, @ModelAttribute SearchData searchData){
-        model.addAttribute("products", productService.getAllProducts());
+    @GetMapping("/products")
+    public  String getProductsPage(Model model, @ModelAttribute SearchData searchData,Authentication authentication){
+        model.addAttribute("role", userService.getRole(authentication.getName()));
+        model.addAttribute("newSpis", new WriteOffProduct());
+        model.addAttribute("products", productService.getAllProducts(searchData));
         return "/admin/admin-products";
     }
 }

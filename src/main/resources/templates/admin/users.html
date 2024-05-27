@@ -11,37 +11,39 @@
 <div th:insert="blocks/adminSidebare::adminSidebare"></div>
 <main>
     <div class="table-responsive" style="width: 1000px; margin-top: -600px; margin-left: 300px; ">
-<!--        <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">&ndash;&gt;-->
-<!--            <div th:name="sort" style="width: 475px; display: flex; align-items: center;">&ndash;&gt;-->
-<!--                <button class="btn btn-primary rounded-pill px-3" type="button" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>-->
-<!--                <select name="sortParam" class="form-select" style="margin-left: 10px; width: 150px">-->
-<!--                    <option value="" selected disabled>По признаку</option>-->
-<!--                    <option value="userId"> По ID</option>-->
-<!--                    <option value="login"> По Логину</option>-->
-<!--                    <option value="workerName">По Имени</option>-->
-<!--                    <option value="workerSurname">По Фамилии</option>-->
-<!--                    <option value="workerTel">По Номеру телефона</option>-->
-<!--                    <option value="workerEmail">По Электронной почте</option>-->
-<!--                </select>-->
-<!--            </div>-->
-
-
-<!--            <div th:name="search" style="width: 475px; display: flex; align-items: end;">-->
-<!--                <form role="search">-->
-<!--                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">-->
-<!--                </form>-->
-<!--                <select name="searchParam" class="form-select" style="margin-left: 10px; width: 160px">-->
-<!--                    <option value="" selected disabled>По признаку</option>-->
-<!--                    <option value="userId"> По ID</option>-->
-<!--                    <option value="login"> По Логину</option>-->
-<!--                    <option value="workerName">По Имени</option>-->
-<!--                    <option value="workerSurname">По Фамилии</option>-->
-<!--                    <option value="workerTel">По Номеру телефона</option>-->
-<!--                    <option value="workerEmail">По Электронной почте</option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
-
+        <form action="/admin/filter/users" method="get">
+        <div th:name="search-sort" style="width: 950px; display: flex; align-items: center;">-->
+            <div th:name="sort" style="width: 475px; display: flex; align-items: center;">-->
+                <button class="btn btn-primary rounded-pill px-3" type="submit" style="color: #f2f0f8; background-color: #31bfc6; border-color: #31bfc6">Отсортировать</button>
+                <select name="sortParam" class="form-select" style="margin-left: 10px; width: 150px">
+                    <option value="" >По признаку</option>
+                    <option value="userId"> По ID</option>
+                    <option value="login"> По Логину</option>
+                    <option value="workerName">По Имени</option>
+                    <option value="workerSurname">По Фамилии</option>
+                    <option value="workerTel">По Номеру телефона</option>
+                    <option value="workerEmail">По Электронной почте</option>
+                </select>
+                <select name="howSort"
+                        class="form-select">
+                    <option value="asc" >По возрастанию</option>
+                    <option value="desc">По убыванию</option>
+                </select>
+            </div>
+            <input class="form-control" type="search" name="searchQuery" placeholder="Search" aria-label="Search" style="background-color: #31bfc6; color: #f2f0f8">
+            <div th:name="search" style="width: 475px; display: flex; align-items: end;">
+                <select name="searchParam" class="form-select" style="margin-left: 10px; width: 160px">
+                    <option value="" selected disabled>По признаку</option>
+                    <option value="userId"> По ID</option>
+                    <option value="login"> По Логину</option>
+                    <option value="workerName">По Имени</option>
+                    <option value="workerSurname">По Фамилии</option>
+                    <option value="workerTel">По Номеру телефона</option>
+                    <option value="workerEmail">По Электронной почте</option>
+                </select>
+            </div>
+        </div>
+        </form>
         <table class="table table-striped table-sm" style="background-color: aliceblue; margin-top: 20px" >
             <thead>
             <tr>
