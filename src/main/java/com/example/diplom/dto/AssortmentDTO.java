@@ -29,7 +29,6 @@ public class AssortmentDTO {
 
     private FormVipuska formIn;
 
-    private Catalog catalog;
     private List<Product> products = new ArrayList<>();
 
     private List<InfoForIvent> infoForIvents;
