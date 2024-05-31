@@ -33,6 +33,8 @@ public class Orders {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
+    @OneToOne
+    public Workers workers;
 
     @ManyToMany
     @JoinTable(name = "product_orders",

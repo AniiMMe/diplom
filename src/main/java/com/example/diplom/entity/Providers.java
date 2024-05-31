@@ -36,6 +36,8 @@ public class Providers {
 
     @OneToMany(mappedBy = "providers")
     private List<Supply> supplies;
+    @OneToOne
+    public Workers admin;
 
     public ProvidersDTO build() {
         return ProvidersDTO.builder()

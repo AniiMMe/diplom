@@ -38,6 +38,7 @@ public class SupplyService {
                             .productStartdata(x.getProductStartdata())
                             .productQuantity(x.getCountProductFromAssortment())
                             .productPrice(x.getCostForOneProduct())
+                            .writeOff(false)
                             .productEnddata(x.getProductEnddata())
                             .assortment(assortmentRepository.findById(x.getIdAssortment()).orElse(null))
                     .build()));

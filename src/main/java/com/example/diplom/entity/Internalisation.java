@@ -31,4 +31,7 @@ public class Internalisation {
 
     @OneToMany(mappedBy = "internalisation")
     private List<ProductInvent> productInvents;
+
+    @OneToOne
+    public Workers workers;
 }

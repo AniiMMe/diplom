@@ -57,4 +57,6 @@ public class Assortment {
                 .formIn(formIn)
                 .build();
     }
+    @OneToOne
+    public Workers admin;
 }

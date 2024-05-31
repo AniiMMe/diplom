@@ -36,6 +36,8 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private List<Orders> orders;
+    @OneToOne
+    public Workers admin;
 
     public ClientDTO build() {
         return ClientDTO.builder()

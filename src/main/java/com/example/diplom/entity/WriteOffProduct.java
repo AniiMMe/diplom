@@ -34,5 +34,7 @@ public class WriteOffProduct {
     private int productQuantity;
     @Column
     private Date productEnddata;
+    @OneToOne
+    public Workers admin;
 
 }

@@ -24,5 +24,7 @@ public class ReturnProduct {
     private List<ReasonsReturn> reasonsReturns;
     @OneToOne
     private Orders orders;
+    @OneToOne
+    public Workers admin;
 
 }
