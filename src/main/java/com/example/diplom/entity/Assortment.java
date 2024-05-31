@@ -39,9 +39,6 @@ public class Assortment {
     @Enumerated(EnumType.STRING)
     private FormVipuska formIn;
 
-    @ManyToOne
-    @JoinColumn(name = "id_catalog")
-    private Catalog catalog;
     @JsonIgnore
     @OneToMany(mappedBy = "assortment",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
